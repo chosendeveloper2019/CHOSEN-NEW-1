@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="chosen.com.chosen.Fragment.StaticReportFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="id"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="CardID"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="Station ID"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="Meterstartdate"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="Metereinddate"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="TOTAL"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="PerHour"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="Price"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:divider="@null" />
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

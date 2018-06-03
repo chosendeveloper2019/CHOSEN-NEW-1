@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="chosen.com.chosen.Fragment.InvoiceFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Your Invoice"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/ClickInvoice"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="See All"
+        android:textSize="14sp"
+         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="No"
+            android:background="@color/colorPrimaryDark"/>
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="Invoice"
+            android:background="@color/colorPrimaryDark"
+            />
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="Total"
+            android:background="@color/colorPrimaryDark"
+            />
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"/>
+</LinearLayout>
