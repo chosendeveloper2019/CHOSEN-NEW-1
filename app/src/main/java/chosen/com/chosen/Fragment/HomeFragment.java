@@ -3,11 +3,12 @@ package chosen.com.chosen.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.nitrico.mapviewpager.MapViewPager;
@@ -29,11 +31,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,19 +38,11 @@ import java.util.Map;
 
 import chosen.com.chosen.Api.CallbackHomeListener;
 import chosen.com.chosen.Api.NetworkConnectionManager;
-import chosen.com.chosen.Model.InfoWindowDataModel;
-import chosen.com.chosen.Model.MapModel;
 import chosen.com.chosen.Model.MapModel_;
 import chosen.com.chosen.Model.UserModel;
 import chosen.com.chosen.R;
 import chosen.com.chosen.Util.ConnectivityReceiverUtil;
 import chosen.com.chosen.Util.MyFerUtil;
-import chosen.com.chosen.Util.UrlUtil;
-import chosen.com.chosen.View.CustomMapDetail;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class HomeFragment extends Fragment implements
@@ -91,6 +80,8 @@ public class HomeFragment extends Fragment implements
 
     // new Object widget
     private EditText et_search;
+    private TextView tv_header,tv_station,tv_state,tv_detail,tv_start,tv_end;
+
     private UserModel userModel;
 
     public static HomeFragment newInstance(UserModel userModel){
@@ -124,12 +115,18 @@ public class HomeFragment extends Fragment implements
         //bind widget
         linearLayout = v.findViewById(R.id.detail);
         linearLayout.setVisibility(View.GONE);
-
         et_search = v.findViewById(R.id.et_search_map);
-        et_search.setInputType(0); // hide key board
+        et_search.setRawInputType(0); // hide key board
 
-        v.findViewById(R.id.btn_refresh).setOnClickListener(this);
+            tv_header = v.findViewById(R.id.tv_header_detail);
+            tv_station = v.findViewById(R.id.tv_numstation);
+            tv_detail = v.findViewById(R.id.tv_detail);
+            tv_state = v.findViewById(R.id.tv_state);
+            tv_start = v.findViewById(R.id.tv_start);
+            tv_end = v.findViewById(R.id.tv_end);
+
         v.findViewById(R.id.btn_search).setOnClickListener(this);
+        v.findViewById(R.id.btn_reserve).setOnClickListener(this);
 
         //init for SharedPreferences ( SESSION )
         sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
@@ -144,13 +141,10 @@ public class HomeFragment extends Fragment implements
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-
         fragment_view_map = (MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_view_map);
 
 
             MapsInitializer.initialize(getActivity().getApplicationContext());
-
-
 
         userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
 
@@ -185,7 +179,7 @@ public class HomeFragment extends Fragment implements
 
                     Log.e(TAG,list_data_map.get(i).getUserFullname().toString()
                             +"lat ="+list_data_map.get(i).getLat()
-                            +"long = "+list_data_map.get(i).getLon());
+                            +" long = "+list_data_map.get(i).getPoleId());
                 }
 
             fragment_view_map.getMapAsync(new OnMapReadyCallback() {
@@ -206,6 +200,7 @@ public class HomeFragment extends Fragment implements
 
                         }
                     });
+
                     googleMap.getUiSettings().setZoomControlsEnabled(true);
 
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -213,32 +208,27 @@ public class HomeFragment extends Fragment implements
                         public boolean onMarkerClick(Marker marker) {
 
                             Map<Object,String> val = new HashMap<>();
+                            val.put("header","BANGKOK STATION");
+                            val.put("station","10 STATION");
+                            val.put("state","IN USE 6 AVAILABLE 4");
+                            val.put("detail","\t- 10 TYPE 2");
+                            val.put("start","NORMAL CHARGE 100 Baht/hr(11 kWh)");
+                            val.put("end","PERMIUM CHARGE 300 Baht/hr(42 kWh)");
                             val.put("lat"," lat :"+marker.getPosition().longitude);
                             val.put("long"," long :"+marker.getPosition().longitude);
-//                            Toast.makeText(context, ""+latLng.longitude, Toast.LENGTH_SHORT).show();
+
                             setShowDetail(val);
 
                             return false;
                         }
                     });
-//                        googleMap.setMinZoomPreference(11);
-                    //dum add====================
+
 
                     if(list_data_map != null){
                         for(int i = 0;i < list_data_map.size();i++){
                             //Log.w(TAG, "LOOP : " + i);
 
                             if(list_data_map.get(i).getColor()==101) {
-
-                                InfoWindowDataModel info = new InfoWindowDataModel();
-                                info.setHeaderStr("TEST HEADER");
-                                info.setStateStr("TEST STATE");
-                                info.setDetailStr("DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL DETAIL ");
-                                info.setStartStr("start ................................");
-                                info.setEndStr("End....................................");
-
-                                CustomMapDetail customInfoWindow = new CustomMapDetail(context,info);
-//                                    googleMap.setInfoWindowAdapter(customInfoWindow);
 
                                 googleMap.addMarker(
                                         new MarkerOptions().position(
@@ -286,28 +276,51 @@ public class HomeFragment extends Fragment implements
     }
 
     private void setShowDetail(Map<Object,String> data){
-//        Toast.makeText(context, ""+, Toast.LENGTH_SHORT).show();
-        Log.e(TAG,"Response  = test1 ="+data.get("lat").toString() +" test 2 = "+data.get("long") );
 
         linearLayout.setVisibility(View.VISIBLE);
+
+        String header = data.get("header").toString();
+        String station = data.get("station").toString();
+        String state = data.get("state").toString();
+        String detail = data.get("detail").toString();
+        String start = data.get("start").toString();
+        String end = data.get("end").toString();
+
+        tv_header.setText(header);
+        tv_station.setText(station);
+        tv_state.setText(state);
+        tv_detail.setText(detail);
+        tv_start.setText(start);
+        tv_end.setText(end);
 
     }
 
     private void do_refresh(){
-        Toast.makeText(context, "Uid ="+uid, Toast.LENGTH_SHORT).show();
+
             new NetworkConnectionManager().callHomeFrg(listener,uid);
-//        new LoadDataHome(String.valueOf(userModel.getUser_id())).execute();
+
+    }
+
+    private void do_reserve(){
+        Toast.makeText(context, " do_reserve ", Toast.LENGTH_SHORT).show();
+    }
+
+    public void fragmentTran(Fragment fragment, Bundle bundle){
+
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction frgTran = fragmentManager.beginTransaction();
+        frgTran.replace(R.id.content, fragment).addToBackStack(null).commit();
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_refresh:
+            case R.id.btn_search:
                 do_refresh();
                 break;
-            case R.id.btn_search:
-
+            case R.id.btn_reserve:
+                do_reserve();
                 break;
         }
     }
@@ -318,7 +331,7 @@ public class HomeFragment extends Fragment implements
         public void onResponse(List<MapModel_> res) {
 
             upDateUI(res);
-            Toast.makeText(context, "Response ="+res.get(0).getLat(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Response ="+res.get(0).getLat(), Toast.LENGTH_SHORT).show();
 //            Toast.makeText(context, ""+res.get(0).getUserFullname(), Toast.LENGTH_SHORT).show();
         }
 

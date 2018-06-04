@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -61,6 +62,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
     //new object for bind widget
     private EditText et_usr,et_pwd;
+    private RadioButton keepUsername;
+
     private String TAG = "<FragmentLogin>";
     private Context context;
 
@@ -83,6 +86,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         //bind widget editText
         et_usr = v.findViewById(R.id.et_username);
         et_pwd = v.findViewById(R.id.et_password);
+        keepUsername = v.findViewById(R.id.rad_keep);
+
         et_usr.setText("admin");
         et_pwd.setText("Happy@2018");
 
@@ -156,8 +161,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
     private void do_login(){
 
         try {
+
             String usr = et_usr.getText().toString().trim();
             String pwd = et_pwd.getText().toString().trim();
+
 
 //            Toast.makeText(context, "Login btn", Toast.LENGTH_SHORT).show();
             //call api
@@ -205,14 +212,17 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
             //save to session
             String jsonResult =  saveResponse(res);
-//            Toast.makeText(context, ""+jsonResult, Toast.LENGTH_SHORT).show();
+
+            if(keepUsername.isChecked()){
+                editor.putString(MyFerUtil.KEY_USERNAME_KEEP,et_usr.getText().toString());
+                editor.putString(MyFerUtil.KEY_PASSWORD_KEEP,et_usr.getText().toString());
+                editor.commit();
+            }
+
             Intent intent = new Intent(getActivity(), MainApplication.class);
             intent.putExtra(MainApplication.KEY_DATA_USER, jsonResult);
             startActivity(intent);
             getActivity().finish();
-
-//            Log.d(TAG,"size data  ="+res.size()+" res" + res.get(0).getUserFullname());
-
 
         }
 

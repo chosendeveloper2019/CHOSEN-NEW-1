@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 //        fragmentTran(loginFragment,null);
         init();
 
+
     }
 
     private void init(){
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 private void do_exit(){
 
     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-    builder.setMessage(getString(R.string.msgLogout));
+    builder.setMessage(getString(R.string.msgExit));
 
     builder.setPositiveButton(getString(R.string.confirm_dialog), new DialogInterface.OnClickListener() {
         @Override
@@ -94,7 +95,7 @@ private void do_exit(){
 //        boolean doRegister = sharedPreferences.getBoolean(FragmentLogin.KEY_DO_REGISTER,false);
         try {
             int co = fragmentManager.getBackStackEntryCount();
-            if(co >2){
+            if(co >=2){
                 fragmentManager.popBackStack();
             }else {
                 do_exit();

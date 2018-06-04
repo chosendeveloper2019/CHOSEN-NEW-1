@@ -26,4 +26,8 @@ public class MyFerUtil {
     public static final String KEY_REMEMBER_TOKEN = "remember_token";
     public static final String KEY_EMAIL_CONFIRM = "emailConfirm";
 
+
+    public static final String KEY_USERNAME_KEEP = "userKeep";
+    public static final String KEY_PASSWORD_KEEP = "passKeep";
+
 }

@@ -21,7 +21,7 @@
     <string name="successfully_posted_post">successfully</string>
     <string name="success">Success</string>
     <string name="tv_rg_name">Name :</string>
-    <string name="et_input_name">Input your name</string>
+    <string name="et_input_name">Name</string>
     <string name="et_input_email">Email</string>
     <string name="et_input_sername">Sername</string>
     <string name="tv_rg_sername">Sername :</string>
@@ -55,5 +55,6 @@
     <string name="item_2">menu2</string>
     <string name="msgLoading">Loading......</string>
     <string name="et_sheach">Search</string>
+    <string name="msgExit">Do you want to exit app.</string>
 
 </resources>

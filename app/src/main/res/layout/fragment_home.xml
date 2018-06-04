@@ -16,59 +16,47 @@ android:orientation="vertical">
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <EditText
-        android:id="@+id/et_search_map"
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-
-        android:layout_marginTop="16dp"
-        android:hint="@string/et_sheach"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/detail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_refresh"
-        android:layout_width="49dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#92cccccc"
-        android:drawableLeft="@drawable/ic_refresh"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="49dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#92cccccc"
-        android:drawableLeft="@drawable/ic_location_searching"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_refresh"
-        app:layout_constraintStart_toEndOf="@+id/et_search_map"
+        android:layout_marginTop="8dp"
+        android:background="#63cccccc"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_view_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.038">
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="49dp"
+            android:backgroundTint="#5ecccccc"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_search" />
+
+        <EditText
+            android:id="@+id/et_search_map"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/et_sheach"
+            android:inputType="text" />
+
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/detail"
         android:layout_width="match_parent"
-        android:layout_height="248dp"
+        android:layout_height="228dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -81,7 +69,7 @@ android:orientation="vertical">
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragment_view_map"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.883">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,16 +100,25 @@ android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="200dp"
-
+                    android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:gravity="right">
 
+                    <TextView
+                        android:id="@+id/tv_numstation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="10dp"
+                        android:singleLine="false"
+                        android:text="@string/tv_header_dt"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/bootstrap_brand_secondary_fill" />
                     <TextView
                         android:id="@+id/tv_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="30dp"
-                        android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:text="@string/tv_header_dt"
                         android:textAlignment="textEnd"
@@ -133,14 +130,35 @@ android:orientation="vertical">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_detail_lbl"
-                    android:textColor="@color/bootstrap_brand_secondary_fill" />
+                    <TextView
+                        android:paddingTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_detail_lbl"
+                        android:textColor="@color/bootstrap_brand_secondary_fill" />
+                    <LinearLayout
+                        android:paddingTop="5dp"
+                        android:gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_share"
+                            android:layout_marginRight="10dp"
+                            android:drawableLeft="@drawable/ic_share"
+                            android:layout_width="43dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/tv_detail"
@@ -156,7 +174,7 @@ android:orientation="vertical">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -170,7 +188,7 @@ android:orientation="vertical">
                     android:id="@+id/tv_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="3dp"
                     android:text="@string/app_name"
                     android:textColor="@color/bootstrap_brand_secondary_fill" />
 
@@ -182,12 +200,29 @@ android:orientation="vertical">
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/bootstrap_brand_info"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#FFF"
                 android:text="@string/btn_go_reserve"
-                android:textColor="#FFF" />
+                android:textColor="@color/bootstrap_brand_success" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="552dp"
+        android:src="@drawable/logo1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

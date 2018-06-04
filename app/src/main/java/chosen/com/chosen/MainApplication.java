@@ -79,23 +79,25 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         dataUser =  extras.getString(KEY_DATA_USER);
         toolbar.setTitle("CHOSEN ENERGY");
         toolbar.setTitleTextColor(getColor(R.color.text));
-        toolbar.setNavigationIcon(getDrawable(R.drawable.ic_dehaze_black_24dp));
+
         setSupportActionBar(toolbar);
 
         viewpager =  findViewById(R.id.viewpager);
         drawer = findViewById(R.id.drawer_layout);
 
         drawer.setStatusBarBackgroundColor(getColor(R.color.text));
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
                 drawer,
                 toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
+        toggle.syncState();
         drawer.setDrawerListener(toggle);
 
         toggle.syncState();
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_dehaze_black_24dp));
 
         navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
