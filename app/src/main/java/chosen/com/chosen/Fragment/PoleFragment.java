@@ -99,6 +99,7 @@ public class PoleFragment extends Fragment  implements ConnectivityReceiverUtil.
         @Override
         protected void onPostExecute(String response) {
             Log.w(TAG, response);
+
             try {
                 JSONArray data = new JSONArray(response);
                 list_data_pole = new ArrayList<>();

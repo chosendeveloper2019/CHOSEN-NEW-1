@@ -14,11 +14,18 @@ import retrofit2.http.POST;
 public interface ApiService {
 
     @FormUrlEncoded
+    @POST("auth/facebook_auth")
+    Call<List<MapModel_>> register(@Field("username") String email,@Field("password") String password);
+
+
+    @FormUrlEncoded
     @POST("Auth/Login")
     Call<List<LoginModel>> logInFrg(@Field("username") String usr , @Field("password") String pwd);
 
     @FormUrlEncoded
     @POST("Home/map")
     Call<List<MapModel_>> homeFrg(@Field("user_id") String uid);
+
+
 
 }

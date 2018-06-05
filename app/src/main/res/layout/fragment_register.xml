@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/btn_login"
     android:gravity="center"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/btn_login"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -51,7 +62,7 @@
 
         <TextView
             android:id="@+id/tv_lbl_name"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="18sp"
             android:text="@string/tv_rg_name"
@@ -67,6 +78,7 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
@@ -75,7 +87,7 @@
 
         <TextView
             android:id="@+id/tv_lbl_sername"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="18sp"
             android:text="@string/tv_rg_sername"
@@ -90,6 +102,53 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_lbl_pwd"-->
+                <!--android:layout_width="110dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:lineSpacingExtra="18sp"-->
+                <!--android:text="@string/tv_rg_username"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:visibility="visible" />-->
+            <!--<EditText-->
+                <!--android:id="@+id/et_input_password"-->
+                <!--android:hint="@string/et_input_usr"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+        <!--</LinearLayout>-->
+        <!--<LinearLayout-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_lbl_username"-->
+                <!--android:layout_width="110dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:lineSpacingExtra="18sp"-->
+                <!--android:text="@string/tv_rg_pwd"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:visibility="visible" />-->
+            <!--<EditText-->
+                <!--android:id="@+id/et_input_username"-->
+                <!--android:hint="@string/et_input_pwd"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+        <!--</LinearLayout>-->
+
     <LinearLayout
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
@@ -98,7 +157,7 @@
 
         <TextView
             android:id="@+id/tv_lbl_email"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="18sp"
             android:text="@string/tv_rg_mail"
@@ -121,7 +180,7 @@
 
         <TextView
             android:id="@+id/tv_lbl_tel"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="18sp"
             android:text="@string/tv_rg_tel"
@@ -170,7 +229,6 @@
             android:text="@string/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
     <ImageView
@@ -179,5 +237,7 @@
         android:src="@drawable/logo1"
         android:layout_width="150dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"/>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

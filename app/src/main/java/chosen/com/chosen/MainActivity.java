@@ -1,7 +1,10 @@
 package chosen.com.chosen;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private void init(){
         //init
         fragmentManager = getSupportFragmentManager();
+
+        //require permission
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
         //go fragment login save to back stack
         FragmentLogin fragmentLogin = new FragmentLogin();
@@ -89,6 +95,11 @@ private void do_exit(){
 }
 
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onBackPressed() {

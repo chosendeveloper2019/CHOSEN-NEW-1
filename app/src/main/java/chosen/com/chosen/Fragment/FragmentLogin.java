@@ -161,6 +161,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
     private void do_login(){
 
         try {
+            //show progress dialog
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage(getString(R.string.msgLoading));
+            progressDialog.show();
 
             String usr = et_usr.getText().toString().trim();
             String pwd = et_pwd.getText().toString().trim();
@@ -209,6 +213,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         @Override
         public void onResponse(List<LoginModel> res) {
 
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
 
             //save to session
             String jsonResult =  saveResponse(res);
@@ -228,16 +235,31 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
         @Override
         public void onBodyError(ResponseBody responseBodyError) {
+
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+
             Log.d(TAG,"onBodyError "+responseBodyError.source());
         }
 
         @Override
         public void onBodyErrorIsNull() {
+
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+
             Log.d(TAG,"onBodyErrorIsNull");
         }
 
         @Override
         public void onFailure(Throwable t) {
+
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+
             Log.e(TAG,""+t.getMessage());
         }
     };

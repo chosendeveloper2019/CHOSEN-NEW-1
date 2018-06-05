@@ -21,6 +21,7 @@
     <string name="successfully_posted_post">successfully</string>
     <string name="success">Success</string>
     <string name="tv_rg_name">Name :</string>
+    <string name="tv_rg_username">Username :</string>
     <string name="et_input_name">Name</string>
     <string name="et_input_email">Email</string>
     <string name="et_input_sername">Sername</string>
@@ -56,5 +57,9 @@
     <string name="msgLoading">Loading......</string>
     <string name="et_sheach">Search</string>
     <string name="msgExit">Do you want to exit app.</string>
+    <string name="et_input_pwd">Password</string>
+    <string name="et_input_usr">Username</string>
+    <string name="tv_rg_pwd">Password :</string>
+
 
 </resources>
