@@ -30,6 +30,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
@@ -44,9 +45,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import chosen.com.chosen.Api.CallbackFacebookLogin;
 import chosen.com.chosen.Api.CallbackLoginListener;
 import chosen.com.chosen.Api.NetworkConnectionManager;
 import chosen.com.chosen.MainApplication;
+import chosen.com.chosen.Model.FbLoginModel;
 import chosen.com.chosen.Model.LoginModel;
 import chosen.com.chosen.R;
 import chosen.com.chosen.Util.MyFerUtil;
@@ -88,8 +91,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         et_pwd = v.findViewById(R.id.et_password);
         keepUsername = v.findViewById(R.id.rad_keep);
 
-        et_usr.setText("admin");
-        et_pwd.setText("Happy@2018");
+        //facebook logout
+        LoginManager.getInstance().logOut();
 
         //init sharedPer
         sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
@@ -113,31 +116,35 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+
                 // App code
-                Profile profile = Profile.getCurrentProfile();
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-//                                Log.v("LoginActivity", response.toString());
+                final Profile profile = Profile.getCurrentProfile();
+                new NetworkConnectionManager().callFbLogin(listenerFacebook,profile.getId());
 
-                                // Application code
-                                try {
-                                    String email = object.getString("email");
-                                    String name = object.getString("name"); // 01/31/1980 format
-                                    Log.e(TAG,"email = "+email+" name = "+name);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        loginResult.getAccessToken(),
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//                            @Override
+//                            public void onCompleted(JSONObject object, GraphResponse response) {
+////                                Log.v("LoginActivity", response.toString());
+//
+//                                // Application code
+//                                try {
+//                                    String email = object.getString("email");
+//                                    String name = object.getString("name"); //
+//
+//                                    Log.e(TAG,"email = "+email+" name = "+name);
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                            }
+//                        });
+//
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,email,gender,birthday");
+//                request.setParameters(parameters);
+//                request.executeAsync();
 
 //               Log.d(TAG, "Login Hello "+profile.getProfilePictureUri(50,50));
 
@@ -154,6 +161,22 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
                 // App code
             }
         });
+        try {
+            PackageInfo info = getActivity().getPackageManager().getPackageInfo(
+                    getActivity().getPackageName(),
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+
+        }
+        catch (NoSuchAlgorithmException e) {
+
+        }
 
     }
 
@@ -198,7 +221,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        Toast.makeText(context, ""+data.getDataString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, ""+data.getDataString(), Toast.LENGTH_SHORT).show();
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -264,7 +287,113 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         }
     };
 
+
+    //callback facebook Login
+    CallbackFacebookLogin listenerFacebook = new CallbackFacebookLogin() {
+        @Override
+        public void onResponse(List<FbLoginModel> res) {
+
+
+            //save to session
+            String jsonResult =  saveResponseFacebook(res);
+
+            Intent intent = new Intent(getActivity(), MainApplication.class);
+            intent.putExtra(MainApplication.KEY_DATA_USER, jsonResult);
+            startActivity(intent);
+            getActivity().finish();
+
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBodyError) {
+//            if(progressDialog.isShowing()){
+//                progressDialog.dismiss();
+//            }
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            Log.d(TAG,t.getMessage());
+//            if(progressDialog.isShowing()){
+//                progressDialog.dismiss();
+//            }
+
+        }
+    };
+
     private String saveResponse(List<LoginModel> response){
+
+
+        JSONArray arr = new JSONArray();
+        for(int i = 0 ;i<response.size();i++){
+            JSONObject jsonObject = new JSONObject();
+            Log.e(TAG,response.get(i).toString());
+            editor.putString(MyFerUtil.KEY_USER_ID,""+response.get(i).getUserId());
+            editor.putString(MyFerUtil.KEY_FULLNAME,""+response.get(i).getUserFullname());
+            editor.putString(MyFerUtil.KEY_USER_NAME,""+response.get(i).getUserName());
+            editor.putString(MyFerUtil.KEY_USER_EMAIL,""+response.get(i).getUserEmail());
+            editor.putString(MyFerUtil.KEY_USER_PW,""+response.get(i).getUserPw());
+            editor.putString(MyFerUtil.KEY_PASSWORD_SALT,""+response.get(i).getPasswordSalt());
+            editor.putString(MyFerUtil.KEY_USER_PERMIT,""+response.get(i).getUserPermit());
+            editor.putString(MyFerUtil.KEY_USER_CREATEDTE,""+response.get(i).getUserCreatedate());
+            editor.putString(MyFerUtil.KEY_POLE_OWNER_ID,""+response.get(i).getPoleOwnerId());
+            editor.putString(MyFerUtil.KEY_STREET,""+response.get(i).getStreet());
+            editor.putString(MyFerUtil.KEY_STREETNUMBER,""+response.get(i).getStreetnumber());
+            editor.putString(MyFerUtil.KEY_CITY,""+response.get(i).getCity());
+            editor.putString(MyFerUtil.KEY_COMPANY,""+response.get(i).getCompany());
+            editor.putString(MyFerUtil.KEY_MOBILE,""+response.get(i).getMobile());
+            editor.putString(MyFerUtil.KEY_FAX,""+response.get(i).getFax());
+            editor.putString(MyFerUtil.KEY_BIC,""+response.get(i).getBIC());
+            editor.putString(MyFerUtil.KEY_IBN,""+response.get(i).getIBAN());
+            editor.putString(MyFerUtil.KEY_ROLES,""+response.get(i).getRoles());
+            editor.putString(MyFerUtil.KEY_REMEMBER_TOKEN,""+response.get(i).getRememberToken());
+            editor.putString(MyFerUtil.KEY_EMAIL_CONFIRM,""+response.get(i).getEmailConfirm());
+            editor.commit();
+
+
+            try {
+                jsonObject.put(MyFerUtil.KEY_USER_ID,response.get(i).getUserId());
+                jsonObject.put(MyFerUtil.KEY_FULLNAME,response.get(i).getUserFullname());
+                jsonObject.put(MyFerUtil.KEY_USER_NAME,response.get(i).getUserName());
+                jsonObject.put(MyFerUtil.KEY_USER_EMAIL,response.get(i).getUserEmail());
+                jsonObject.put(MyFerUtil.KEY_USER_PW,response.get(i).getUserPw());
+                jsonObject.put(MyFerUtil.KEY_PASSWORD_SALT,response.get(i).getPasswordSalt());
+                jsonObject.put(MyFerUtil.KEY_USER_PERMIT,response.get(i).getUserPermit());
+                jsonObject.put(MyFerUtil.KEY_USER_CREATEDTE,response.get(i).getUserCreatedate());
+                jsonObject.put(MyFerUtil.KEY_POLE_OWNER_ID,response.get(i).getPoleOwnerId());
+                jsonObject.put(MyFerUtil.KEY_STREET,response.get(i).getStreet());
+                jsonObject.put(MyFerUtil.KEY_STREETNUMBER,response.get(i).getStreetnumber());
+                jsonObject.put(MyFerUtil.KEY_CITY,response.get(i).getCity());
+                jsonObject.put(MyFerUtil.KEY_COMPANY,response.get(i).getCompany());
+                jsonObject.put(MyFerUtil.KEY_MOBILE,response.get(i).getMobile());
+                jsonObject.put(MyFerUtil.KEY_FAX,response.get(i).getFax());
+                jsonObject.put(MyFerUtil.KEY_BIC,response.get(i).getBIC());
+                jsonObject.put(MyFerUtil.KEY_IBN,response.get(i).getIBAN());
+                jsonObject.put(MyFerUtil.KEY_ROLES,response.get(i).getRoles());
+                jsonObject.put(MyFerUtil.KEY_REMEMBER_TOKEN,response.get(i).getRememberToken());
+                jsonObject.put(MyFerUtil.KEY_EMAIL_CONFIRM,response.get(i).getEmailConfirm());
+
+                //put json
+                arr.put(jsonObject);
+            } catch (JSONException e) {
+                Log.e(TAG,e.getMessage());
+            }
+
+        }
+
+        return arr.toString();
+    }
+
+    private String saveResponseFacebook(List<FbLoginModel> response){
 
 
         JSONArray arr = new JSONArray();

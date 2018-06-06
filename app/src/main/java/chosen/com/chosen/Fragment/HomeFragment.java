@@ -149,6 +149,7 @@ public class HomeFragment extends Fragment implements
             //init for SharedPreferences ( SESSION )
             sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER, Context.MODE_PRIVATE);
             editor = sh.edit();
+
             //get user id from shared perferences
             uid = sh.getString(MyFerUtil.KEY_USER_ID, null);
 
@@ -167,9 +168,11 @@ public class HomeFragment extends Fragment implements
             userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
 
             if (ConnectivityReceiverUtil.isConnected()) {
+
                 progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage(getString(R.string.msgLoading));
                 progressDialog.show();
+
                 new NetworkConnectionManager().callHomeFrg(listener, uid);
 
             } else {
@@ -184,12 +187,10 @@ public class HomeFragment extends Fragment implements
         }
     }
 
-    private void upDateUI(List<MapModel_> res){
-
-//        Log.e(TAG,res.get(0).getUserFullname());
+    private void upDateUI(final List<MapModel_> res){
 
         try {
-                MapDistance map = new MapDistance();
+                final MapDistance map = new MapDistance();
 
                 list_data_map = new ArrayList<>();
 
@@ -234,11 +235,14 @@ public class HomeFragment extends Fragment implements
                     googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(Marker marker) {
+                            double b = map.Distance(marker.getPosition().latitude
+                                    ,marker.getPosition().longitude
+                                    ,gps.getLatitude(),gps.getLongitude(),'K');
 
                             Map<Object,String> val = new HashMap<>();
                             val.put("header","BANGKOK STATION");
                             val.put("station","10 STATION");
-                            val.put("state","Distance ");
+                            val.put("state","Distance current: "+(float) b);
                             val.put("detail","\t- 10 TYPE 2");
                             val.put("start","NORMAL CHARGE 100 Baht/hr(11 kWh)");
                             val.put("end","PERMIUM CHARGE 300 Baht/hr(42 kWh)");
@@ -313,9 +317,11 @@ public class HomeFragment extends Fragment implements
                 gps.showSettingsAlert();
             }
             try {
+
                 json.put("lat",gps.getLatitude());
                 json.put("longi",gps.getLongitude());
-                Toast.makeText(context, ""+json.toString(), Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(context, ""+json.toString(), Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -324,7 +330,8 @@ public class HomeFragment extends Fragment implements
 
         }catch(Exception e){
 
-            Log.e("Error at getGPS()",e.toString());
+            Log.e("Error at getGPS() ",e.toString());
+
             return null;
         }
     }

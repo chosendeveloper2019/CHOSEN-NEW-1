@@ -3,6 +3,7 @@ package chosen.com.chosen;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,10 +37,12 @@ import chosen.com.chosen.Fragment.AboutUsFragment;
 import chosen.com.chosen.Fragment.CardFragment;
 import chosen.com.chosen.Fragment.HomeFragment;
 import chosen.com.chosen.Fragment.InvoiceFragment;
+import chosen.com.chosen.Fragment.PaypalFragment;
 import chosen.com.chosen.Fragment.PoleFragment;
 import chosen.com.chosen.Fragment.ReportCardFragment;
 import chosen.com.chosen.Fragment.ReportPoleFragment;
 import chosen.com.chosen.Model.UserModel;
+import chosen.com.chosen.Util.MyFerUtil;
 
 
 public class MainApplication extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,6 +58,8 @@ public class MainApplication extends AppCompatActivity implements NavigationView
     private TextView tv_wallet;
     private Context context;
     private Toolbar toolbar;
+    private SharedPreferences sh;
+    private SharedPreferences.Editor editor;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -106,6 +113,10 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         //set wallet here
         tv_wallet.setText("391.0 THB");
         navigationView.setNavigationItemSelectedListener(this);
+
+        //init session
+        sh = getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
+        editor = sh.edit();
 
     }
 
@@ -176,7 +187,7 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         adapter.addFrag(HomeFragment.newInstance(userModel), "ONE");
         adapter.addFrag(new CardFragment().newInstance(userModel), "TWO");
         adapter.addFrag(new PoleFragment().newInstance(userModel), "THREE");
-        adapter.addFrag(new ReportCardFragment().newInstance(userModel), "FOUR");
+        adapter.addFrag(new PaypalFragment().newInstance(userModel), "FOUR");
         adapter.addFrag(new ReportPoleFragment().newInstance(userModel), "FIVE");
         adapter.addFrag(new AboutUsFragment().newInstance(userModel), "SIX");
         adapter.addFrag(new InvoiceFragment().newInstance(userModel), "SEVEN");
@@ -191,6 +202,12 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         builder.setPositiveButton(getString(R.string.confirm_dialog), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                //facebook logout
+                LoginManager.getInstance().logOut();
+
+                //editor clear
+                editor.clear();
+                editor.commit();
 
                 startActivity(new Intent(MainApplication.this,MainActivity.class));
                 finish();

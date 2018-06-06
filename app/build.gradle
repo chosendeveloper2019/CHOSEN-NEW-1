@@ -47,6 +47,9 @@ dependencies {
 
     // paypal
     implementation 'com.braintreepayments.api:drop-in:3.+'
+
+    //Gauge
+    implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
 }
 
 apply plugin: 'com.android.application'

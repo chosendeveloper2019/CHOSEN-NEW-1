@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +22,20 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+import chosen.com.chosen.Api.CallbackFacebookRegis;
+import chosen.com.chosen.Api.NetworkConnectionManager;
+import chosen.com.chosen.Model.FbRegisModel;
 import chosen.com.chosen.R;
+import okhttp3.ResponseBody;
 
 public class FragmentRegister extends Fragment implements View.OnClickListener {
 
@@ -39,7 +47,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
     private LoginButton loginButton;
     private Context context;
 
-
+    private FragmentManager fragmentManager;
     private ProgressDialog progressDialog;
 
     //new Object  widget
@@ -57,10 +65,16 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
     }
 
     private void initInstance(View v){
-
+        //bind widget
         et_name = v.findViewById(R.id.et_input_name);
         et_sername =v.findViewById(R.id.et_input_sername);
         et_email = v.findViewById(R.id.et_input_email);
+
+        //facebook logout
+        LoginManager.getInstance().logOut();
+
+        //init fragment
+        fragmentManager = getActivity().getSupportFragmentManager();
 
         //init facebook authentication
         callbackManager = CallbackManager.Factory.create();
@@ -79,7 +93,6 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
                 et_name.setText(profile.getFirstName());
                 et_sername.setText(profile.getLastName());
 
-
                 GraphRequest request = GraphRequest.newMeRequest(
                         loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
@@ -95,6 +108,8 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
 
                                     et_email.setText(email);
                                     et_name.setText(name);
+
+                                    new NetworkConnectionManager().callFbRegis(listener,profile.getId(),email,name,email);
 
 
                                 } catch (JSONException e) {
@@ -129,6 +144,33 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
 
 //        et_tel
     }
+
+    CallbackFacebookRegis listener = new CallbackFacebookRegis() {
+        @Override
+        public void onResponse(List<FbRegisModel> res) {
+//            if(!res.get(0).getUserEmail().isEmpty()){
+//                Toast.makeText(context, "Register Successfully.", Toast.LENGTH_SHORT).show();
+//
+//            }
+            fragmentManager.popBackStack();
+        }
+
+        @Override
+        public void onBodyError(ResponseBody responseBodyError) {
+
+        }
+
+        @Override
+        public void onBodyErrorIsNull() {
+
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+
+        }
+    };
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);

@@ -25,7 +25,7 @@ android:orientation="vertical">
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#63cccccc"
+        android:background="#92fffefe"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_view_map"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@ android:orientation="vertical">
         <Button
             android:id="@+id/btn_search"
             android:layout_width="49dp"
-            android:backgroundTint="#5ecccccc"
+            android:backgroundTint="#d5818080"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_search" />
 
@@ -70,11 +70,15 @@ android:orientation="vertical">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragment_view_map"
         app:layout_constraintVertical_bias="0.883">
+        <ScrollView
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -200,12 +204,13 @@ android:orientation="vertical">
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="20dp"
+
                 android:layout_marginTop="5dp"
                 android:backgroundTint="#FFF"
                 android:text="@string/btn_go_reserve"
                 android:textColor="@color/bootstrap_brand_success" />
         </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
 
     <ImageView
