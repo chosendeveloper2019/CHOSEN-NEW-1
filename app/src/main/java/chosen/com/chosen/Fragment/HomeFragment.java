@@ -1,17 +1,12 @@
 package chosen.com.chosen.Fragment;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,7 +45,6 @@ import chosen.com.chosen.Api.CallbackHomeListener;
 import chosen.com.chosen.Api.NetworkConnectionManager;
 import chosen.com.chosen.GPS.GPSTracker;
 import chosen.com.chosen.GPS.MapDistance;
-import chosen.com.chosen.Model.DIstanceCal;
 import chosen.com.chosen.Model.MapModel_;
 import chosen.com.chosen.Model.UserModel;
 import chosen.com.chosen.R;
@@ -113,16 +108,18 @@ public class HomeFragment extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home,container,false);
+        initInstance(v);
+        return v;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        initInstance(view);
-
-    }
+//    @Override
+//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        initInstance(view);
+//
+//    }
 
     private void initInstance(View v) {
         try {
@@ -150,11 +147,15 @@ public class HomeFragment extends Fragment implements
             sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER, Context.MODE_PRIVATE);
             editor = sh.edit();
 
+            editor.putString(MyFerUtil.KEY_PAGE_NOW,MyFerUtil.PAGE_HOME);
+            editor.commit();
+
             //get user id from shared perferences
             uid = sh.getString(MyFerUtil.KEY_USER_ID, null);
 
             // Check if no view has focus:
             View view = getActivity().getCurrentFocus();
+
             if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -165,7 +166,7 @@ public class HomeFragment extends Fragment implements
 
             MapsInitializer.initialize(getActivity().getApplicationContext());
 
-            userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
+//            userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
 
             if (ConnectivityReceiverUtil.isConnected()) {
 
@@ -266,7 +267,7 @@ public class HomeFragment extends Fragment implements
                                         new MarkerOptions().position(
                                                 new LatLng(Double.parseDouble(list_data_map.get(i).getLat()),
                                                         Double.parseDouble(list_data_map.get(i).getLon())))
-                                                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_maker)));
+                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.p15))); //p15  icon_maker
 //                                                .title(list_data_map.get(i).getPoleId())
 //                                                .snippet("Population: 4,137,400"));
                             }
@@ -277,7 +278,7 @@ public class HomeFragment extends Fragment implements
                                         .position(
                                                 new LatLng(Double.parseDouble(list_data_map.get(i).getLat()),
                                                         Double.parseDouble(list_data_map.get(i).getLon())))
-                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_maker_red)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.p16))); //p16 icon_maker_red
 //                                        .title(list_data_map.get(i).getPoleId()));
 
                             }
@@ -287,15 +288,9 @@ public class HomeFragment extends Fragment implements
                                         .position(
                                                 new LatLng(Double.parseDouble(list_data_map.get(i).getLat()),
                                                         Double.parseDouble(list_data_map.get(i).getLon())))
-                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_maker_blue)));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.p13)));  // p13  icon_maker_blue
 //                                        .title(list_data_map.get(i).getPoleId()));
                             }
-
-                            googleMap.addMarker(new MarkerOptions()
-                                    .position( new LatLng(Double.parseDouble(list_data_map.get(i).getLat()),
-                                            Double.parseDouble(list_data_map.get(i).getLon())))
-                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_maker)));
-//                                    .title(list_data_map.get(i).getPoleId()));
 
                         }
                     }
@@ -363,20 +358,35 @@ public class HomeFragment extends Fragment implements
     }
 
     private void do_reserve(){
-        Toast.makeText(context, " do_reserve ", Toast.LENGTH_SHORT).show();
+
+        //show detail for reserve
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.layout_reserve_detail, null);
+        Button button = alertLayout.findViewById(R.id.btn_reserve);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
+        builder.setView(alertLayout);
+
+        final AlertDialog alertDialog = builder.show();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                alertDialog.dismiss();
+                Toast.makeText(context, "Reserve success", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
+
 
     private void do_share(){
+
         Toast.makeText(context, "do_share", Toast.LENGTH_SHORT).show();
-    }
-
-    public void fragmentTran(Fragment fragment, Bundle bundle){
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction frgTran = fragmentManager.beginTransaction();
-        frgTran.replace(R.id.content, fragment).addToBackStack(null).commit();
 
     }
+
 
     @Override
     public void onClick(View view) {
@@ -394,6 +404,7 @@ public class HomeFragment extends Fragment implements
     }
 
 
+    //callback from server
      CallbackHomeListener listener = new CallbackHomeListener() {
         @Override
         public void onResponse(List<MapModel_> res) {

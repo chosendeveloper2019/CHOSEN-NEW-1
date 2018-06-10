@@ -32,13 +32,21 @@
     <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">cancel</string>
 
-    <string name="nav_home">\t\t\t<b>>> HOME</b></string>
-    <string name="nav_station">\t\t\t>> STATION</string>
-    <string name="nav_profile">\t\t\t>> PROFILE</string>
-    <string name="nav_wallet">\t\t\t>> WALLET</string>
-    <string name="nav_usage">\t\t\t>> USAGE DETAILS</string>
-    <string name="nav_service">\t\t\t>> SERVICE</string>
-    <string name="nav_logout">\t\t\t>> LOGOUT</string>
+    <!--<string name="nav_home"><b> HOME</b></string>-->
+    <!--<string name="nav_station">\t\t\t>> STATION</string>-->
+    <!--<string name="nav_profile">\t\t\t>> PROFILE</string>-->
+    <!--<string name="nav_wallet">\t\t\t>> WALLET</string>-->
+    <!--<string name="nav_usage">\t\t\t>> USAGE DETAILS</string>-->
+    <!--<string name="nav_service">\t\t\t>> SERVICE</string>-->
+    <!--<string name="nav_logout">\t\t\t>> LOGOUT</string>   -->
+
+    <string name="nav_home">HOME</string>
+    <string name="nav_station">STATION</string>
+    <string name="nav_profile">PROFILE</string>
+    <string name="nav_wallet">WALLET</string>
+    <string name="nav_usage">USAGE DETAILS</string>
+    <string name="nav_service">SERVICE</string>
+    <string name="nav_logout">LOGOUT</string>
 
     <string name="tv_nav_wallet">Your Wallet</string>
     <string name="tv_nav_remaing">Remaining Balance</string>
@@ -60,6 +68,19 @@
     <string name="et_input_pwd">Password</string>
     <string name="et_input_usr">Username</string>
     <string name="tv_rg_pwd">Password :</string>
+    <string name="tv_header_reserve">THE MALL BANGKOKAPI</string>
+    <string name="tv_header_open_hour">OPEN HOUR</string>
+    <string name="btn_comment">Comment</string>
+    <string name="btn_photo">Photo</string>
+    <string name="btn_modify">Modify</string>
+    <string name="btn_navigation">Nav</string>
+    <string name="tv_state_header">10 STATIONS TYPE</string>
+    <string name="nav_paypal">PAYPAL</string>
+    <string name="tv_lbl_id_payment">ID PAYMENT :</string>
+    <string name="tv_lbl_state_payment">STATE :</string>
+    <string name="tv_lbl_amt">AMOUNT :</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_price">150 Bath</string>
 
 
 </resources>

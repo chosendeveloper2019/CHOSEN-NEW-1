@@ -9,6 +9,10 @@
 
     <color name="backgroundDetail">#333333</color>
 
+    <color name="duskYellow">#F9F398</color>
+    <color name="lightGrey">#d3d3d3</color>
+    <color name="btn_background">#FFF</color>
+
     <!-- Grayscale -->
     <color name="bootstrap_gray_dark">#373a3c</color>
     <color name="bootstrap_gray">#55595c</color>

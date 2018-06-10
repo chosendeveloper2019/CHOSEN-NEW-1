@@ -29,5 +29,10 @@ public class MyFerUtil {
 
     public static final String KEY_USERNAME_KEEP = "userKeep";
     public static final String KEY_PASSWORD_KEEP = "passKeep";
+    public static final String KEY_PAGE_NOW = "pagenow";
+
+
+    public static final String PAGE_HOME = "home";
+
 
 }

@@ -46,7 +46,7 @@ dependencies {
     implementation 'com.github.nitrico.mapviewpager:mapviewpager:1.0.0'
 
     // paypal
-    implementation 'com.braintreepayments.api:drop-in:3.+'
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 
     //Gauge
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'

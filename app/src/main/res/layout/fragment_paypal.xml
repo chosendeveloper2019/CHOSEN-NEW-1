@@ -4,25 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="chosen.com.chosen.Fragment.AboutUsFragment">
 
+    <TextView
+        android:textSize="30sp"
+        android:text="Input your Amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/et_amt"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="price"
         android:inputType="number" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_confirm"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Proceed to payment"
         android:background="@color/colorPrimary"/>
-
 
 </LinearLayout>

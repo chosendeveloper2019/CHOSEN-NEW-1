@@ -25,7 +25,6 @@ public interface ApiService {
                                               @Field("email") String email,
                                               @Field("name") String name,
                                               @Field("username") String usr
-
                                    );
 
     @FormUrlEncoded

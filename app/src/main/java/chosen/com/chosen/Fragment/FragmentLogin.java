@@ -161,22 +161,24 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
                 // App code
             }
         });
-        try {
-            PackageInfo info = getActivity().getPackageManager().getPackageInfo(
-                    getActivity().getPackageName(),
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        }
-        catch (PackageManager.NameNotFoundException e) {
 
-        }
-        catch (NoSuchAlgorithmException e) {
-
-        }
+        //get key hash
+//        try {
+//            PackageInfo info = getActivity().getPackageManager().getPackageInfo(
+//                    getActivity().getPackageName(),
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        }
+//        catch (PackageManager.NameNotFoundException e) {
+//
+//        }
+//        catch (NoSuchAlgorithmException e) {
+//
+//        }
 
     }
 
@@ -184,18 +186,28 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
     private void do_login(){
 
         try {
-            //show progress dialog
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setMessage(getString(R.string.msgLoading));
-            progressDialog.show();
+
 
             String usr = et_usr.getText().toString().trim();
             String pwd = et_pwd.getText().toString().trim();
+            if(!usr.isEmpty() && !pwd.isEmpty()){
+
+                //show progress dialog
+                progressDialog = new ProgressDialog(context);
+                progressDialog.setMessage(getString(R.string.msgLoading));
+                progressDialog.show();
+                new NetworkConnectionManager().callLogin(listener,usr,pwd);
+
+            }else {
+                if (usr.isEmpty())
+                    Toast.makeText(context, "Please input Username.", Toast.LENGTH_SHORT).show();
+                if (pwd.isEmpty())
+                    Toast.makeText(context, "Please input Password.", Toast.LENGTH_SHORT).show();
+            }
 
 
 //            Toast.makeText(context, "Login btn", Toast.LENGTH_SHORT).show();
             //call api
-            new NetworkConnectionManager().callLogin(listener,usr,pwd);
 
         }catch (Exception e){
             Toast.makeText(context, "Call Server Error.", Toast.LENGTH_SHORT).show();
@@ -248,7 +260,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
                 editor.putString(MyFerUtil.KEY_PASSWORD_KEEP,et_usr.getText().toString());
                 editor.commit();
             }
-
+//            Toast.makeText(context, ""+res.get(0).getUserId(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MainApplication.class);
             intent.putExtra(MainApplication.KEY_DATA_USER, jsonResult);
             startActivity(intent);
@@ -281,6 +293,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
+                Toast.makeText(context, "Login fail Please check Username or Password", Toast.LENGTH_SHORT).show();
             }
 
             Log.e(TAG,""+t.getMessage());

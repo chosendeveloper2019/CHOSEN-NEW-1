@@ -29,6 +29,7 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.List;
 
 import chosen.com.chosen.Api.CallbackFacebookRegis;
@@ -79,7 +80,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
         //init facebook authentication
         callbackManager = CallbackManager.Factory.create();
         loginButton =  v.findViewById(R.id.btn_register_btn_face);
-        loginButton.setReadPermissions("email");
+        loginButton.setReadPermissions( Arrays.asList("user_status"));
         // If using in a fragment
         loginButton.setFragment(this);
 
@@ -108,8 +109,8 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
 
                                     et_email.setText(email);
                                     et_name.setText(name);
-
-                                    new NetworkConnectionManager().callFbRegis(listener,profile.getId(),email,name,email);
+                                    Log.e(TAG,"ID:"+profile.getId());
+//                                    new NetworkConnectionManager().callFbRegis(listener,profile.getId(),email,name,email);
 
 
                                 } catch (JSONException e) {
@@ -138,6 +139,8 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
             @Override
             public void onError(FacebookException exception) {
                 // App code
+//                Toast.makeText(context, "On Exit ", Toast.LENGTH_SHORT).show();
+                Log.e(TAG,exception.getMessage());
             }
         });
 
@@ -157,17 +160,17 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
 
         @Override
         public void onBodyError(ResponseBody responseBodyError) {
-
+            Log.e(TAG,""+responseBodyError);
         }
 
         @Override
         public void onBodyErrorIsNull() {
-
+            Log.e(TAG,"Null");
         }
 
         @Override
         public void onFailure(Throwable t) {
-
+            Log.e(TAG,""+t.getMessage());
         }
     };
 

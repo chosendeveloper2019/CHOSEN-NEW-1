@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ceb9b9b9"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="START CHARGE"
+                    android:textSize="20dp"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_start_charge"
+                    android:text="13:00 pm."
+                    android:textColor="#FFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginLeft="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="NOW"
+                    android:textColor="@color/bootstrap_brand_primary"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_end_charge"
+                    android:text="14:30 pm."
+                    android:textColor="@color/bootstrap_brand_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_car"
+                android:src="@drawable/teslamodels"
+                android:layout_width="120dp"
+                android:layout_height="120dp" />
+            <LinearLayout
+                android:background="#000"
+                android:layout_marginLeft="30dp"
+                android:layout_width="5dp"
+                android:layout_height="200dp"/>
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+                android:id="@+id/li_state_charge"
+                android:gravity="center"
+                android:background="@drawable/fully"
+                android:layout_width="120dp"
+                android:layout_height="140dp">
+                <TextView
+                    android:id="@+id/tv_state_charge"
+                    android:textColor="@color/btn_background"
+                    android:textSize="30dp"
+                    android:visibility="gone"
+                    android:text="34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="Update Every 5 minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/graph"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text=" STATUS : "
+                        android:textColor="#FFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_state"
+                        android:text="CHARGING"
+                        android:textColor="@color/bootstrap_brand_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text=" NORMAL CHARGING (11kw) "
+                        android:textColor="#676767"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text=" PRICE : "
+                        android:textColor="#676767"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:text="CHARGING"
+                        android:textColor="#676767"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:text="TIME"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:background="@drawable/hour"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp">
+                        <TextView
+                            android:id="@+id/tv_hr"
+                            android:text="01"
+                            android:textSize="30dp"
+                            android:textStyle="bold"
+                            android:textColor="#FFF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/min"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp">
+                        <TextView
+                            android:id="@+id/tv_min"
+                            android:text="12"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:background="@drawable/kwh1"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:layout_height="90dp">
+                    <TextView
+                        android:id="@+id/tv_kwh"
+                        android:textSize="20sp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#fcda00"
+                        android:text="123.4"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textColor="@color/bootstrap_brand_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="PRICE AVERAGE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_payment"
+            android:textColor="@color/btn_background"
+            android:backgroundTint="@color/bootstrap_brand_success"
+            android:textStyle="bold"
+            android:text="@string/btn_price"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</ScrollView>
