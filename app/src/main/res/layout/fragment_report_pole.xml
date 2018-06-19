@@ -9,7 +9,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp"
-    tools:context="chosen.com.chosen.Fragment.CardFragment">
+    tools:context="chosen_new.com.chosen.Fragment.CardFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
         android:layout_marginTop="5dp"
         android:paddingBottom="30dp"
         android:orientation="horizontal">
-        <chosen.com.chosen.View.CustomViewPager
+        <chosen_new.com.chosen.View.CustomViewPager
             android:id="@+id/viewpager_report"
             android:layout_width="match_parent"
 

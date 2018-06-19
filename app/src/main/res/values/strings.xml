@@ -22,13 +22,13 @@
     <string name="success">Success</string>
     <string name="tv_rg_name">Name :</string>
     <string name="tv_rg_username">Username :</string>
-    <string name="et_input_name">Name</string>
+    <string name="et_input_name">Full Name</string>
     <string name="et_input_email">Email</string>
     <string name="et_input_sername">Sername</string>
     <string name="tv_rg_sername">Sername :</string>
     <string name="tv_rg_mail">Email :</string>
     <string name="tv_rg_tel">Tel :</string>
-    <string name="tv_select_car">Select your car model.</string>
+    <string name="tv_select_car">Please select your car.</string>
     <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">cancel</string>
 
@@ -80,7 +80,14 @@
     <string name="tv_lbl_state_payment">STATE :</string>
     <string name="tv_lbl_amt">AMOUNT :</string>
     <string name="btn_ok">OK</string>
-    <string name="btn_price">150 Bath</string>
+    <string name="btn_price">100 Bath</string>
+    <string name="tv_header_invoice">Payment Invoice</string>
+    <string name="btn_pay_now">Pay Now</string>
+    <string name="btn_not_now">Not Now</string>
+    <string name="tv_lbl_card_id">CARD ID </string>
+    <string name="tv_lbl_pole_id">POLE ID :</string>
+    <string name="tv_header_incard">Input Data Card</string>
+    <string name="et_card_id">Card ID</string>
 
 
 </resources>

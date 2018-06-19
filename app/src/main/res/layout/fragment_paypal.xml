@@ -7,7 +7,7 @@
     android:gravity="center"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="chosen.com.chosen.Fragment.AboutUsFragment">
+    tools:context="chosen_new.com.chosen.Fragment.AboutUsFragment">
 
     <TextView
         android:textSize="30sp"

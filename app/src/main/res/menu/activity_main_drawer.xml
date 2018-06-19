@@ -6,34 +6,37 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/nav_home" />
+
         <item
             android:id="@+id/nav_state_charge"
             android:icon="@drawable/ic_battery_charging"
             android:title="CHARGE" />
-        <item
-            android:id="@+id/nav_station"
-            android:icon="@drawable/ic_station"
-            android:title="@string/nav_station" />
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="@string/nav_profile" />
-        <item
-            android:id="@+id/nav_wallet"
-            android:icon="@drawable/ic_paypal"
-            android:title="@string/nav_wallet" />
-        <item
-            android:id="@+id/nav_paypal"
-            android:icon="@drawable/ic_paypal"
-            android:title="@string/nav_paypal" />
-        <item
-            android:id="@+id/nav_usage_detail"
-            android:icon="@drawable/ic_usege_detail"
-            android:title="@string/nav_usage" />
-        <item
-            android:id="@+id/nav_service"
-            android:icon="@drawable/ic_service"
-            android:title="@string/nav_service" />
+        <!--<item-->
+            <!--android:id="@+id/nav_paypal"-->
+            <!--android:icon="@drawable/ic_paypal"-->
+            <!--android:title="@string/nav_paypal" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_station"-->
+            <!--android:icon="@drawable/ic_station"-->
+            <!--android:title="@string/nav_station" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_profile"-->
+            <!--android:icon="@drawable/ic_profile"-->
+            <!--android:title="@string/nav_profile" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_wallet"-->
+            <!--android:icon="@drawable/ic_paypal"-->
+            <!--android:title="@string/nav_wallet" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/nav_usage_detail"-->
+            <!--android:icon="@drawable/ic_usege_detail"-->
+            <!--android:title="@string/nav_usage" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_service"-->
+            <!--android:icon="@drawable/ic_service"-->
+            <!--android:title="@string/nav_service" />-->
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_exit"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="chosen.com.chosen.MainActivity"
+    tools:context="chosen_new.com.chosen.MainActivity"
     android:background="@color/colorPrimaryDark">
 
 </FrameLayout>

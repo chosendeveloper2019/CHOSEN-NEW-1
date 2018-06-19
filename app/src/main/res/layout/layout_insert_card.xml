@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="#FFF"
+    android:gravity="center"
+    android:layout_width="400dp"
+    android:layout_height="400dp">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="#FFF"
+    android:gravity="center"
+    android:layout_width="400dp"
+    android:layout_height="450dp">
+
+    <TextView
+        android:id="@+id/tv_header_inCard"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/tv_header_incard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:background="#75cccccc"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_cardid"
+            android:background="#FFF"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/et_card_id"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/bootstrap_brand_info"
+            android:paddingLeft="16dp"
+
+            android:drawableLeft="@drawable/ic_camera_scan"
+            android:layout_marginTop="20dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:textColor="#FFF"
+                android:text="@string/btn_confirm"
+                android:backgroundTint="@color/bootstrap_brand_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:textColor="#FFF"
+                android:text="@string/btn_cancel"
+                android:backgroundTint="@color/bootstrap_brand_warning"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+</android.support.v7.widget.CardView>

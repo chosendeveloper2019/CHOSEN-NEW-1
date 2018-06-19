@@ -1,26 +1,41 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'MyChosenKey'
+            keyPassword 'chosen2018'
+            storeFile file('/Users/kritsanrongkaew/AndroidStudioProjects/CHOSEN-NEW 2/chosenKey.jks')
+            storePassword 'chosen2018'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "chosen.com.chosen"
+        applicationId "chosen.com.chosen_new"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 301
-        versionName "3.0.1"
+        versionCode 305
+        versionName "3.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        // passwordkey=chosen1234energy
+//        passwordkey=chosen2018
     }
     buildTypes {
         release {
             minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [mapsKey: "AIzaSyBEZB4shBAYBCpgROiA0qvuULXaqdi7ucs"]
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
@@ -32,7 +47,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     // facebook authentication add by dum
     implementation 'com.facebook.android:facebook-login:[4,5)'
@@ -41,15 +55,18 @@ dependencies {
     //gson converter by retrofit
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.1'
-
     // mapviewpager
     implementation 'com.github.nitrico.mapviewpager:mapviewpager:1.0.0'
-
     // paypal
     implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
-
     //Gauge
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
+
+    //scan qr bar code
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    implementation 'com.google.zxing:core:3.2.1'
+//    implementation 'com.github.mitoyarzun:zxingfragmentlib:7cf8e9a747'
+
 }
 
 apply plugin: 'com.android.application'
