@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements
     ProgressDialog progressDialog;
 
     // new Object widget
-    private EditText et_search;
+//    private EditText et_search;
     private TextView tv_header, tv_station, tv_state, tv_detail, tv_start, tv_end, tv_share;
 
     private UserModel userModel;
@@ -131,18 +131,18 @@ public class HomeFragment extends Fragment implements
             //bind widget
             linearLayout = v.findViewById(R.id.detail);
             linearLayout.setVisibility(View.GONE);
-            et_search = v.findViewById(R.id.et_search_map);
-            et_search.setRawInputType(0); // hide key board
+//            et_search = v.findViewById(R.id.et_search_map);
+//            et_search.setRawInputType(0); // hide key board
 
             tv_header = v.findViewById(R.id.tv_header_detail);
-            tv_station = v.findViewById(R.id.tv_numstation);
-            tv_detail = v.findViewById(R.id.tv_detail);
+//            tv_station = v.findViewById(R.id.tv_numstation);
+//            tv_detail = v.findViewById(R.id.tv_detail);
             tv_state = v.findViewById(R.id.tv_state);
-            tv_start = v.findViewById(R.id.tv_start);
-            tv_end = v.findViewById(R.id.tv_end);
+//            tv_start = v.findViewById(R.id.tv_start);
+//            tv_end = v.findViewById(R.id.tv_end);
             tv_share = v.findViewById(R.id.tv_share);
 
-            v.findViewById(R.id.btn_search).setOnClickListener(this);
+//            v.findViewById(R.id.btn_search).setOnClickListener(this);
 //            v.findViewById(R.id.btn_reserve).setOnClickListener(this);
             v.findViewById(R.id.tv_share).setOnClickListener(this);
 
@@ -354,11 +354,11 @@ public class HomeFragment extends Fragment implements
         String end = data.get("end").toString();
 
         tv_header.setText(header);
-        tv_station.setText(station);
+//        tv_station.setText(station);
         tv_state.setText(state);
-        tv_detail.setText(detail);
-        tv_start.setText(start);
-        tv_end.setText(end);
+//        tv_detail.setText(detail);
+//        tv_start.setText(start);
+//        tv_end.setText(end);
 
     }
 
@@ -404,9 +404,9 @@ public class HomeFragment extends Fragment implements
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_search:
-                do_refresh();
-                break;
+//            case R.id.btn_search:
+//                do_refresh();
+//                break;
 //            case R.id.btn_reserve:
 //                do_reserve();
 //                break;

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bootstrap_brand_primary"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/spn_paid"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:entries="@array/state_invoice"
+        >
+
+    </Spinner>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@color/bootstrap_brand_primary"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="CARD ID"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_date_start"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:paddingTop="15dp"
+            android:text="INVOICE DATE "
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_view"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:paddingTop="15dp"
+            android:layout_marginLeft="0dp"
+            android:text="PRICE(THB)"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_action"
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:paddingTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="24dp"
+            android:text="OPERATION"
+            android:textAlignment="center"
+            android:textColor="#FFF"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewInvoice"
+        android:background="#CCC"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/row_view_invoice_card">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_noData"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="No Data"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</LinearLayout>

@@ -15,7 +15,7 @@
     android:background="#FFF"
     android:gravity="center"
     android:layout_width="400dp"
-    android:layout_height="450dp">
+    android:layout_height="350dp">
 
     <TextView
         android:id="@+id/tv_header_inCard"

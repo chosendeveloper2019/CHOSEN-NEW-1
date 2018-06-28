@@ -43,7 +43,30 @@ public class MyFerUtil {
     public static final String KEY_POLEID = "poleid";
     public static final String KEY_STATE = "state";
 
+    public static final String STATE_FRG = "stateCard";  // use check state card
+    public static final String ADD_CARD = "ADD_CARD";
+    public static final String VIEW_CARD = "VIEW_CARD";
+
     public static final String KEY_SELECT_CARD = "selectCard";
     public static final String KEY_TRANSID = "transID";
+
+    public static final String STATE_FRG_VIEW = "STATE_FRG_VIEW";
+
+    //======================  invoice
+    public static final String KEY_PAY_CODE = "payCode";
+    public static final String KEY_POLE_ID = "poleId";
+    public static final String KEY_CREATEDATE_AT = "createDateAt";
+    public static final String KEY_INVOICE_PAY = "keyinvoidpay";
+    public static final String KEY_TOTALPRICE = "totalPrice";
+    public static final String KEY_DATE_START=  "KEY_DATE_START";
+    public static final String KEY_DATE_END=  "KEY_DATE_END";
+
+    public static final String KEY_URL_LOAD = "KEY_URL_LOAD";
+    public static final String KEY_STATE_PAY = "KEY_STATE_PAY";
+
+
+
+
+
 
 }

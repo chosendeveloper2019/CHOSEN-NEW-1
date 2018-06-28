@@ -2,19 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="@string/nav_home" />
-
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_card"
+            android:icon="@drawable/ic_card"
+            android:title="@string/menu_card" />
         <item
             android:id="@+id/nav_state_charge"
             android:icon="@drawable/ic_battery_charging"
-            android:title="CHARGE" />
-        <!--<item-->
-            <!--android:id="@+id/nav_paypal"-->
-            <!--android:icon="@drawable/ic_paypal"-->
-            <!--android:title="@string/nav_paypal" />-->
+            android:title="@string/menu_charge" />
+        <item
+        android:id="@+id/nav_paypal"
+        android:icon="@drawable/ic_paypal"
+        android:title="@string/menu_payment" />
+
+        <item
+            android:id="@+id/nav_invoice"
+            android:icon="@drawable/ic_invoice"
+            android:title="@string/menu_invoice" />
 
         <!--<item-->
             <!--android:id="@+id/nav_station"-->

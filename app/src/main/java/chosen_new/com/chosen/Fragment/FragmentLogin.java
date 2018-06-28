@@ -98,8 +98,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
 //        img.setImageDrawable(getActivity().getDrawable(R.drawable.fully));
 
-        et_usr.setText("chosen");
-        et_pwd.setText("chosen@2018");
+//        et_usr.setText("centara");
+//        et_pwd.setText("centara@2018");
 
         //facebook logout
         LoginManager.getInstance().logOut();
@@ -125,6 +125,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         callbackManager = CallbackManager.Factory.create();
         loginButton =  v.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
+
         // If using in a fragment
         loginButton.setFragment(this);
 

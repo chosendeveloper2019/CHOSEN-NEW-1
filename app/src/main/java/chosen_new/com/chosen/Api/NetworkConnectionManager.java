@@ -1,7 +1,6 @@
 package chosen_new.com.chosen.Api;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,12 +12,14 @@ import chosen_new.com.chosen.Model.ChargeModel;
 import chosen_new.com.chosen.Model.FbLoginModel;
 import chosen_new.com.chosen.Model.FbRegisModel;
 import chosen_new.com.chosen.Model.GetCardModel;
+import chosen_new.com.chosen.Model.InvoiceCardModel;
 import chosen_new.com.chosen.Model.LoginModel;
 import chosen_new.com.chosen.Model.MapModel_;
 import chosen_new.com.chosen.Model.PaymentInvoiceModel;
 import chosen_new.com.chosen.Model.PaymentModel;
 import chosen_new.com.chosen.Model.RegisterModel;
-import chosen_new.com.chosen.Model.ResPaypal.ResultPaymentModel;
+import chosen_new.com.chosen.Model.ResultPaymentModel;
+import chosen_new.com.chosen.Model.UserInvoiceModel;
 import chosen_new.com.chosen.Util.UrlUtil;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -409,6 +410,58 @@ public class NetworkConnectionManager {
 
     }
 
+    public void callShowInvoiceUser(final CallbackInvoicuserListener listener, String userId){
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlUtil.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiService git = retrofit.create(ApiService.class);
+        Call call = git.getInvoiceUser(userId);
+
+        call.enqueue(new Callback<List<UserInvoiceModel>>() {
+
+            @Override
+            public void onResponse(Call<List<UserInvoiceModel>> call, Response<List<UserInvoiceModel>> response) {
+                try {
+
+                    List<UserInvoiceModel> homeRes =  response.body();
+
+                    if (response.code() != 200) {
+                        ResponseBody responseBody = response.errorBody();
+
+                        if (responseBody != null) {
+                            listener.onBodyError(responseBody);
+                        } else if (responseBody == null) {
+                            listener.onBodyErrorIsNull();
+                        }
+
+                    } else {
+                        listener.onResponse(homeRes);
+
+                    }
+
+
+                }catch (Exception e){
+                    listener.onFailure(e);
+
+                }
+            }
+            @Override
+            public void onFailure(Call<List<UserInvoiceModel>> call, Throwable t) {
+
+                listener.onFailure(t);
+
+            }
+        });
+
+    }
+
     public void callSendInvoice(final CallbackInvoiceListener listener, String proname,String description,
                                 String currency,String quantity,String tax,String price,String invoice_id){
 
@@ -485,7 +538,6 @@ public class NetworkConnectionManager {
                 try {
 
                     List<ChargeModel> homeRes =  response.body();
-                   Log.d("callGetStateCharge","HAHAHAHAHA"+homeRes.get(0).getInvoiceId());
 
                     if (response.code() != 200) {
                         ResponseBody responseBody = response.errorBody();
@@ -571,6 +623,60 @@ public class NetworkConnectionManager {
 
     }
 
+    public void callGetInvoice(final CallbackGetInvoiceListener listener, String userId,String cardId) {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlUtil.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiService git = retrofit.create(ApiService.class);
+
+        Call call = git.getInvoice(userId,cardId);
+
+        call.enqueue(new Callback<List<InvoiceCardModel>>() {
+
+            @Override
+            public void onResponse(Call<List<InvoiceCardModel>> call, Response<List<InvoiceCardModel>> response) {
+                try {
+
+                    List<InvoiceCardModel> homeRes = response.body();
+
+                    if (response.code() != 200) {
+                        ResponseBody responseBody = response.errorBody();
+
+                        if (responseBody != null) {
+                            listener.onBodyError(responseBody);
+                        } else if (responseBody == null) {
+                            listener.onBodyErrorIsNull();
+                        }
+
+                    } else {
+                        listener.onResponse(homeRes);
+
+                    }
+
+
+                } catch (Exception e) {
+                    listener.onFailure(e);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InvoiceCardModel>> call, Throwable t) {
+
+                listener.onFailure(t);
+
+            }
+        });
+
+    }
+
     public void callAddcard(final CallbackAddcardListener listener, String userId,String cardId) {
 
         Gson gson = new GsonBuilder()
@@ -622,7 +728,6 @@ public class NetworkConnectionManager {
 
             }
         });
-
     }
 
 

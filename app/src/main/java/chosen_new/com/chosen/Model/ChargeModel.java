@@ -4,6 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ChargeModel {
+
+
     @SerializedName("charging")
     @Expose
     private String charging;
@@ -28,6 +30,15 @@ public class ChargeModel {
     @SerializedName("invoice_id")
     @Expose
     private String invoiceId;
+    @SerializedName("invoice_code")
+    @Expose
+    private String invoiceCode;
+    @SerializedName("price")
+    @Expose
+    private String price;
+    @SerializedName("chargetime")
+    @Expose
+    private String chargetime;
 
     public String getCharging() {
         return charging;
@@ -93,4 +104,27 @@ public class ChargeModel {
         this.invoiceId = invoiceId;
     }
 
+    public String getInvoiceCode() {
+        return invoiceCode;
+    }
+
+    public void setInvoiceCode(String invoiceCode) {
+        this.invoiceCode = invoiceCode;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getChargetime() {
+        return chargetime;
+    }
+
+    public void setChargetime(String chargetime) {
+        this.chargetime = chargetime;
+    }
 }

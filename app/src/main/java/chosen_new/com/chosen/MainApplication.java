@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -37,11 +40,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import chosen_new.com.chosen.Api.CallbackAddcardListener;
 import chosen_new.com.chosen.Api.NetworkConnectionManager;
 import chosen_new.com.chosen.Fragment.AboutUsFragment;
 import chosen_new.com.chosen.Fragment.CardFragment;
+import chosen_new.com.chosen.Fragment.FragmentInvoice;
+import chosen_new.com.chosen.Fragment.FragmentManageCard;
 import chosen_new.com.chosen.Fragment.FragmentRegisterCard;
 import chosen_new.com.chosen.Fragment.FragmentStateCharting;
 import chosen_new.com.chosen.Fragment.FragmentViewCard;
@@ -49,11 +55,13 @@ import chosen_new.com.chosen.Fragment.HomeFragment;
 import chosen_new.com.chosen.Fragment.InvoiceFragment;
 import chosen_new.com.chosen.Fragment.PaypalFragment;
 import chosen_new.com.chosen.Fragment.PoleFragment;
+import chosen_new.com.chosen.Fragment.ReportCardFragment;
 import chosen_new.com.chosen.Fragment.ReportPoleFragment;
 import chosen_new.com.chosen.Model.AddCardModel;
 import chosen_new.com.chosen.Model.UserModel;
 import chosen_new.com.chosen.Util.MyFerUtil;
 import okhttp3.ResponseBody;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class MainApplication extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,6 +91,10 @@ public class MainApplication extends AppCompatActivity implements NavigationView
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void initInstance(){
 
+        Configuration config = new Configuration();
+        config.locale = Locale.ITALIAN;
+        getResources().updateConfiguration(config, null);
+//        onCreate(null);
         context = MainApplication.this;
         //init session
         sh = getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
@@ -91,13 +103,28 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         toolbar = findViewById(R.id.toolbar);
         Bundle extras = getIntent().getExtras();
         dataUser =  extras.getString(KEY_DATA_USER);
-        toolbar.setTitle("CHOSEN ENERGY");
+        toolbar.setTitle("HOME");
         toolbar.setTitleTextColor(getColor(R.color.text));
 
         setSupportActionBar(toolbar);
 
         viewpager =  findViewById(R.id.viewpager);
         drawer = findViewById(R.id.drawer_layout);
+
+        //setNavigation bar
+        setNavigationBar();
+
+        //set wallet here
+        tv_name.setText(nameUser);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        fragmentManager = getSupportFragmentManager();
+        setDataUser();
+
+    }
+
+    private void setNavigationBar(){
 
         drawer.setStatusBarBackgroundColor(getColor(R.color.text));
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -116,14 +143,6 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         tv_name = headerView.findViewById(R.id.tv_name);
-
-        //set wallet here
-        tv_name.setText(nameUser);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
-        fragmentManager = getSupportFragmentManager();
-        setDataUser();
 
     }
 
@@ -167,10 +186,19 @@ public class MainApplication extends AppCompatActivity implements NavigationView
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        int co = fragmentManager.getBackStackEntryCount();  //get fragment number in backStack
         switch (id){
             case R.id.nav_home:
+                toolbar.setTitle(getString(R.string.menu_home));
+                setSupportActionBar(toolbar);
+
+                setNavigationBar();
                 try{
-                    fragmentManager.popBackStack();
+                    while (co>0){
+                        fragmentManager.popBackStack();
+                        co--;
+                    }
+
                     String getPage = sh.getString(MyFerUtil.KEY_PAGE_NOW,"");
                     if(getPage.equals(FragmentStateCharting.TAG)){
                         fragmentManager.popBackStack();
@@ -182,13 +210,29 @@ public class MainApplication extends AppCompatActivity implements NavigationView
 
                 break;
 
+            case R.id.nav_card:
+                toolbar.setTitle(R.string.menu_card);
+                setSupportActionBar(toolbar);
+                setNavigationBar();
+
+                clearFragment();
+
+                FragmentManageCard fragmentManageCard = new FragmentManageCard();
+                fragmentTran(fragmentManageCard,null);
+
+                break;
+
             case R.id.nav_state_charge:
-//                viewpager.setCurrentItem(8);
+                toolbar.setTitle(getString(R.string.menu_charge));
+                clearFragment();
+                setSupportActionBar(toolbar);
+                setNavigationBar();
 
                 FragmentViewCard fragmentViewCard = new FragmentViewCard();
                 fragmentTran(fragmentViewCard,null);
 
                 break;
+
 
 //            case R.id.nav_station:
 //                viewpager.setCurrentItem(2);  // Out of scope
@@ -202,11 +246,26 @@ public class MainApplication extends AppCompatActivity implements NavigationView
 //                viewpager.setCurrentItem(2);// Out of scope
 //                break;
 //
-//            case R.id.nav_paypal:
-//
-//                viewpager.setCurrentItem(4);
-//
-//                break;
+            case R.id.nav_paypal:
+
+                toolbar.setTitle(getString(R.string.menu_payment));
+                setSupportActionBar(toolbar);
+                setNavigationBar();
+                clearFragment();
+
+                PaypalFragment paypalFragment = new PaypalFragment();
+                fragmentTran(paypalFragment,null);
+
+                break;
+            case R.id.nav_invoice:
+                toolbar.setTitle(getString(R.string.menu_invoice));
+                setSupportActionBar(toolbar);
+                setNavigationBar();
+
+                clearFragment();
+                fragmentTran(new FragmentInvoice(),null);
+
+                break;
 //            case R.id.nav_usage_detail:
 //
 //                viewpager.setCurrentItem(2);// Out of scope
@@ -249,7 +308,14 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         return true;
     }
 
+    private void clearFragment(){
+        int co = fragmentManager.getBackStackEntryCount();  //get fragment number in backStack
 
+        while (co>0){
+            fragmentManager.popBackStack();
+            co--;
+        }
+    }
 
     private void setupViewPager(ViewPager viewPager) {
 
@@ -272,6 +338,7 @@ public class MainApplication extends AppCompatActivity implements NavigationView
     public void fragmentTran(Fragment fragment, Bundle bundle){
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack();
         FragmentTransaction frgTran = fragmentManager.beginTransaction();
         frgTran.replace(R.id.content, fragment).addToBackStack(null).commit();
 
@@ -309,6 +376,28 @@ public class MainApplication extends AppCompatActivity implements NavigationView
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.action_settings:
+                break;
+//            case R.id.friends:
+//                break;
+//            case R.id.about:
+//                break;
+        }
+        return true;
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -318,15 +407,19 @@ public class MainApplication extends AppCompatActivity implements NavigationView
         private int [] TabText;
 
         public ViewPagerAdapter(Context context, FragmentManager manager) {
+
             super(manager);
             this.context = context;
             this.tabIcons = tabIcons;
             this.TabText = TabText;
+
         }
 
         @Override
         public Fragment getItem(int position) {
+
             return mFragmentList.get(position);
+
         }
 
         @Override
@@ -356,7 +449,11 @@ public class MainApplication extends AppCompatActivity implements NavigationView
 
             if(co == 2){  //check fragment status charge
                fragmentManager.popBackStack();  // kill fragment status charge
-            }else {
+
+            }else if(co == 3){
+                fragmentManager.popBackStack();  // kill fragment status charge
+            }
+            else {
                 do_logout();
             }
 
@@ -409,5 +506,10 @@ public class MainApplication extends AppCompatActivity implements NavigationView
 
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
 
 }

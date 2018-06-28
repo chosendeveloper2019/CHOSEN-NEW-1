@@ -7,12 +7,14 @@ import chosen_new.com.chosen.Model.ChargeModel;
 import chosen_new.com.chosen.Model.FbLoginModel;
 import chosen_new.com.chosen.Model.FbRegisModel;
 import chosen_new.com.chosen.Model.GetCardModel;
+import chosen_new.com.chosen.Model.InvoiceCardModel;
 import chosen_new.com.chosen.Model.LoginModel;
 import chosen_new.com.chosen.Model.MapModel_;
 import chosen_new.com.chosen.Model.PaymentInvoiceModel;
 import chosen_new.com.chosen.Model.PaymentModel;
 import chosen_new.com.chosen.Model.RegisterModel;
-import chosen_new.com.chosen.Model.ResPaypal.ResultPaymentModel;
+import chosen_new.com.chosen.Model.ResultPaymentModel;
+import chosen_new.com.chosen.Model.UserInvoiceModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -96,11 +98,23 @@ public interface ApiService {
                                             );
     @FormUrlEncoded
     @POST("card/addcard")
-    Call<AddCardModel> addCard(     @Field("user_id") String uid,
+    Call<AddCardModel> addCard( @Field("user_id") String uid,
                                     @Field("card_id") String card_id
 
                                     );
+    @FormUrlEncoded
+    @POST("payment/get_card_invoice")
+    Call<List<InvoiceCardModel>> getInvoice(@Field("user_id") String uid,
+                                      @Field("card_id") String card_id
 
+    );
+
+
+    @GET("payment")
+    Call<List<UserInvoiceModel>> getInvoiceUser(@Query("user_id") String uid
+
+
+    );
 
 
 }

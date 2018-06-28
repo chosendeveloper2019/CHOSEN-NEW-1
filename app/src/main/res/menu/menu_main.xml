@@ -2,9 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="chosen_new.com.chosen.MainActivity">
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
+        android:icon="@drawable/ic_close"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
 </menu>

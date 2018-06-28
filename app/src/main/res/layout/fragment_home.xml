@@ -34,20 +34,20 @@ android:orientation="vertical">
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.038">
 
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="49dp"
-            android:backgroundTint="#d5818080"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_search" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_search"-->
+            <!--android:layout_width="49dp"-->
+            <!--android:backgroundTint="#d5818080"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableLeft="@drawable/ic_search" />-->
 
-        <EditText
-            android:id="@+id/et_search_map"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:hint="@string/et_sheach"
-            android:inputType="text" />
+        <!--<EditText-->
+            <!--android:id="@+id/et_search_map"-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:hint="@string/et_sheach"-->
+            <!--android:inputType="text" />-->
 
 
     </LinearLayout>
@@ -56,7 +56,7 @@ android:orientation="vertical">
     <LinearLayout
         android:id="@+id/detail"
         android:layout_width="match_parent"
-        android:layout_height="255dp"
+        android:layout_height="130dp"
         android:layout_marginBottom="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -108,22 +108,23 @@ android:orientation="vertical">
                     android:gravity="right"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_numstation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="10dp"
-                        android:singleLine="false"
-                        android:text="@string/tv_header_dt"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/bootstrap_brand_secondary_fill" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_numstation"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="30dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:singleLine="false"-->
+                        <!--android:text="@string/tv_header_dt"-->
+                        <!--android:textAlignment="textEnd"-->
+                        <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
                     <TextView
                         android:id="@+id/tv_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="30dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
                         android:singleLine="false"
                         android:text="@string/tv_header_dt"
                         android:textAlignment="textEnd"
@@ -143,69 +144,71 @@ android:orientation="vertical">
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:text="@string/tv_detail_lbl"
-                        android:textColor="@color/bootstrap_brand_secondary_fill" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:paddingTop="10dp"-->
+                        <!--android:text="@string/tv_detail_lbl"-->
+                        <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:gravity="center"
                         android:paddingTop="5dp">
 
                         <TextView
                             android:id="@+id/tv_share"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
                             android:layout_marginRight="15dp"
                             android:drawableLeft="@drawable/ic_navigation"
                             android:drawablePadding="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="20dp"
+                            android:textSize="30dp"
                             android:text="Navigation  "
                             android:textColor="#FFF" />
+
                     </LinearLayout>
 
                 </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/tv_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/app_name"
-                    android:textColor="@color/bootstrap_brand_secondary_fill" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_detail"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:text="@string/app_name"-->
+                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:id="@+id/tv_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_detail_lbl"
-                    android:textColor="@color/bootstrap_brand_secondary_fill" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_start"-->
+                    <!---->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/tv_detail_lbl"-->
+                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
-                <TextView
-                    android:id="@+id/tv_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="@string/app_name"
-                    android:textColor="@color/bootstrap_brand_secondary_fill" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_end"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="3dp"-->
+                    <!--android:text="@string/app_name"-->
+                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
             <!--<LinearLayout-->
 
             <!--android:layout_width="match_parent"-->

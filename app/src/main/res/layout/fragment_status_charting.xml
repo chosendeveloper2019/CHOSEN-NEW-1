@@ -8,6 +8,7 @@
         android:gravity="center"
         android:background="#CCC"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -54,7 +55,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/tv_end_charge"
-                    android:text="14:30 pm."
+                    android:text=""
                     android:textColor="@color/bootstrap_brand_primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -68,15 +69,15 @@
             <TextView
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="POLE ID  :  "
+                android:text="POLE ID : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/tv_pole_id"
+                android:id="@+id/tv_poleid"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="EVB-P1615382"
-                android:layout_width="wrap_content"
+                android:text=""
+                android:layout_width="170dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -88,15 +89,15 @@
             <TextView
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="CARD ID  :  "
+                android:text="CARD ID : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_card_id"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="EVB-P1615382"
-                android:layout_width="wrap_content"
+                android:text=""
+                android:layout_width="170dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -127,12 +128,13 @@
                 <!--android:layout_marginLeft="30dp"-->
                 <!--android:layout_width="5dp"-->
                 <!--android:layout_height="200dp"/>-->
-            <ProgressBar
-
+            <ImageView
+                android:id="@+id/img_batt"
+                android:src="@drawable/ic_battery_charging_"
                 android:layout_gravity="center"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:indeterminateDrawable="@drawable/progressdrawable"
+
                 />
 
             <!--<LinearLayout-->
@@ -172,6 +174,7 @@
 
             <LinearLayout
                 android:layout_marginLeft="20dp"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -181,13 +184,16 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:text=" STATUS : "
+                        android:textStyle="bold"
+                        android:textSize="24sp"
                         android:textColor="#FFF"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_state"
-                        android:text="CHARGING"
-                        android:textColor="@color/bootstrap_brand_primary"
+                        android:text="DISCHARGING"
+                        android:textSize="24sp"
+                        android:textColor="@color/bootstrap_brand_danger"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -197,29 +203,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:text=" NORMAL CHARGING (11kw) "
+                        android:text=" NORMAL CHARGING (3.7kW) "
                         android:textColor="#676767"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:text=" PRICE : "
-                        android:textColor="#676767"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_price"
-                        android:text="CHARGING"
-                        android:textColor="#676767"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
 
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -228,6 +218,7 @@
 
         <LinearLayout
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -253,7 +244,7 @@
                         android:layout_height="70dp">
                         <TextView
                             android:id="@+id/tv_hr"
-                            android:text="01"
+                            android:text=""
                             android:textSize="30dp"
                             android:textStyle="bold"
                             android:textColor="#FFF"
@@ -270,7 +261,7 @@
 
                         <TextView
                             android:id="@+id/tv_min"
-                            android:text="12"
+                            android:text=""
                             android:textSize="30sp"
                             android:textStyle="bold"
                             android:textColor="#FFF"
@@ -282,40 +273,65 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <LinearLayout
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <!--<LinearLayout-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="match_parent">-->
 
-                <LinearLayout
-                    android:background="@drawable/kwh1"
-                    android:gravity="center"
-                    android:layout_width="80dp"
-                    android:layout_height="100dp">
-                    <TextView
-                        android:id="@+id/tv_kwh"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#fcda00"
-                        android:text="123.4"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <!--<LinearLayout-->
+                    <!--android:background="@drawable/kwh1"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:layout_marginLeft="0dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_width="70dp"-->
+                    <!--android:layout_height="80dp">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_kwh"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textColor="#fcda00"-->
+                        <!--android:text=""-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text=" PRICE : "
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#676767"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:textSize="18sp"
+                android:text=" "
+                android:textColor="#676767"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
         <TextView
             android:layout_marginTop="15dp"
             android:textColor="@color/bootstrap_brand_primary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
+            android:layout_marginBottom="35dp"
             android:text="PRICE AVERAGE"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/btn_invoice"
             android:textColor="@color/btn_background"

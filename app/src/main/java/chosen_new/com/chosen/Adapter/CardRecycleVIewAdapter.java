@@ -24,10 +24,15 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Map;
 
+import chosen_new.com.chosen.Api.CallbackGetInvoiceListener;
+import chosen_new.com.chosen.Api.FragmentShowInvoice;
+import chosen_new.com.chosen.Api.NetworkConnectionManager;
 import chosen_new.com.chosen.Fragment.FragmentStateCharting;
 import chosen_new.com.chosen.Fragment.FragmentViewCard;
+import chosen_new.com.chosen.Model.InvoiceCardModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.MyFerUtil;
+import okhttp3.ResponseBody;
 
 public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIewAdapter.MyHolder> {
 
@@ -76,30 +81,41 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
         holder.setOnClickRecycleView(new RecycleViewOnClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick, MotionEvent motionEvent) {
+                try {
 
-//                    Toast.makeText(context, "Click "+val.get(position).get(MyFerUtil.KEY_CARD_ID), Toast.LENGTH_SHORT).show();
-                    if(val.get(position).get(MyFerUtil.KEY_STATE).toString().equals("DISCHARGING")){
+//                    if(val.get(position).get(MyFerUtil.KEY_STATE).toString().equals("DISCHARGING")){
 
-
-                        Toast.makeText(context, "Go invoice.", Toast.LENGTH_SHORT).show();
-                        FragmentStateCharting stateCharting = new FragmentStateCharting();
-                        fragmentTran(stateCharting,null);
-
-                    }else if(val.get(position).get(MyFerUtil.KEY_STATE).toString().equals("CHARGING")){
 
                         editor.putString(MyFerUtil.KEY_SELECT_CARD,val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
                         editor.putString(MyFerUtil.KEY_TRANSID,"");  // put null
                         editor.commit();
 
-                        FragmentStateCharting stateCharting = new FragmentStateCharting();
-                        fragmentTran(stateCharting,null);
-                    }
+                        String stateFrg = sh.getString(MyFerUtil.STATE_FRG,MyFerUtil.VIEW_CARD);
+
+                        if (stateFrg.equals(MyFerUtil.ADD_CARD)){
+                            FragmentShowInvoice showInvoice = new FragmentShowInvoice();
+                            fragmentTran(showInvoice,null);
+                        }else{
+                            FragmentStateCharting stateCharting = new FragmentStateCharting();
+                            fragmentTran(stateCharting,null);
+                        }
+
+
+//                    }else if(val.get(position).get(MyFerUtil.KEY_STATE).toString().equals("CHARGING")){
+
+//                    }
+
+                }catch (Exception e){
+                    Log.e(TAG,e.getMessage());
+                }
+
+
 
             }
 
             @Override
             public void onLongClick(View view, int position, boolean isLongClick, MotionEvent motionEvent) {
-                    Toast.makeText(context, "Long Click "+val.get(position).get(MyFerUtil.KEY_STATE), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "Long Click "+val.get(position).get(MyFerUtil.KEY_STATE), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -120,7 +136,7 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
         try {
             return val.size();
         }catch (Exception e){
-            Toast.makeText(context, "No data", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "No data", Toast.LENGTH_SHORT).show();
             FragmentViewCard.newInstance(null);
             return 0;
 
@@ -184,4 +200,6 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
             return false;
         }
     }
+
+
 }

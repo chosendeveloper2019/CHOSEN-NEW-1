@@ -61,10 +61,12 @@ public class FragmentViewCard extends Fragment {
     private String TAG = "<FragmentViewCard>";
     private List<Map<String,Object>> val;
     private SharedPreferences sh;
+    private SharedPreferences.Editor editor;
     private String idUser;
     private TextView tv_nodata;
     private AlertDialog alertDialog;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
 
 
     public static FragmentViewCard newInstance(UserModel userModel) {
@@ -75,7 +77,7 @@ public class FragmentViewCard extends Fragment {
         return fragment;
     }
 
-    public FragmentViewCard() {
+    public FragmentViewCard(){
 
     }
 
@@ -93,21 +95,32 @@ public class FragmentViewCard extends Fragment {
 
         context = getContext();
         sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
+        editor = sh.edit();
+
+
+        editor.putString(MyFerUtil.STATE_FRG,MyFerUtil.VIEW_CARD);
+        editor.commit();
+
         tv_nodata = v.findViewById(R.id.tv_noData);
+        tv_nodata.setText("");
         idUser = sh.getString(MyFerUtil.KEY_USER_ID,"");
         adp = new CardRecycleVIewAdapter(context);
         recyclerView  = v.findViewById(R.id.recyclerCard);
         showProgressDialog();
 
-        FloatingActionButton fab = v.findViewById(R.id.fab_addCard);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //click fab
-                InsertCardDialog();
 
-            }
-        });
+
+        Button btn_add = v.findViewById(R.id.btn_add);
+        btn_add.setVisibility(View.GONE);
+
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //click fab
+//                InsertCardDialog();
+//
+//            }
+//        });
 
         mSwipeRefreshLayout = v.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -155,9 +168,7 @@ public class FragmentViewCard extends Fragment {
             @Override
             public void onClick(View view) {
                 // do scan
-//                Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-//                intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-//                getActivity().startActivityForResult(intent, 0);
+
                 IntentIntegrator integrator = new IntentIntegrator(getActivity());
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
                 integrator.setPrompt("Scan A barcode or QR Code");
@@ -174,6 +185,7 @@ public class FragmentViewCard extends Fragment {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 // do confirm
                 String input = et_cardId.getText().toString().trim();
                 input = input.toUpperCase();
@@ -188,7 +200,6 @@ public class FragmentViewCard extends Fragment {
                     Toast.makeText(context, "Please input data card id.", Toast.LENGTH_SHORT).show();
 
                 }
-
 
             }
         });
@@ -208,15 +219,19 @@ public class FragmentViewCard extends Fragment {
     CallbackCardListener listenerState =  new CallbackCardListener() {
         @Override
         public void onResponse(List<GetCardModel> res) {
+
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
+
             try{
 
                 String result = new Gson().toJson(res);
-                Log.e(TAG,result);
-                if(!result.equals("[]"))
+//                Log.e(TAG,result);
+                if(!result.equals("[]")){
                     tv_nodata.setVisibility(View.GONE);
+                }
+
 
                 for (int i = 0;i<res.size();i++){
                     Map<String,Object> getRes = new HashMap<>();
@@ -225,19 +240,18 @@ public class FragmentViewCard extends Fragment {
                     val.add(getRes);
                 }
 
-
                 recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter(adp);
 
                 adp.UpdateData(val);
 
             }catch (Exception e){
+
                 Toast.makeText(context, "Null ", Toast.LENGTH_SHORT).show();
+
             }
 
-
         }
-
 
 
         @Override
@@ -246,10 +260,13 @@ public class FragmentViewCard extends Fragment {
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
+            tv_nodata.setText("No Data.");
             tv_nodata.setVisibility(View.VISIBLE);
+
             Log.e(TAG,"responseBodyError "+responseBodyError.source());
 
         }
+
 
         @Override
         public void onBodyErrorIsNull() {
@@ -257,6 +274,7 @@ public class FragmentViewCard extends Fragment {
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
+            tv_nodata.setText("No Data.");
             tv_nodata.setVisibility(View.VISIBLE);
             Log.e(TAG,"null");
 
@@ -268,6 +286,8 @@ public class FragmentViewCard extends Fragment {
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
+
+            tv_nodata.setText("No Data.");
             tv_nodata.setVisibility(View.VISIBLE);
             Log.e(TAG,"  "+t.getMessage());
         }
@@ -276,8 +296,10 @@ public class FragmentViewCard extends Fragment {
     CallbackAddcardListener listenerAddcard = new CallbackAddcardListener() {
         @Override
         public void onResponse(AddCardModel res) {
+
             Toast.makeText(context, ""+res.getState(), Toast.LENGTH_SHORT).show();
             alertDialog.dismiss();
+
         }
 
         @Override

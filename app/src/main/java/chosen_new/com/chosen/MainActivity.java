@@ -1,6 +1,7 @@
 package chosen_new.com.chosen;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import java.security.NoSuchAlgorithmException;
 
 import chosen_new.com.chosen.Fragment.FragmentLogin;
 import chosen_new.com.chosen.Fragment.LoginFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
@@ -141,4 +143,10 @@ private void do_exit(){
 
         }
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
 }

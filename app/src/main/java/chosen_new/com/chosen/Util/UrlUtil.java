@@ -7,6 +7,7 @@ public class UrlUtil {
       public static final String URLPAYMENT = "http://paypal.chosenenergy.co.th/";
 //    public static final String URL = "http://maxosx.ddns.net:81/";
    // public static final String URL = "http://maxosx.thddns.net:5220/";
+    public static final String URL_PAYMENT_WEB = "http://app.chosenenergy.co.th/payment/showmyinvoice/";
     public static final String URL_LOGIN = URL + "/Auth/Login";
     public static final String URL_HOME = URL + "/Home/map";
     public static final String URL_CARD = URL + "/Card";

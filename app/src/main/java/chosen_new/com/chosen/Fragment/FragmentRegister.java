@@ -89,7 +89,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
         //init facebook authentication
         callbackManager = CallbackManager.Factory.create();
         loginButton =  v.findViewById(R.id.btn_register_btn_face);
-        loginButton.setReadPermissions( Arrays.asList("user_status"));
+        loginButton.setReadPermissions("email");
         // If using in a fragment
         loginButton.setFragment(this);
 
@@ -106,7 +106,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
 //                                Log.v("LoginActivity", response.toString());
-
+                                Log.v("LoginActivity", response.toString());
                                 // Application code
                                 try {
 
@@ -115,7 +115,7 @@ public class FragmentRegister extends Fragment implements View.OnClickListener {
 
                                     et_email.setText(email);
                                     et_fullname.setText(name);
-                                    Log.e(TAG,"ID:"+profile.getId());
+//                                    Log.e(TAG,"ID:"+profile.getId());
                                     new NetworkConnectionManager().callFbRegis(listener,profile.getId(),email,name,email);
 
 

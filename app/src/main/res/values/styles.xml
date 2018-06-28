@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/cardview_dark_background</item>
+        <item name="actionOverflowButtonStyle">@style/OverFlow</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -30,6 +31,10 @@
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="OverFlow" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_settings</item>
     </style>
 
 </resources>

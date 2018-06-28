@@ -8,8 +8,8 @@
     <string name="google_maps_key">AIzaSyBu8tBKpmEhHrzw70XrVa8vMxftmw1gO50</string>
 
     <!--facebook authen-->
-    <string name="facebook_app_id">2021199648131556</string>
-    <string name="fb_login_protocol_scheme">fb2021199648131556</string>
+    <string name="facebook_app_id">153692355492535</string>
+    <string name="fb_login_protocol_scheme">fb153692355492535</string>
 
     <string name="tv_username">Username</string>
     <string name="tv_password">Password</string>
@@ -84,10 +84,30 @@
     <string name="tv_header_invoice">Payment Invoice</string>
     <string name="btn_pay_now">Pay Now</string>
     <string name="btn_not_now">Not Now</string>
-    <string name="tv_lbl_card_id">CARD ID </string>
-    <string name="tv_lbl_pole_id">POLE ID :</string>
+    <string name="tv_lbl_card_id">CARD ID</string>
+    <string name="tv_lbl_pole_id">POLE ID : </string>
     <string name="tv_header_incard">Input Data Card</string>
     <string name="et_card_id">Card ID</string>
+    <string name="tv_lbl_pay_code">Pay Code :</string>
+    <string name="tv_lbl_create_date">Create :</string>
+    <string name="tv_lbl_poleid">Pole ID :</string>
+    <string name="tv_amt">Price :</string>
+    <string name="tv_price">Price :</string>
+    <string name="tv_card_id">Card ID :</string>
+    <string name="btn_add">Add Card</string>
+    <string name="menu_card">CARD</string>
+    <string name="menu_charge">CHARGE</string>
+    <string name="menu_payment">PAYMENT</string>
+    <string name="menu_invoice">INVOICE</string>
+    <string name="menu_home">HOME</string>
+
+    <string-array name="state_invoice">
+        <item>Please Select Status</item>
+        <item>Paid</item>
+        <item>UnPaid</item>
+
+    </string-array>
+
 
 
 </resources>

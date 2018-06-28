@@ -64,23 +64,23 @@ public class InvoiceFragment extends Fragment implements ConnectivityReceiverUti
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
-        UserModel userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
-
-        if(ConnectivityReceiverUtil.isConnected()){
-            new LoadDataInvoice(String.valueOf(userModel.getUser_id())).execute();
-
-            Button twitterButton = (Button) view.findViewById(R.id.ClickInvoice);
+        recyclerview = view.findViewById(R.id.recyclerview);
+//        UserModel userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
+//
+//        if(ConnectivityReceiverUtil.isConnected()){
+//            new LoadDataInvoice(String.valueOf(userModel.getUser_id())).execute();
+//
+            Button twitterButton = view.findViewById(R.id.ClickInvoice);
             twitterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     sendToInvoice(1021);
                 }
             });
-
-        } else {
-            showSnack("Sorry! Not connected to internet");
-        }
+//
+//        } else {
+//            showSnack("Sorry! Not connected to internet");
+//        }
 
     }
 
