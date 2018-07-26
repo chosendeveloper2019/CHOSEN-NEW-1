@@ -1,14 +1,12 @@
 package chosen_new.com.chosen.Adapter;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,20 +17,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
 
-import chosen_new.com.chosen.Api.CallbackGetInvoiceListener;
-import chosen_new.com.chosen.Api.FragmentShowInvoice;
-import chosen_new.com.chosen.Api.NetworkConnectionManager;
+import chosen_new.com.chosen.Fragment.FragmentShowInvoice;
+import chosen_new.com.chosen.Fragment.FragmentCarModel;
 import chosen_new.com.chosen.Fragment.FragmentStateCharting;
 import chosen_new.com.chosen.Fragment.FragmentViewCard;
-import chosen_new.com.chosen.Model.InvoiceCardModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.MyFerUtil;
-import okhttp3.ResponseBody;
 
 public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIewAdapter.MyHolder> {
 
@@ -63,14 +59,85 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
     }
 
     @Override
-    public void onBindViewHolder(CardRecycleVIewAdapter.MyHolder holder, int position) {
+    public void onBindViewHolder(CardRecycleVIewAdapter.MyHolder holder, final int position) {
 
-//        Log.e(TAG,""+val.get(position).get(MyFerUtil.KEY_STATE) + " cardid : = "+val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
+        String pageNow = sh.getString(MyFerUtil.KEY_PAGE_NOW,"");
+        String path = ""+val.get(position).get(MyFerUtil.CAR_URL);
+
+        try{
+            Picasso.with(context).load(path).resize(100,100)
+                    .into(holder.imageView);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+//        Log.e(TAG+" IMG",""+val.get(position).get(MyFerUtil.CAR_URL));
+        if(!pageNow.equals(MyFerUtil.ADD_CARD)){
+
+           holder.btn_invoice.setVisibility(View.GONE);
+           holder.btn_car_model.setVisibility(View.GONE);
+
+
+        }else {
+
+            holder.btn_invoice.setVisibility(View.VISIBLE);
+            holder.btn_car_model.setVisibility(View.VISIBLE);
+
+        }
+
+        String CAR = ""+val.get(position).get(MyFerUtil.CAR_MODEL);
+
+        if(!CAR.isEmpty()){
+
+//        Log.e(TAG,""+val.get(position).get(MyFerUtil.CAR_MODEL));
+            holder.tv_car_model.setText(""+val.get(position).get(MyFerUtil.CAR_MODEL));
+
+        }else {
+
+            holder.tv_car_model.setText("  ");
+
+        }
+
+        holder.btn_car_model.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editor.putString(MyFerUtil.KEY_SELECT_CARD,
+                        val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
+                editor.commit();
+
+                fragmentTran(new FragmentCarModel(),null);
+
+            }
+        });
+
+        holder.btn_invoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editor.putString(MyFerUtil.KEY_SELECT_CARD,val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
+                editor.putString(MyFerUtil.KEY_TRANSID,"");  // put null
+                editor.putString(MyFerUtil.CAR_URL,""+val.get(position).get(MyFerUtil.CAR_URL));
+                editor.commit();
+
+                String stateFrg = sh.getString(MyFerUtil.STATE_FRG,MyFerUtil.VIEW_CARD);
+
+                if (stateFrg.equals(MyFerUtil.ADD_CARD)){
+
+                    FragmentShowInvoice showInvoice = new FragmentShowInvoice();
+                    fragmentTran(showInvoice,null);
+
+                }else{
+                    FragmentStateCharting stateCharting = new FragmentStateCharting();
+                    fragmentTran(stateCharting,null);
+                    Log.e(TAG,""+val.get(position).get(MyFerUtil.CAR_URL));
+                }
+            }
+        });
 
         if(val.get(position).get(MyFerUtil.KEY_STATE).toString().equals("DISCHARGING")){
 
-            holder.imageView.setImageResource(R.drawable.discharge);//ContextCompat.getDrawable(homeTeamViewHolder.mcontext,str) //R.drawable.discharge
-
+            holder.imageView.setImageResource(R.drawable.available);
         }else {
 
            holder.imageView.setImageResource(R.drawable.charging);
@@ -78,6 +145,7 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
         }
 
         holder.tv_card_id.setText(val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
+
         holder.setOnClickRecycleView(new RecycleViewOnClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick, MotionEvent motionEvent) {
@@ -93,11 +161,16 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
                         String stateFrg = sh.getString(MyFerUtil.STATE_FRG,MyFerUtil.VIEW_CARD);
 
                         if (stateFrg.equals(MyFerUtil.ADD_CARD)){
+
                             FragmentShowInvoice showInvoice = new FragmentShowInvoice();
                             fragmentTran(showInvoice,null);
+
                         }else{
+
                             FragmentStateCharting stateCharting = new FragmentStateCharting();
                             fragmentTran(stateCharting,null);
+
+
                         }
 
 
@@ -148,7 +221,7 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
 
         FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
         FragmentTransaction frgTran = fragmentManager.beginTransaction();
-        frgTran.replace(R.id.content, fragment).addToBackStack(null).commit();
+        frgTran.replace(R.id.container, fragment).addToBackStack(null).commit();
 
     }
 
@@ -156,8 +229,9 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
             , View.OnLongClickListener, View.OnTouchListener{
         Context context;
 
-        TextView tv_card_id;
+        TextView tv_card_id,tv_car_model;
         ImageView imageView;
+        Button btn_car_model,btn_invoice;
 
 
         RecycleViewOnClickListener listener;
@@ -168,7 +242,11 @@ public class CardRecycleVIewAdapter extends RecyclerView.Adapter<CardRecycleVIew
 
             this.context = context;
             tv_card_id = v.findViewById(R.id.tv_card_show);
+            tv_car_model = v.findViewById(R.id.tv_car_name);
+            btn_car_model = v.findViewById(R.id.btn_carmodel);
+            btn_invoice = v.findViewById(R.id.btn_invoice);
             imageView = v.findViewById(R.id.imgState);
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 

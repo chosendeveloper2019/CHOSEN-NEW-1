@@ -11,6 +11,12 @@ public class GetCardModel {
     @SerializedName("state")
     @Expose
     private String state;
+    @SerializedName("car_model")
+    @Expose
+    private String carModel;
+    @SerializedName("car_image")
+    @Expose
+    private String carImage;
 
     public String getCardId() {
         return cardId;
@@ -27,4 +33,21 @@ public class GetCardModel {
     public void setState(String state) {
         this.state = state;
     }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public String getCarImage() {
+        return carImage;
+    }
+
+    public void setCarImage(String carImage) {
+        this.carImage = carImage;
+    }
+
 }

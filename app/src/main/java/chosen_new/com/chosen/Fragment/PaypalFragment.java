@@ -32,6 +32,7 @@ import chosen_new.com.chosen.Util.MyFerUtil;
 import okhttp3.ResponseBody;
 
 public class PaypalFragment extends Fragment {
+
     private static final String TAG = PaypalFragment.class.getName();
     private static final String KEY_DATA_USER = "KEY_DATA_USER";;
 
@@ -88,17 +89,10 @@ public class PaypalFragment extends Fragment {
         sh =getActivity().getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
         editor = sh.edit();
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("PAYMENT");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.title_usege));
 
         usr_id = sh.getString(MyFerUtil.KEY_USER_ID,"");
 
-        //start Payment service
-
-//        Intent intent = new Intent(context,PayPalService.class);
-//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-//        getActivity().startService(intent);
-//        et_amt = view.findViewById(R.id.et_amt);
-//        view.findViewById(R.id.btn_confirm).setOnClickListener(this);
         tv_noData = view.findViewById(R.id.tv_noData);
 
         tv_noData.setText("");
@@ -109,6 +103,8 @@ public class PaypalFragment extends Fragment {
         lisValue = new ArrayList<>();
 
         startLoading();
+
+        //api call invoice by user_id
         new NetworkConnectionManager().callShowInvoiceUser(listener,usr_id);
 
 
@@ -146,6 +142,8 @@ public class PaypalFragment extends Fragment {
                 result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
                 result.put(MyFerUtil.KEY_STATE_PAY,res.get(i).getPaymentStatus());
                 result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
+                result.put(MyFerUtil.KEY_KWH,res.get(i).getKwh());
+                result.put(MyFerUtil.KEY_PAGE_NOW,"payment");
                 lisValue.add(result);
 
             }
@@ -156,7 +154,7 @@ public class PaypalFragment extends Fragment {
 
             adp.UpdateData(lisValue);
 
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_payment)+" : "+res.size()+" Records");
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.title_usege)+" : "+res.size()+" "+getString(R.string.record));
 
         }
 
@@ -186,102 +184,7 @@ public class PaypalFragment extends Fragment {
             tv_noData.setVisibility(View.VISIBLE);
             Log.e(TAG,t.getMessage());
         }
-//    };
-
 
     };
-//    private void ProcessPayment()
-//    {
-//        amtPay = et_amt.getText().toString();
-//        PayPalPayment payPalPayment  = new PayPalPayment(new BigDecimal(String.valueOf(amtPay)),
-//                "THB"," CHOSEN PAY ",PayPalPayment.PAYMENT_INTENT_SALE);
-//        Intent intent = new Intent(context, PaymentActivity.class);
-//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-//        intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
-//        startActivityForResult(intent,PAYPAL_REQUEST_CODE);
-//
-//    }
-//
-//    private void showPayment(String idPayment,String amt ,String state){
-//
-//        //show detail for reserve
-//        LayoutInflater inflater = getLayoutInflater();
-//        View alertLayout = inflater.inflate(R.layout.layout_state_payment, null);
-//        TextView tv_idPay = alertLayout.findViewById(R.id.tv_id_payment);
-//        TextView tv_amp = alertLayout.findViewById(R.id.tv_amt);
-//        TextView tv_state = alertLayout.findViewById(R.id.tv_state);
-//        Button btn_OK = alertLayout.findViewById(R.id.btn_OK);
-//
-//        //set state
-//        tv_idPay.setText(idPayment);
-//        tv_amp.setText(amt);
-//        tv_state.setText(state);
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.AppTheme_NoActionBar);
-//        builder.setView(alertLayout);
-//
-//        final AlertDialog dialog  = builder.show();
-//
-//        //event onclick
-//        btn_OK.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                et_amt.setText("");
-//                dialog.dismiss();
-//
-//            }
-//        });
-//
-//
-//    }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        if(requestCode == PAYPAL_REQUEST_CODE){
-//            if(resultCode == RESULT_OK)
-//            {
-//                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-//                if(confirm != null){
-//
-//                    try {
-//                        String paymentDetail = confirm.toJSONObject().toString(4);
-//                        Log.d(TAG,paymentDetail); // result
-//                        JSONObject jsonObject = new JSONObject(paymentDetail);
-//                        JSONObject response = new JSONObject(jsonObject.getString("response"));
-//
-//                        showPayment(response.getString("id"),amtPay,response.getString("state"));
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }else if(requestCode == Activity.RESULT_CANCELED){
-//                Toast.makeText(context, "Cancel", Toast.LENGTH_SHORT).show();
-//            }
-//        }else if(requestCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-//            Toast.makeText(context, "Invalid", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        //stop service
-//        getActivity().stopService(new Intent(context,PayPalService.class));
-//
-//        super.onDestroy();
-//    }
-
-//    @Override
-//    public void onClick(View view) {
-//        switch (view.getId()){
-//            case R.id.btn_confirm:
-////                ProcessPayment();
-//                break;
-//
-//        }
-//    }
-
 
 }

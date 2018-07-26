@@ -2,6 +2,7 @@ package chosen_new.com.chosen.Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +47,7 @@ import chosen_new.com.chosen.Model.ReportModel;
 import chosen_new.com.chosen.Model.UserModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.ConnectivityReceiverUtil;
+import chosen_new.com.chosen.Util.MyFerUtil;
 import chosen_new.com.chosen.Util.UrlUtil;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -59,6 +63,12 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
     private Spinner spinner_item;
     private TabLayout tabLayout;
     private ViewPager viewpager_report;
+
+    private SharedPreferences sh;
+    private SharedPreferences.Editor editor;
+    private Context context;
+    private String uid = "";
+
 //    private RecyclerView recyclerview;
 //    private ProgressBar progressBar;
 
@@ -66,13 +76,15 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
 
     private Calendar myCalendar = Calendar.getInstance();
 
-    public static ReportCardFragment newInstance(UserModel userModel){
-        ReportCardFragment fragment = new ReportCardFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_DATA_USER, userModel);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+//    public static ReportCardFragment newInstance(UserModel userModel){
+//
+//        ReportCardFragment fragment = new ReportCardFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable(KEY_DATA_USER, userModel);
+//        fragment.setArguments(bundle);
+//        return fragment;
+//
+//    }
 
     public ReportCardFragment(){ }
 
@@ -85,6 +97,9 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        context = getContext();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_report));
         TVtotal_charges = (TextView) view.findViewById(R.id.total_charges);
         spinner_item = (Spinner) view.findViewById(R.id.spinner_item);
         edittext_start_date = (EditText) view.findViewById(R.id.edittext_start_date);
@@ -92,12 +107,16 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
         button_go = (TextView) view.findViewById(R.id.button_go);
         button_clear = (TextView) view.findViewById(R.id.button_clear);
         viewpager_report = (ViewPager) view.findViewById(R.id.viewpager_report);
+
 //        recyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
 //        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout =  view.findViewById(R.id.tabs);
 
-        final UserModel userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
+        sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
+        editor = sh.edit();
+
+        uid = sh.getString(MyFerUtil.KEY_USER_ID,"");
 
         final DatePickerDialog.OnDateSetListener dateStart = new DatePickerDialog.OnDateSetListener() {
 
@@ -111,6 +130,7 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
             }
 
         };
+
         edittext_start_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,23 +163,29 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
         button_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ConnectivityReceiverUtil.isConnected()){
-                    String startDate = edittext_start_date.getText().toString();
-                    String endDate = edittext_end_date.getText().toString();
-                    if(list_data_card.size() > 0){
-                        button_go.setEnabled(false);
+//                Toast.makeText(getContext(), "Doooooooo", Toast.LENGTH_SHORT).show();
+                try{
+                    if(ConnectivityReceiverUtil.isConnected()){
+                        String startDate = edittext_start_date.getText().toString();
+                        String endDate = edittext_end_date.getText().toString();
+                        if(list_data_card.size() > 0){
+                            button_go.setEnabled(false);
 //                        progressBar.setVisibility(View.VISIBLE);
-                        String card_id = "";
-                        if(spinner_item.getSelectedItemPosition() > 0){
-                            card_id = spinner_item.getSelectedItem().toString();
+                            String card_id = "";
+                            if(spinner_item.getSelectedItemPosition() > 0){
+                                card_id = spinner_item.getSelectedItem().toString();
+                            }
+                            new LoadDataReportCard(String.valueOf(uid), card_id,
+                                    startDate, endDate).execute();
+                        } else {
+                            showSnack("Please, Select Card.");
                         }
-                        new LoadDataReportCard(String.valueOf(userModel.getUser_id()), card_id,
-                                startDate, endDate).execute();
                     } else {
-                        showSnack("Please, Select Card.");
+                        showSnack("Sorry! Not connected to internet");
                     }
-                } else {
-                    showSnack("Sorry! Not connected to internet");
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -176,7 +202,7 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
         });
 
 //        progressBar.setVisibility(View.GONE);
-        new LoadDataCard(String.valueOf(userModel.getUser_id())).execute();
+        new LoadDataCard(String.valueOf(uid)).execute();
     }
 
     private void updateStart() {
@@ -304,6 +330,7 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
                 viewpager_report.setOffscreenPageLimit(3);
                 try {
                     JSONArray data = new JSONArray(obj.getJSONArray("Datagrid").toString());
+
                     if (data.length() > 0) {
                         for (int i = 0; i < data.length(); i++) {
                             JSONObject object = data.getJSONObject(i);
@@ -324,6 +351,7 @@ public class ReportCardFragment extends Fragment implements ConnectivityReceiver
     }
 
     private void setupViewPager(ViewPager viewPager, String json_table, String PieChart, String ComboChart) {
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity(), getChildFragmentManager());
         adapter.addFrag(StaticReportFragment.newInstance(json_table), "Static");
         adapter.addFrag(PieChartFragment.newInstance(PieChart), "Pie Chart");

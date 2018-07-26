@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-
+    android:background="@drawable/blond"
     android:gravity="center"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -9,9 +9,8 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/btn_login"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -190,13 +189,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/btn_register_btn_face"
-        android:text="Register"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+    <!--<com.facebook.login.widget.LoginButton-->
+        <!--android:id="@+id/btn_register_btn_face"-->
+        <!--android:text="Register"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content" />-->
     <LinearLayout
         android:gravity="center"
         android:layout_marginTop="20dp"

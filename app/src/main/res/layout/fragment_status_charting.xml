@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#CCC"
+    android:background="@drawable/blond"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:gravity="center"
-        android:background="#CCC"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent">
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center"
@@ -29,13 +28,14 @@
                     android:layout_height="wrap_content"
                     android:text="START CHARGE"
                     android:textColor="#FFF"
-                    android:textSize="20dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_start_charge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="14sp"
                     android:text="13:00 pm."
                     android:textColor="#FFF" />
             </LinearLayout>
@@ -50,24 +50,25 @@
                     android:text="NOW"
                     android:textColor="@color/bootstrap_brand_primary"
                     android:textStyle="bold"
-                    android:textSize="20dp"
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/tv_end_charge"
                     android:text=""
+                    android:textSize="14sp"
                     android:textColor="@color/bootstrap_brand_primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="POLE ID : "
                 android:layout_width="wrap_content"
@@ -82,19 +83,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="CARD ID : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_card_id"
-                android:textSize="20dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text=""
                 android:layout_width="170dp"
@@ -103,7 +103,7 @@
 
         <LinearLayout
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!--<LinearLayout-->
@@ -129,11 +129,24 @@
                 <!--android:layout_width="5dp"-->
                 <!--android:layout_height="200dp"/>-->
             <ImageView
+                android:id="@+id/img_car"
+                android:src="@drawable/ic_directions_car"
+                android:layout_gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+
+                />
+            <LinearLayout
+                android:background="#000"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
                 android:id="@+id/img_batt"
                 android:src="@drawable/ic_battery_charging_"
                 android:layout_gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
 
                 />
 
@@ -160,6 +173,7 @@
             android:layout_marginTop="10dp"
             android:text="Update every 1 minute"
             android:paddingTop="0dp"
+            android:textSize="8dp"
             android:drawableRight="@drawable/ic_autorenew"
             android:drawablePadding="10dp"
             android:layout_width="wrap_content"
@@ -170,10 +184,15 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/img_graph"
+                android:src="@drawable/graph"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
 
 
             <LinearLayout
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="0dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -185,14 +204,15 @@
                     <TextView
                         android:text=" STATUS : "
                         android:textStyle="bold"
-                        android:textSize="24sp"
+                        android:textAlignment="textEnd"
+                        android:textSize="12sp"
                         android:textColor="#FFF"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_state"
                         android:text="DISCHARGING"
-                        android:textSize="24sp"
+                        android:textSize="12sp"
                         android:textColor="@color/bootstrap_brand_danger"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -204,33 +224,57 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:text=" NORMAL CHARGING (3.7kW) "
+                        android:textSize="8dp"
                         android:textColor="#676767"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/tv_price"
+                        android:textStyle="bold"
+                        android:textSize="10sp"
+                        android:textAlignment="textEnd"
+                        android:textColor="#676767"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:textSize="10sp"
+                        android:text=""
+                        android:textColor="#676767"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </LinearLayout>
+
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="110dp">
+            android:layout_height="80dp">
             <LinearLayout
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="180dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:textStyle="bold"
                     android:text="TIME"
+                    android:layout_marginRight="35dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <LinearLayout
@@ -240,14 +284,15 @@
                     <LinearLayout
                         android:gravity="center"
                         android:background="@drawable/hour"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp">
+                        android:layout_marginTop="7dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
                         <TextView
                             android:id="@+id/tv_hr"
                             android:text=""
-                            android:textSize="30dp"
+                            android:textSize="18dp"
                             android:textStyle="bold"
-                            android:textColor="#FFF"
+                            android:textColor="@color/bootstrap_brand_primary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -255,21 +300,39 @@
                     <LinearLayout
                         android:gravity="center"
                         android:layout_marginLeft="10dp"
+                        android:layout_marginTop="7dp"
                         android:background="@drawable/min"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp">
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
 
                         <TextView
                             android:id="@+id/tv_min"
                             android:text=""
-                            android:textSize="30sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
-                            android:textColor="#FFF"
+                            android:textColor="@color/bootstrap_brand_primary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/kwh1"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp">
 
+                        <TextView
+                            android:id="@+id/tv_kwh"
+                            android:text="123412.00"
+                            android:textSize="8sp"
+                            android:layout_marginTop="8dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/bootstrap_brand_primary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
@@ -301,42 +364,35 @@
             <!--</LinearLayout>-->
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text=" PRICE : "
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#676767"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_price"
-                android:textSize="18sp"
-                android:text=" "
-                android:textColor="#676767"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
         <TextView
-            android:layout_marginTop="15dp"
-            android:textColor="@color/bootstrap_brand_primary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="35dp"
-            android:text="PRICE AVERAGE"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="1dp"
+            android:text="PRICE AVERAGE"
+            android:textColor="@color/bootstrap_brand_primary"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_priceAvinew"
+            android:layout_width="200dp"
+            android:textAlignment="center"
+            android:paddingTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/bootstrap_brand_success"
+            android:text=""
+            android:textColor="#FFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_invoice"
             android:textColor="@color/btn_background"
             android:backgroundTint="@color/bootstrap_brand_success"
             android:textStyle="bold"
+            android:visibility="gone"
             android:text="Show invoice and Payment"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

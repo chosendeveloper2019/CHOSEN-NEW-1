@@ -1,6 +1,8 @@
 package chosen_new.com.chosen.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import chosen_new.com.chosen.Model.InvoiceModel;
 import chosen_new.com.chosen.Model.UserModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.ConnectivityReceiverUtil;
+import chosen_new.com.chosen.Util.MyFerUtil;
 import chosen_new.com.chosen.Util.UrlUtil;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -40,6 +43,10 @@ public class InvoiceFragment extends Fragment implements ConnectivityReceiverUti
     private RecyclerView recyclerview;
     private ArrayList<InvoiceModel> list_data_invoice;
     private View User_id;
+    private String uid;
+
+    private SharedPreferences sh;
+
 
     public static InvoiceFragment newInstance(UserModel userModel){
         InvoiceFragment fragment = new InvoiceFragment();
@@ -67,20 +74,24 @@ public class InvoiceFragment extends Fragment implements ConnectivityReceiverUti
         recyclerview = view.findViewById(R.id.recyclerview);
 //        UserModel userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
 //
-//        if(ConnectivityReceiverUtil.isConnected()){
+        if(ConnectivityReceiverUtil.isConnected()){
 //            new LoadDataInvoice(String.valueOf(userModel.getUser_id())).execute();
-//
+
+            sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER, Context.MODE_PRIVATE);
+
+
+            uid = sh.getString(MyFerUtil.KEY_USER_ID,"");
             Button twitterButton = view.findViewById(R.id.ClickInvoice);
             twitterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sendToInvoice(1021);
+                    sendToInvoice(Integer.parseInt(uid));
                 }
             });
-//
-//        } else {
-//            showSnack("Sorry! Not connected to internet");
-//        }
+
+        } else {
+            showSnack("Sorry! Not connected to internet");
+        }
 
     }
 
@@ -122,7 +133,7 @@ public class InvoiceFragment extends Fragment implements ConnectivityReceiverUti
 
         @Override
         protected void onPostExecute(String response) {
-            Log.w(TAG, response);
+//            Log.w(TAG, response);
             try {
                 JSONArray data = new JSONArray(response);
                 list_data_invoice = new ArrayList<>();

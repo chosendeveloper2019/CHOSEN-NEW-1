@@ -56,6 +56,7 @@ import chosen_new.com.chosen.Model.LoginModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.MyFerUtil;
 import okhttp3.ResponseBody;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentLogin extends Fragment implements View.OnClickListener{
 
@@ -133,10 +134,57 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                try {
+                    // App code
+                    final Profile profile = Profile.getCurrentProfile();
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
 
-                // App code
-                final Profile profile = Profile.getCurrentProfile();
-                new NetworkConnectionManager().callFbLogin(listenerFacebook,profile.getId());
+//                                Log.v("LoginActivity", response.toString());
+
+                                    // Application code
+                                    try {
+                                        Log.v("LoginActivity", response.toString());
+                                        Log.e(TAG,profile.getId()+" , "+profile.getName()+" "+profile.getProfilePictureUri(12,31));
+
+                                        String id = object.getString("id");
+                                        String email = object.getString("email");
+                                        String name = object.getString("name"); //
+
+                                        editor.putString(MyFerUtil.KEY_FACEBOOK_ID,id);
+                                        editor.putString(MyFerUtil.KEY_FACEBOOK_EMAIL,email);
+                                        editor.putString(MyFerUtil.KEY_FACEBOOK_NAME,name);
+                                        editor.commit();
+//                                    Log.e(TAG,object.toString());
+//                                    showProgress();
+
+//                                    //api register by facebook
+//                                    new NetworkConnectionManager().callFbRegis(listener,id,email,name,email,"","");
+                                        new NetworkConnectionManager().callFbLogin(listenerFacebook,profile.getId());
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+                    //api login facebook
+
+                }catch (Exception e){
+                    LoginManager.getInstance().logOut();
+                    Toast.makeText(context, "Please Register First.", Toast.LENGTH_SHORT).show();
+
+                }
+
+
             }
 
             @Override
@@ -178,9 +226,11 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
             String usr = et_usr.getText().toString().trim();
             String pwd = et_pwd.getText().toString().trim();
+
             if(!usr.isEmpty() && !pwd.isEmpty()){
 
                showLoading();
+               //api login by input username password
                 new NetworkConnectionManager().callLogin(listener,usr,pwd);
 
             }else {
@@ -250,7 +300,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 //        profileTracker.stopTracking();
     }
 
-    //callback from server
+    //callback from server api login by
     private CallbackLoginListener listener = new CallbackLoginListener() {
         @Override
         public void onResponse(List<LoginModel> res) {
@@ -319,16 +369,34 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
             //save to session
             String jsonResult =  saveResponseFacebook(res);
+            Log.e(TAG,new Gson().toJson(res));
 
-            Intent intent = new Intent(getActivity(), MainApplication.class);
-            intent.putExtra(MainApplication.KEY_DATA_USER, jsonResult);
-            startActivity(intent);
-            getActivity().finish();
+
+
+//            //go register
+            if(res.get(0).getUserName().isEmpty()){
+
+                Toast.makeText(context, "Please Register First.", Toast.LENGTH_SHORT).show();
+                LoginManager.getInstance().logOut();
+                fragmentTran(new FragmentRegister(),null);
+
+            }else {
+                //go home page
+//                Toast.makeText(context, "login success go to  main", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), MainApplication.class);
+                    intent.putExtra(MainApplication.KEY_DATA_USER, jsonResult);
+                    startActivity(intent);
+                    getActivity().finish();
+            }
+
+
 
         }
 
         @Override
         public void onBodyError(ResponseBody responseBodyError) {
+            Log.e(TAG,responseBodyError.source().toString());
+
 //            if(progressDialog.isShowing()){
 //                progressDialog.dismiss();
 //            }
@@ -337,15 +405,17 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
         @Override
         public void onBodyErrorIsNull() {
-            if(progressDialog.isShowing()){
-                progressDialog.dismiss();
-            }
+            Log.e(TAG,"response is null");
+//            if(progressDialog.isShowing()){
+//                progressDialog.dismiss();
+//            }
 
         }
 
         @Override
         public void onFailure(Throwable t) {
-            Log.d(TAG,t.getMessage());
+            t.printStackTrace();
+//            Log.d(TAG,t.getMessage());
 //            if(progressDialog.isShowing()){
 //                progressDialog.dismiss();
 //            }
@@ -355,11 +425,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
 
     private String saveResponse(List<LoginModel> response){
 
-
-//        JSONArray arr = new JSONArray();
-//        for(int i = 0 ;i<response.size();i++) {
-//            JSONObject jsonObject = new JSONObject();
-//            Log.e(TAG, response.get(i).toString());
             int i = 0;
             editor.putString(MyFerUtil.KEY_USER_ID, "" + response.get(i).getUserId());
             editor.putString(MyFerUtil.KEY_FULLNAME, "" + response.get(i).getUserFullname());
@@ -382,38 +447,6 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
             editor.putString(MyFerUtil.KEY_REMEMBER_TOKEN, "" + response.get(i).getRememberToken());
             editor.putString(MyFerUtil.KEY_EMAIL_CONFIRM, "" + response.get(i).getEmailConfirm());
             editor.commit();
-//        }
-
-//
-//            try {
-//                jsonObject.put(MyFerUtil.KEY_USER_ID,response.get(i).getUserId());
-//                jsonObject.put(MyFerUtil.KEY_FULLNAME,response.get(i).getUserFullname());
-//                jsonObject.put(MyFerUtil.KEY_USER_NAME,response.get(i).getUserName());
-//                jsonObject.put(MyFerUtil.KEY_USER_EMAIL,response.get(i).getUserEmail());
-//                jsonObject.put(MyFerUtil.KEY_USER_PW,response.get(i).getUserPw());
-//                jsonObject.put(MyFerUtil.KEY_PASSWORD_SALT,response.get(i).getPasswordSalt());
-//                jsonObject.put(MyFerUtil.KEY_USER_PERMIT,response.get(i).getUserPermit());
-//                jsonObject.put(MyFerUtil.KEY_USER_CREATEDTE,response.get(i).getUserCreatedate());
-//                jsonObject.put(MyFerUtil.KEY_POLE_OWNER_ID,response.get(i).getPoleOwnerId());
-//                jsonObject.put(MyFerUtil.KEY_STREET,response.get(i).getStreet());
-//                jsonObject.put(MyFerUtil.KEY_STREETNUMBER,response.get(i).getStreetnumber());
-//                jsonObject.put(MyFerUtil.KEY_CITY,response.get(i).getCity());
-//                jsonObject.put(MyFerUtil.KEY_COMPANY,response.get(i).getCompany());
-//                jsonObject.put(MyFerUtil.KEY_MOBILE,response.get(i).getMobile());
-//                jsonObject.put(MyFerUtil.KEY_FAX,response.get(i).getFax());
-//                jsonObject.put(MyFerUtil.KEY_BIC,response.get(i).getBIC());
-//                jsonObject.put(MyFerUtil.KEY_IBN,response.get(i).getIBAN());
-//                jsonObject.put(MyFerUtil.KEY_ROLES,response.get(i).getRoles());
-//                jsonObject.put(MyFerUtil.KEY_REMEMBER_TOKEN,response.get(i).getRememberToken());
-//                jsonObject.put(MyFerUtil.KEY_EMAIL_CONFIRM,response.get(i).getEmailConfirm());
-//
-//                //put json
-//                arr.put(jsonObject);
-//            } catch (JSONException e) {
-//                Log.e(TAG,e.getMessage());
-//            }
-
-
 
         return new Gson().toJson(response);
     }
@@ -421,9 +454,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
     private String saveResponseFacebook(List<FbLoginModel> response){
 
 
-        JSONArray arr = new JSONArray();
         for(int i = 0 ;i<response.size();i++){
-            JSONObject jsonObject = new JSONObject();
+
             Log.e(TAG,response.get(i).toString());
             editor.putString(MyFerUtil.KEY_USER_ID,""+response.get(i).getUserId());
             editor.putString(MyFerUtil.KEY_FULLNAME,""+response.get(i).getUserFullname());
@@ -447,38 +479,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
             editor.putString(MyFerUtil.KEY_EMAIL_CONFIRM,""+response.get(i).getEmailConfirm());
             editor.commit();
 
-
-            try {
-                jsonObject.put(MyFerUtil.KEY_USER_ID,response.get(i).getUserId());
-                jsonObject.put(MyFerUtil.KEY_FULLNAME,response.get(i).getUserFullname());
-                jsonObject.put(MyFerUtil.KEY_USER_NAME,response.get(i).getUserName());
-                jsonObject.put(MyFerUtil.KEY_USER_EMAIL,response.get(i).getUserEmail());
-                jsonObject.put(MyFerUtil.KEY_USER_PW,response.get(i).getUserPw());
-                jsonObject.put(MyFerUtil.KEY_PASSWORD_SALT,response.get(i).getPasswordSalt());
-                jsonObject.put(MyFerUtil.KEY_USER_PERMIT,response.get(i).getUserPermit());
-                jsonObject.put(MyFerUtil.KEY_USER_CREATEDTE,response.get(i).getUserCreatedate());
-                jsonObject.put(MyFerUtil.KEY_POLE_OWNER_ID,response.get(i).getPoleOwnerId());
-                jsonObject.put(MyFerUtil.KEY_STREET,response.get(i).getStreet());
-                jsonObject.put(MyFerUtil.KEY_STREETNUMBER,response.get(i).getStreetnumber());
-                jsonObject.put(MyFerUtil.KEY_CITY,response.get(i).getCity());
-                jsonObject.put(MyFerUtil.KEY_COMPANY,response.get(i).getCompany());
-                jsonObject.put(MyFerUtil.KEY_MOBILE,response.get(i).getMobile());
-                jsonObject.put(MyFerUtil.KEY_FAX,response.get(i).getFax());
-                jsonObject.put(MyFerUtil.KEY_BIC,response.get(i).getBIC());
-                jsonObject.put(MyFerUtil.KEY_IBN,response.get(i).getIBAN());
-                jsonObject.put(MyFerUtil.KEY_ROLES,response.get(i).getRoles());
-                jsonObject.put(MyFerUtil.KEY_REMEMBER_TOKEN,response.get(i).getRememberToken());
-                jsonObject.put(MyFerUtil.KEY_EMAIL_CONFIRM,response.get(i).getEmailConfirm());
-
-                //put json
-                arr.put(jsonObject);
-            } catch (JSONException e) {
-                Log.e(TAG,e.getMessage());
-            }
-
         }
 
-        return arr.toString();
+        return new Gson().toJson(response);
     }
 
     @Override
@@ -495,4 +498,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener{
         }
 
     }
+
+
+
 }

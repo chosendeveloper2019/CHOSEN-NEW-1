@@ -6,7 +6,7 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_map" />
         <item
             android:id="@+id/nav_card"
             android:icon="@drawable/ic_card"
@@ -16,14 +16,16 @@
             android:icon="@drawable/ic_battery_charging"
             android:title="@string/menu_charge" />
         <item
-        android:id="@+id/nav_paypal"
-        android:icon="@drawable/ic_paypal"
-        android:title="@string/menu_payment" />
-
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_paypal"
+            android:title="@string/menu_tran" />
         <item
             android:id="@+id/nav_invoice"
             android:icon="@drawable/ic_invoice"
-            android:title="@string/menu_invoice" />
+            android:title="@string/menu_report" />
+
+
+
 
         <!--<item-->
             <!--android:id="@+id/nav_station"-->
@@ -46,10 +48,10 @@
             <!--android:id="@+id/nav_service"-->
             <!--android:icon="@drawable/ic_service"-->
             <!--android:title="@string/nav_service" />-->
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_exit"
-            android:title="@string/nav_logout" />
+        <!--<item-->
+            <!--android:id="@+id/nav_logout"-->
+            <!--android:icon="@drawable/ic_exit"-->
+            <!--android:title="@string/action_logout" />-->
     </group>
 
 </menu>

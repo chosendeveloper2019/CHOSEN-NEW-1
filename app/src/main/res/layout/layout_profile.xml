@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:background="@drawable/blond"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_person_black_24dp"
+        app:civ_border_width="0.1dp"
+        app:civ_border_color="#FF000000"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:background="#9acccccc"
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:layout_height="150dp">
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/tv_lbl_name"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_fullname"
+                android:text="xxxxxx"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/tv_lbl_street"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_street"
+                android:text="xxxxxx"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/tv_lbl_city"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="xxxxxx"
+                android:textAlignment="textStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/tv_lbl_postalcode"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_postcode"
+                android:text="xxxxxx"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+
+            android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/tv_lbl_mobile"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:text="xxxxxx"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_edit_profile"
+            android:text="@string/btn_edit"
+            android:textColor="#fff"
+            android:backgroundTint="@color/bootstrap_brand_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:text="@string/btn_cancel"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/bootstrap_brand_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

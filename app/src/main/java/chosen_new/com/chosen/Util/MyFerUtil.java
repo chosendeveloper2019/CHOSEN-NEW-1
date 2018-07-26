@@ -5,6 +5,11 @@ public class MyFerUtil {
     public static final String MY_FER = "myfer";
     public static final String KEY_RES = "res";
 
+    public static final String KEY_FACEBOOK_ID = "KEY_FACEBOOK_ID";
+    public static final String KEY_FACEBOOK_EMAIL = "KEY_FACEBOOK_EMAIL";
+    public static final String KEY_FACEBOOK_NAME = "KEY_FACEBOOK_NAME";
+
+
     public static final String KEY_USER_ID = "user_id";
     public static final String KEY_FULLNAME = "user_fullname";
     public static final String KEY_USER_NAME = "user_name";
@@ -25,12 +30,11 @@ public class MyFerUtil {
     public static final String KEY_ROLES = "Roles";
     public static final String KEY_REMEMBER_TOKEN = "remember_token";
     public static final String KEY_EMAIL_CONFIRM = "emailConfirm";
-
+    public static final String KEY_IMAGE_USER = "imgUser";
 
     public static final String KEY_USERNAME_KEEP = "userKeep";
     public static final String KEY_PASSWORD_KEEP = "passKeep";
     public static final String KEY_PAGE_NOW = "pagenow";
-
 
     public static final String PAGE_HOME = "home";
 
@@ -63,6 +67,18 @@ public class MyFerUtil {
 
     public static final String KEY_URL_LOAD = "KEY_URL_LOAD";
     public static final String KEY_STATE_PAY = "KEY_STATE_PAY";
+
+
+    //=====car model
+    public static final String CAR_ID = "CAR_ID";
+    public static final String CAR_BRAND = "CAR_BRAND";
+    public static final String CAR_MODEL = "CAR_MODEL";
+    public static final String CAR_URL = "CAR_URL";
+
+
+
+    ///=====add new
+    public static final String KEY_KWH = "KEY_KWH";
 
 
 

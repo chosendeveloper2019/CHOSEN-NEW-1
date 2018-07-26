@@ -75,7 +75,7 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
         list = new ArrayList<>();
         lisValue = new ArrayList<>();
 
-        list.add("-");
+        list.add(getString(R.string.pleaseChoose));
         list.add("Paid");
         list.add("UnPaid");
 
@@ -83,6 +83,8 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
         adp = new InvoiceUserRecycleAdapter(context);
 
         startLoading();
+
+        // show invoice user
         new NetworkConnectionManager().callShowInvoiceUser(listener,usr_id);
 
 
@@ -93,13 +95,19 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //whatever your logic is put it here
-                if(!spinner.getSelectedItem().equals("-")){
+                if(!spinner.getSelectedItem().equals(getString(R.string.pleaseChoose))){
 
-                    adp.clear();
-                    stateInvoice = spinner.getSelectedItem().toString();
+                    try {
+                        adp.clear();
+                        stateInvoice = spinner.getSelectedItem().toString();
 
-                    startLoading();
-                    new NetworkConnectionManager().callShowInvoiceUser(listener,usr_id);
+                        startLoading();
+                        new NetworkConnectionManager().callShowInvoiceUser(listener,usr_id);
+
+                    }catch (Exception e){
+
+                    }
+
 
                 }
 
@@ -140,7 +148,7 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
             }
 
             for(int i=res.size()-1;i>0;i-- ){
-
+                Log.d(TAG,res.get(i).getPaymentsId());
                 if(stateInvoice.equals("Paid")
                         && res.get(i).getPaymentStatus().equals("True")){
 
@@ -152,6 +160,8 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
                     result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
                     result.put(MyFerUtil.KEY_STATE_PAY,res.get(i).getPaymentStatus());
                     result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
+                    result.put(MyFerUtil.KEY_KWH,res.get(i).getKwh());
+                    result.put(MyFerUtil.KEY_PAGE_NOW,"invoice");
                     lisValue.add(result);
 
                 }else if(stateInvoice.equals("UnPaid")
@@ -165,6 +175,8 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
                         result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
                         result.put(MyFerUtil.KEY_STATE_PAY,res.get(i).getPaymentStatus());
                         result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
+                        result.put(MyFerUtil.KEY_KWH,res.get(i).getKwh());
+                        result.put(MyFerUtil.KEY_PAGE_NOW,"invoice");
                         lisValue.add(result);
 
                 }
@@ -172,7 +184,8 @@ public class FragmentInvoice extends Fragment implements View.OnClickListener{
 
             }
 
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_invoice)+" : "+lisValue.size()+" Records");
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_invoice)+" : "+lisValue.size()+getString(R.string.record));
 
             recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             recyclerView.setAdapter(adp);

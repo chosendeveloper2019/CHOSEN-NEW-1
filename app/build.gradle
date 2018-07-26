@@ -18,10 +18,10 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "chosen.com.chosen_new"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 26
-        versionCode 316
-        versionName "3.1.6"
+        versionCode 336
+        versionName "3.3.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        passwordkey=chosen2018
     }
@@ -33,7 +33,11 @@ android {
             manifestPlaceholders = [mapsKey: "AIzaSyBEZB4shBAYBCpgROiA0qvuULXaqdi7ucs"]
         }
     }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/'] 
+
+} }
 }
 
 dependencies {
@@ -72,6 +76,18 @@ dependencies {
     //font
     implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
 //    implementation 'com.github.mitoyarzun:zxingfragmentlib:7cf8e9a747'
+
+    //custom language
+    implementation 'com.akexorcist:localizationactivity:1.2.2'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //image circle
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //select picture
+    implementation 'com.kbeanie:multipicker:1.1.1@aar'
 
 }
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_place"
+        android:enabled="true"
+        android:title="@string/menu_map" />
+    <item
+        android:id="@+id/nav_card"
+        android:icon="@drawable/ic_card"
+        android:enabled="true"
+        android:title="@string/menu_card" />
+    <item
+        android:id="@+id/nav_state_charge"
+        android:enabled="true"
+        android:icon="@drawable/ic_battery_charging"
+        android:title="@string/menu_charge" />
+    <item
+        android:id="@+id/nav_payment"
+        android:enabled="true"
+        android:icon="@drawable/ic_paypal"
+        android:title="@string/menu_tran" />
+    <item
+        android:id="@+id/nav_report"
+        android:enabled="true"
+        android:icon="@drawable/ic_invoice"
+        android:title="@string/menu_report" />
+
+
+
+</menu>

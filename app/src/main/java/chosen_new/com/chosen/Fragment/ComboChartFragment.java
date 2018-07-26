@@ -34,6 +34,7 @@ import chosen_new.com.chosen.Model.CombineModel;
 import chosen_new.com.chosen.R;
 
 public class ComboChartFragment extends Fragment{
+
     private static final String TAG = ComboChartFragment.class.getName();
     private static final String KEY_COMBO_CHART = "KEY_COMBO_CHART";
 
@@ -46,13 +47,17 @@ public class ComboChartFragment extends Fragment{
     private BarData BARDATA;
 
     public static ComboChartFragment newInstance(String ComboChart, String type){
+
         ComboChartFragment fragment = new ComboChartFragment();
         json_combochart = ComboChart;
         strTpye = type;
         return fragment;
+
     }
 
-    public ComboChartFragment(){ }
+    public ComboChartFragment(){
+
+    }
 
     @Nullable
     @Override
@@ -64,7 +69,7 @@ public class ComboChartFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        comboChart = (BarChart) view.findViewById(R.id.comboChart);
+        comboChart = view.findViewById(R.id.comboChart);
 
         CreateCombochart();
 
@@ -81,14 +86,17 @@ public class ComboChartFragment extends Fragment{
                     JSONObject object = data.optJSONObject(i);
                     ArrayList<BarEntry> BARENTRY = new ArrayList<>();
                     JSONArray dataChart = object.optJSONArray("VALUE");
+
                     for(int j = 0;j < dataChart.length();j++){
                         BARENTRY.add(new BarEntry(j, dataChart.optInt(j)));
                     }
+
                     Bardataset = new BarDataSet(BARENTRY, object.optString(strTpye));
                     Random rnd = new Random();
                     int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256),
                             rnd.nextInt(256));
                     Bardataset.setColors(color);
+
                     Bardataset.setValueFormatter(new IValueFormatter() {
                         @Override
                         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
@@ -99,6 +107,7 @@ public class ComboChartFragment extends Fragment{
                             }
                         }
                     });
+
                     BARDATA.addDataSet(Bardataset);
                 }
 

@@ -19,10 +19,10 @@ public class MapModel_ {
     private String userFullname;
     @SerializedName("user_id")
     @Expose
-    private Integer userId;
+    private String userId;
     @SerializedName("color")
     @Expose
-    private Integer color;
+    private String color;
 
     public String getPoleId() {
         return poleId;
@@ -56,19 +56,19 @@ public class MapModel_ {
         this.userFullname = userFullname;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Integer getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(Integer color) {
+    public void setColor(String color) {
         this.color = color;
     }
 }

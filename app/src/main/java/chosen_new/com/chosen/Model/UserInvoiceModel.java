@@ -41,6 +41,9 @@ public class UserInvoiceModel {
     @SerializedName("unit_price")
     @Expose
     private String unitPrice;
+    @SerializedName("kwh")
+    @Expose
+    private String kwh;
 
     public String getPaymentCode() {
         return paymentCode;
@@ -138,4 +141,11 @@ public class UserInvoiceModel {
         this.unitPrice = unitPrice;
     }
 
+    public String getKwh() {
+        return kwh;
+    }
+
+    public void setKwh(String kwh) {
+        this.kwh = kwh;
+    }
 }

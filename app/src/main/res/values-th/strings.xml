@@ -1,0 +1,157 @@
+<resources>
+    <string name="app_name">CHOSEN</string>
+    <string name="action_settings">ตั้งค่า</string>
+
+    <string name="navigation_drawer_open">เปิดเมนู</string>
+    <string name="navigation_drawer_close">ปิดเมนู</string>
+
+    <string name="google_maps_key">AIzaSyBu8tBKpmEhHrzw70XrVa8vMxftmw1gO50</string>
+
+    <!--facebook authen-->
+    <string name="facebook_app_id">153692355492535</string>
+    <string name="fb_login_protocol_scheme">fb153692355492535</string>
+
+    <string name="tv_username">Username</string>
+    <string name="tv_password">Password</string>
+    <string name="btn_Login">Login</string>
+    <string name="btn_Register">Register</string>
+    <string name="rad_keep_login">Keep Login</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="successfully_posted_post">successfully</string>
+    <string name="success">เสร็จสิ้น</string>
+    <string name="tv_rg_name">ชื่อ :</string>
+    <string name="tv_rg_username">ชื่อผู้ใช้ :</string>
+    <string name="et_input_name">ชื่อเต็ม</string>
+    <string name="et_input_email">อีเมล</string>
+    <string name="et_input_sername">นามสกุล</string>
+    <string name="tv_rg_sername">นามสกุล :</string>
+    <string name="tv_rg_mail">อีเมล :</string>
+    <string name="tv_rg_tel">เบอร์โทร :</string>
+    <string name="tv_select_car">กรุณาเลือกรถ</string>
+    <string name="btn_confirm">ตกลง</string>
+    <string name="btn_cancel">ยกเลิก</string>
+
+    <!--<string name="nav_home"><b> HOME</b></string>-->
+    <!--<string name="nav_station">\t\t\t>> STATION</string>-->
+    <!--<string name="nav_profile">\t\t\t>> PROFILE</string>-->
+    <!--<string name="nav_wallet">\t\t\t>> WALLET</string>-->
+    <!--<string name="nav_usage">\t\t\t>> USAGE DETAILS</string>-->
+    <!--<string name="nav_service">\t\t\t>> SERVICE</string>-->
+    <!--<string name="nav_logout">\t\t\t>> LOGOUT</string>   -->
+
+    <string name="nav_home">เมนู</string>
+    <string name="nav_station">ที่ตั้ง</string>
+    <string name="nav_profile">ข้อมูลส่วนตัว</string>
+    <string name="nav_wallet">WALLET</string>
+    <string name="nav_usage">USAGE DETAILS</string>
+    <string name="nav_service">บริการ</string>
+    <string name="action_logout">ออกจากระบบ</string>
+
+    <string name="tv_nav_wallet">Wallet ของคุณ</string>
+    <string name="tv_nav_remaing">Remaining Balance</string>
+    <string name="strTitleLogout" />
+    <string name="msgLogout">คุณต้องการออกจากระบบ</string>
+    <string name="confirm_dialog">ตกลง</string>
+    <string name="cancel_dialog">ยกเลิก</string>
+    <string name="tv_header_dt">THE MALL BANGKAPI</string>
+    <string name="tv_detail_lbl">DETAIL</string>
+    <string name="btn_go_reserve">การจอง</string>
+
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="item_1">menu1</string>
+    <string name="item_2">menu2</string>
+    <string name="msgLoading">กำลังโหลด......</string>
+    <string name="et_sheachอ">ค้นหา</string>
+    <string name="msgExit">คุณต้องการที่จะออกจากระบบ</string>
+    <string name="et_input_pwd">รหัสผ่าน</string>
+    <string name="et_input_usr">ชื่อผู้ใช้</string>
+    <string name="tv_rg_pwd">รหัสผ่าน :</string>
+    <string name="tv_header_reserve">THE MALL BANGKOKAPI</string>
+    <string name="tv_header_open_hour">OPEN HOUR</string>
+    <string name="btn_comment">Comment</string>
+    <string name="btn_photo">Photo</string>
+    <string name="btn_modify">Modify</string>
+    <string name="btn_navigation">Nav</string>
+    <string name="tv_state_header">10 STATIONS TYPE</string>
+
+    <string name="nav_paypal">PAYPAL</string>
+    <string name="tv_lbl_id_payment">ID PAYMENT :</string>
+    <string name="tv_lbl_state_payment">STATE :</string>
+    <string name="tv_lbl_amt">AMOUNT :</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_price">100 Bath</string>
+    <string name="tv_header_invoice">Payment Invoice</string>
+    <string name="btn_pay_now">Pay Now</string>
+    <string name="btn_not_now">Not Now</string>
+    <string name="tv_lbl_card_id">รหัสบัตร</string>
+    <string name="tv_lbl_pole_id">POLE ID : </string>
+    <string name="tv_header_incard">กรุณากรอกข้อมูลกรอกข้อมูลการ์ด</string>
+    <string name="et_card_id">โปรดป้อนหมายเลขบัตรชาร์ท. ของคุณ</string>
+    <string name="tv_lbl_pay_code">Pay Code :</string>
+    <string name="tv_lbl_create_date">Create :</string>
+    <string name="tv_lbl_poleid">Pole ID :</string>
+    <string name="tv_amt">ราคา :</string>
+    <string name="tv_price">ราคา :</string>
+    <string name="tv_card_id">การ์ด เลขที่ :</string>
+    <string name="btn_add">เพิ่มการ์ด</string>
+    <string name="menu_card">การ์ด</string>
+    <string name="menu_charge">สถานะชาร์จ</string>
+    <string name="menu_payment">การชำระเงิน</string>
+    <string name="menu_invoice">ใบแจ้งหนี้</string>
+    <string name="menu_home">หน้าหลัก</string>
+    <string name="btn_scancard">สแกน การ์ด</string>
+    <string name="doscanActivatecard">สแกน QR Code หรือ Barcode </string>
+    <string name="menu_set_language">เลือกภาษา</string>
+    <string name="toolbarHome">หน้าหลัก</string>
+    <string name="tv_header_select_language">เปลี่ยนภาษา</string>
+    <string name="record">\tรายการ</string>
+    <string name="registerFail">การลงทะเบียนล้มเหลว - มีบัญชีอยู่แล้ว</string>
+    <string name="btn_car_modal">รุ่นรถ</string>
+    <string name="tv_image_tb">รูปภาพ</string>
+    <string name="tv_brands_tb">ยี่ห้อ</string>
+    <string name="tv_carmodel_tb">รุ่นรถ</string>
+    <string name="tv_brands_detail">ยี่ห้อ :</string>
+    <string name="tv_lbl_Carmodel">รุ่นรถ :</string>
+    <string name="btn_select">เลือก</string>
+    <string name="title_carmodel">เลือกรุ่นรถ</string>
+    <string name="card"> ของการ์ด </string>
+    <string name="tv_lbl_car_name">รุ่นรถ</string>
+    <string name="tv_lbl_name">ชื่อ :</string>
+    <string name="tv_lbl_street">ถนน :</string>
+    <string name="tv_lbl_city">เมือง :</string>
+    <string name="tv_lbl_postalcode">รหัสไปรษณีย์ : </string>
+    <string name="tv_lbl_mobile">เบอร์โทรศัทพ์ :</string>
+    <string name="et_fullname">ชื่อเต็ม</string>
+    <string name="btn_select_img">เลือกรูปภาพ</string>
+    <string name="btn_edit">แก้ไขข้อมูลส่วนตัว</string>
+    <string name="menu_profile">ข้อมูลส่วนตัว</string>
+    <string name="saveSuccess">อัปโหลดข้อมูลสำเร็จ</string>
+    <string name="menu_report">รายงานการชาร์ท</string>
+    <string name="tv_lbl_header_report">รายงานการชาร์จของการ์ด</string>
+    <string name="tv_date_start">วันที่เริ่มต้น</string>
+    <string name="et_date_end">วันที่สิ้นสุด</string>
+    <string name="tv_total_charge">การชาร์จทั้งหมด</string>
+    <string name="pleaseChoose">กรุณาเลือก</string>
+    <string name="menu_contact_us">ติดต่อเรา</string>
+    <string name="errInput">กรุณาใส่ข้อความ</string>
+    <string name="tv_version">v3.3.5</string>
+    <string name="menu_tran">แนวโน้ม</string>
+    <string name="title_usege">การใช้</string>
+    <string name="menu_payment_lower">การชำระเงิน</string>
+    <string name="menu_map">แผนที่</string>
+    <string name="btn_search">ค้นหา</string>
+    <string name="btn_clear">Clear</string>
+
+
+    <string-array name="state_invoice">
+        <item>Please Select Status</item>
+        <item>Paid</item>
+        <item>UnPaid</item>
+
+    </string-array>
+
+
+
+</resources>

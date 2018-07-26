@@ -1,14 +1,21 @@
 package chosen_new.com.chosen.Fragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.nitrico.mapviewpager.MapViewPager;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -34,10 +42,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +65,9 @@ import chosen_new.com.chosen.Model.UserModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.ConnectivityReceiverUtil;
 import chosen_new.com.chosen.Util.MyFerUtil;
+
 import okhttp3.ResponseBody;
+import retrofit2.http.Url;
 
 public class HomeFragment extends Fragment implements
         ConnectivityReceiverUtil.ConnectivityReceiverListener
@@ -111,18 +126,12 @@ public class HomeFragment extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home,container,false);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
         initInstance(v);
         return v;
     }
 
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        initInstance(view);
-//
-//    }
+
 
     private void initInstance(View v) {
         try {
@@ -131,26 +140,16 @@ public class HomeFragment extends Fragment implements
             //bind widget
             linearLayout = v.findViewById(R.id.detail);
             linearLayout.setVisibility(View.GONE);
-//            et_search = v.findViewById(R.id.et_search_map);
-//            et_search.setRawInputType(0); // hide key board
-
             tv_header = v.findViewById(R.id.tv_header_detail);
-//            tv_station = v.findViewById(R.id.tv_numstation);
-//            tv_detail = v.findViewById(R.id.tv_detail);
             tv_state = v.findViewById(R.id.tv_state);
-//            tv_start = v.findViewById(R.id.tv_start);
-//            tv_end = v.findViewById(R.id.tv_end);
             tv_share = v.findViewById(R.id.tv_share);
-
-//            v.findViewById(R.id.btn_search).setOnClickListener(this);
-//            v.findViewById(R.id.btn_reserve).setOnClickListener(this);
             v.findViewById(R.id.tv_share).setOnClickListener(this);
 
             //init for SharedPreferences ( SESSION )
             sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER, Context.MODE_PRIVATE);
             editor = sh.edit();
 
-            editor.putString(MyFerUtil.KEY_PAGE_NOW,MyFerUtil.PAGE_HOME);
+            editor.putString(MyFerUtil.KEY_PAGE_NOW, MyFerUtil.PAGE_HOME);
             editor.commit();
 
             //get user id from shared perferences
@@ -177,6 +176,7 @@ public class HomeFragment extends Fragment implements
                 progressDialog.setMessage(getString(R.string.msgLoading));
                 progressDialog.show();
 
+                //api get data station latitude , longitude from server
                 new NetworkConnectionManager().callHomeFrg(listener, uid);
 
             } else {
@@ -191,41 +191,47 @@ public class HomeFragment extends Fragment implements
         }
     }
 
-    private void upDateUI(final List<MapModel_> res){
+    // up date ui
+    private void upDateUI(final List<MapModel_> res) {
 
         try {
-                final MapDistance map = new MapDistance();
+            final MapDistance map = new MapDistance();
 
-                list_data_map = new ArrayList<>();
+            list_data_map = new ArrayList<>();
 
-            for(int i = 0;i < res.size();i++){
+            for (int i = 0; i < res.size(); i++) {
 
-                    MapModel_ mapModel = new MapModel_();
-                    mapModel.setLat(res.get(i).getLat());
-                    mapModel.setLon(res.get(i).getLon());
-                    mapModel.setPoleId(res.get(i).getPoleId());
-                    mapModel.setUserFullname(res.get(i).getUserFullname());
-                    mapModel.setUserId(res.get(i).getUserId());
-                    mapModel.setColor(res.get(i).getColor());
-                    list_data_map.add(mapModel);
+                MapModel_ mapModel = new MapModel_();
+                mapModel.setLat(res.get(i).getLat());
+                mapModel.setLon(res.get(i).getLon());
+                mapModel.setPoleId(res.get(i).getPoleId());
+                mapModel.setUserFullname(res.get(i).getUserFullname());
+                mapModel.setUserId(res.get(i).getUserId());
+                mapModel.setColor(res.get(i).getColor());
+                list_data_map.add(mapModel);
 
-                    double b = map.Distance(Double.parseDouble(res.get(i).getLat()),Double.parseDouble(res.get(i).getLon())
-                            ,gps.getLatitude(),gps.getLongitude(),'K');
-                    Log.d(TAG+"DISTANCE","name "+res.get(i).getUserFullname()+" distance ="+b);
+                double b = map.Distance(Double.parseDouble(res.get(i).getLat()), Double.parseDouble(res.get(i).getLon())
+                        , gps.getLatitude(), gps.getLongitude(), 'K');
+                Log.d(TAG + "DISTANCE", "name " + res.get(i).getUserFullname() + " distance =" + b);
 
-                }
+            }
 
 
             fragment_view_map.getMapAsync(new OnMapReadyCallback() {
                 @Override
-                public void onMapReady(GoogleMap googleMap) {
+                public void onMapReady(final GoogleMap googleMap) {
 
-
+                    googleMap.setMyLocationEnabled(true);
                     googleMap.animateCamera(CameraUpdateFactory
-                            .newLatLngZoom(new LatLng(Double.parseDouble(list_data_map.get(0).getLat())
-                                                    ,Double.parseDouble(list_data_map.get(0).getLon())), 10f));
+                            .newLatLngZoom(new LatLng(gps.getLatitude()
+                                                    ,gps.getLongitude()), 16f));
+                    CameraUpdate center=CameraUpdateFactory.newLatLng(new LatLng(gps.getLatitude(), gps.getLongitude()));
+                    CameraUpdate zoom=CameraUpdateFactory.zoomTo(12);
 
-                    //dum add====================
+                    googleMap.moveCamera(center);
+                    googleMap.animateCamera(zoom);
+
+
                     googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                         @Override
                         public void onMapClick(LatLng latLng) {
@@ -262,21 +268,21 @@ public class HomeFragment extends Fragment implements
 
 
                     if(list_data_map != null){
-                        for(int i = 0;i < list_data_map.size();i++){
-                            //Log.w(TAG, "LOOP : " + i);
 
-                            if(list_data_map.get(i).getColor()==101) {
+                        for(int i = 0;i < list_data_map.size();i++){
+                            Log.w(TAG, ""+list_data_map.get(i).getColor());
+
+                            if(list_data_map.get(i).getColor().equals("Green")) {
 
                                 googleMap.addMarker(
                                         new MarkerOptions().position(
                                                 new LatLng(Double.parseDouble(list_data_map.get(i).getLat()),
                                                         Double.parseDouble(list_data_map.get(i).getLon())))
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.p15))//p15  icon_maker
+//                                                .icon(BitmapDescriptorFactory.fromResource(bmp))
                                                 .title(list_data_map.get(i).getPoleId()));
 //                                                .snippet("Population: 4,137,400"));
-                            }
-
-                            if(list_data_map.get(i).getColor()==102) {
+                            }else if(list_data_map.get(i).getColor().equals("Red")) {
 
                                 googleMap.addMarker(new MarkerOptions()
                                         .position(
@@ -285,9 +291,7 @@ public class HomeFragment extends Fragment implements
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.p16)) //p16 icon_maker_red
                                         .title(list_data_map.get(i).getPoleId()));
 
-                            }
-
-                            if(list_data_map.get(i).getColor()==103) {
+                            }else  if(list_data_map.get(i).getColor().equals("Blue")) {
                                 googleMap.addMarker(new MarkerOptions()
                                         .position(
                                                 new LatLng(Double.parseDouble(list_data_map.get(i).getLat()),
@@ -296,8 +300,11 @@ public class HomeFragment extends Fragment implements
                                         .title(list_data_map.get(i).getPoleId()));
                             }
 
+
                         }
+
                     }
+
                 }
             });
         } catch (Exception e){
@@ -305,6 +312,8 @@ public class HomeFragment extends Fragment implements
 
         }
     }
+
+    //go to google app
     private void openGoogleMap(LatLng src, LatLng dest) {
         String url = "http://maps.google.com/maps?saddr="+src.latitude+","+src.longitude+"&daddr="+dest.latitude+","+dest.longitude+"&mode=driving";
         Uri gmmIntentUri = Uri.parse(url);
@@ -312,6 +321,7 @@ public class HomeFragment extends Fragment implements
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
     }
+
 
     private String getGPS(){
         try{
@@ -459,7 +469,7 @@ public class HomeFragment extends Fragment implements
 
     private void showSnack(String message) {
         Snackbar snackbar = Snackbar
-                .make(getActivity().findViewById(R.id.content), message, Snackbar.LENGTH_LONG);
+                .make(getActivity().findViewById(R.id.container), message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 

@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,6 +44,7 @@ import okhttp3.ResponseBody;
 import static chosen_new.com.chosen.MainApplication.KEY_DATA_USER;
 
 public class FragmentManageCard extends Fragment{
+
     private RecyclerView recyclerView;
     private Context context;
     private CardRecycleVIewAdapter adp;
@@ -85,7 +87,8 @@ public class FragmentManageCard extends Fragment{
         val = new ArrayList<>();
 
         context = getContext();
-
+        //set title
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_card));
         sh = getActivity().getSharedPreferences(MyFerUtil.MY_FER,Context.MODE_PRIVATE);
         editor = sh.edit();
 
@@ -120,7 +123,7 @@ public class FragmentManageCard extends Fragment{
             }
         });
 
-
+        // get card data and id card detail
         new NetworkConnectionManager().callGetCard(listenerState,idUser);
 
 
@@ -150,14 +153,14 @@ public class FragmentManageCard extends Fragment{
         builder.setView(alertLayout);
 
         alertDialog = builder.show();
-        btn_scan.setVisibility(View.GONE);
+//        btn_scan.setVisibility(View.GONE);
         btn_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // do scan
                 IntentIntegrator integrator = new IntentIntegrator(getActivity());
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-                integrator.setPrompt("Scan A barcode or QR Code");
+                integrator.setPrompt(getString(R.string.doscanActivatecard));
                 integrator.setCameraId(0);
                 integrator.setBeepEnabled(false);
                 integrator.setBarcodeImageEnabled(false);
@@ -176,6 +179,7 @@ public class FragmentManageCard extends Fragment{
 
                 if(!input.isEmpty() && input.length() > 3){
 
+                    // api add card by input
                     new NetworkConnectionManager().callAddcard(listenerAddcard,idUser,input);
 
 
@@ -200,12 +204,15 @@ public class FragmentManageCard extends Fragment{
 
     }
 
+    //call back from server
     CallbackCardListener listenerState =  new CallbackCardListener() {
         @Override
         public void onResponse(List<GetCardModel> res) {
+
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
+
             try{
 
                 String result = new Gson().toJson(res);
@@ -220,13 +227,15 @@ public class FragmentManageCard extends Fragment{
                     Map<String,Object> getRes = new HashMap<>();
                     getRes.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
                     getRes.put(MyFerUtil.KEY_STATE,res.get(i).getState());
+                    getRes.put(MyFerUtil.CAR_URL,res.get(i).getCarImage());
+                    getRes.put(MyFerUtil.CAR_MODEL,res.get(i).getCarModel());
                     val.add(getRes);
                 }
 
-
                 recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter(adp);
-
+                editor.putString(MyFerUtil.KEY_PAGE_NOW,MyFerUtil.ADD_CARD);
+                editor.commit();
                 adp.UpdateData(val);
 
             }catch (Exception e){
@@ -273,6 +282,7 @@ public class FragmentManageCard extends Fragment{
         }
     };
 
+    //call back from server add card
     CallbackAddcardListener listenerAddcard = new CallbackAddcardListener() {
         @Override
         public void onResponse(AddCardModel res) {
@@ -294,6 +304,7 @@ public class FragmentManageCard extends Fragment{
 
         @Override
         public void onBodyError(ResponseBody responseBodyError) {
+            Toast.makeText(context, " Invalid  Card Number", Toast.LENGTH_SHORT).show();
 
         }
 

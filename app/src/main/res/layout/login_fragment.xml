@@ -2,32 +2,33 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/blond"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
-        android:src="@drawable/imgpic"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginTop="90dp"
+        android:src="@drawable/imgpic" />
+
     <LinearLayout
+
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:src="@drawable/logo1"
             android:layout_width="200dp"
-            android:layout_height="80dp" />
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/logo1" />
 
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -55,6 +56,7 @@
                     android:layout_height="40dp" />
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
@@ -77,7 +79,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="40dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -104,18 +106,32 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginBottom="10dp" />
         </LinearLayout>
         <ImageView
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_gravity="bottom"
             android:src="@drawable/footer"
             android:layout_width="wrap_content"
             android:layout_height="80dp" />
-
     </LinearLayout>
 
-
+    <TextView
+        android:textColor="#00aaff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_version"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,26 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/blond"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp"
     android:orientation="vertical"
     tools:context="chosen_new.com.chosen.Fragment.CardFragment">
 
+
     <TextView
-        android:layout_width="267dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#FFF"
+        android:background="@color/bootstrap_brand_primary"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-        android:text="Charge Card Report"
-        android:textSize="18sp"
+        android:text="@string/tv_lbl_header_report"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
         <RelativeLayout
@@ -32,6 +36,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:background="@android:color/white">
+
             <Spinner
                 android:id="@+id/spinner_item"
                 android:layout_width="match_parent"
@@ -45,10 +50,11 @@
             android:id="@+id/button_clear"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/bootstrap_brand_warning"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Clear"
+            android:textSize="9sp"
+            android:text="@string/btn_clear"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
     </LinearLayout>
@@ -67,7 +73,7 @@
             android:background="@android:color/white"
             android:ems="10"
             android:focusable="false"
-            android:hint="Start Date"
+            android:hint="@string/tv_date_start"
             android:padding="5dp"
             android:textSize="14sp" />
 
@@ -80,7 +86,7 @@
             android:background="@android:color/white"
             android:ems="10"
             android:focusable="false"
-            android:hint="End Date"
+            android:hint="@string/et_date_end"
             android:padding="5dp"
             android:textSize="14sp" />
 
@@ -89,11 +95,12 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/bootstrap_brand_primary"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Go"
+            android:textSize="9sp"
+            android:text="@string/btn_search"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
     </LinearLayout>
@@ -107,7 +114,7 @@
         android:background="@android:color/white"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="@color/bootstrap_brand_primary"
         app:tabTextColor="@android:color/black" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,9 +139,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="-25dp"
-        android:text="Total Charge"
+        android:text=" "
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/bootstrap_brand_warning"
         android:textSize="16sp"
         android:textStyle="bold" />
 

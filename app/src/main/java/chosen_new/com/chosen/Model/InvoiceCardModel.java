@@ -5,65 +5,42 @@ import com.google.gson.annotations.SerializedName;
 
 public class InvoiceCardModel {
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
     @SerializedName("payment_code")
     @Expose
     private String paymentCode;
-    @SerializedName("payments_id")
+    @SerializedName("payment_id")
     @Expose
-    private String paymentsId;
-    @SerializedName("user_id")
-    @Expose
-    private Integer userId;
-    @SerializedName("pole_id")
-    @Expose
-    private String poleId;
+    private String paymentId;
     @SerializedName("card_id")
     @Expose
     private String cardId;
-    @SerializedName("types")
+    @SerializedName("pole_id")
     @Expose
-    private String types;
-    @SerializedName("created_at")
+    private String poleId;
+    @SerializedName("start_charge")
     @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
+    private String startCharge;
+    @SerializedName("end_charge")
     @Expose
-    private String updatedAt;
-    @SerializedName("net_price")
+    private String endCharge;
+    @SerializedName("total_charge")
     @Expose
-    private Double netPrice;
+    private String totalCharge;
+    @SerializedName("price")
+    @Expose
+    private String price;
     @SerializedName("vat")
     @Expose
-    private Double vat;
+    private String vat;
     @SerializedName("total_price")
     @Expose
-    private Double totalPrice;
-    @SerializedName("payment_status")
+    private String totalPrice;
+    @SerializedName("status")
     @Expose
-    private Boolean paymentStatus;
-    @SerializedName("payment_detail")
+    private String status;
+    @SerializedName("dates")
     @Expose
-    private String paymentDetail;
-    @SerializedName("charge_time")
-    @Expose
-    private Integer chargeTime;
-    @SerializedName("transactionid")
-    @Expose
-    private String transactionid;
-    @SerializedName("unit_price")
-    @Expose
-    private Integer unitPrice;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private String dates;
 
     public String getPaymentCode() {
         return paymentCode;
@@ -73,28 +50,12 @@ public class InvoiceCardModel {
         this.paymentCode = paymentCode;
     }
 
-    public String getPaymentsId() {
-        return paymentsId;
+    public String getPaymentId() {
+        return paymentId;
     }
 
-    public void setPaymentsId(String paymentsId) {
-        this.paymentsId = paymentsId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getPoleId() {
-        return poleId;
-    }
-
-    public void setPoleId(String poleId) {
-        this.poleId = poleId;
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
     }
 
     public String getCardId() {
@@ -105,91 +66,75 @@ public class InvoiceCardModel {
         this.cardId = cardId;
     }
 
-    public String getTypes() {
-        return types;
+    public String getPoleId() {
+        return poleId;
     }
 
-    public void setTypes(String types) {
-        this.types = types;
+    public void setPoleId(String poleId) {
+        this.poleId = poleId;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getStartCharge() {
+        return startCharge;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setStartCharge(String startCharge) {
+        this.startCharge = startCharge;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public String getEndCharge() {
+        return endCharge;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setEndCharge(String endCharge) {
+        this.endCharge = endCharge;
     }
 
-    public Double getNetPrice() {
-        return netPrice;
+    public String getTotalCharge() {
+        return totalCharge;
     }
 
-    public void setNetPrice(Double netPrice) {
-        this.netPrice = netPrice;
+    public void setTotalCharge(String totalCharge) {
+        this.totalCharge = totalCharge;
     }
 
-    public Double getVat() {
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getVat() {
         return vat;
     }
 
-    public void setVat(Double vat) {
+    public void setVat(String vat) {
         this.vat = vat;
     }
 
-    public Double getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public Boolean getPaymentStatus() {
-        return paymentStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPaymentStatus(Boolean paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getPaymentDetail() {
-        return paymentDetail;
+    public String getDates() {
+        return dates;
     }
 
-    public void setPaymentDetail(String paymentDetail) {
-        this.paymentDetail = paymentDetail;
-    }
-
-    public Integer getChargeTime() {
-        return chargeTime;
-    }
-
-    public void setChargeTime(Integer chargeTime) {
-        this.chargeTime = chargeTime;
-    }
-
-    public String getTransactionid() {
-        return transactionid;
-    }
-
-    public void setTransactionid(String transactionid) {
-        this.transactionid = transactionid;
-    }
-
-    public Integer getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(Integer unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setDates(String dates) {
+        this.dates = dates;
     }
 }

@@ -1,4 +1,4 @@
-package chosen_new.com.chosen.Api;
+package chosen_new.com.chosen.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import chosen_new.com.chosen.Adapter.InvoiceRecycleAdapter;
+import chosen_new.com.chosen.Adapter.InvoiceUserRecycleAdapter;
+import chosen_new.com.chosen.Api.CallbackGetInvoiceListener;
+import chosen_new.com.chosen.Api.NetworkConnectionManager;
 import chosen_new.com.chosen.Model.InvoiceCardModel;
 import chosen_new.com.chosen.R;
 import chosen_new.com.chosen.Util.MyFerUtil;
@@ -36,7 +39,7 @@ public class FragmentShowInvoice extends Fragment{
     private RecyclerView recyclerView;
     private List<Map<String,Object>> lisValue;
     private Context context;
-    private InvoiceRecycleAdapter adp;
+    private InvoiceUserRecycleAdapter adp;
     private TextView tv_noData;
 
 
@@ -68,10 +71,12 @@ public class FragmentShowInvoice extends Fragment{
         tv_noData.setVisibility(View.GONE);
 
         //init adapter recycleview
-        adp = new InvoiceRecycleAdapter(context);
+        adp = new InvoiceUserRecycleAdapter(context);
         lisValue = new ArrayList<>();
 
+        // get data invoice from server
         new NetworkConnectionManager().callGetInvoice(listener,userId,cardId);
+
     }
 
     CallbackGetInvoiceListener listener = new CallbackGetInvoiceListener() {
@@ -88,14 +93,37 @@ public class FragmentShowInvoice extends Fragment{
             }
 
             for(int i=0;i<res.size();i++ ){
+//                Map<String,Object> result = new HashMap<>();
+//                result.put(MyFerUtil.KEY_PAY_CODE,res.get(i).getPaymentCode());
+//                result.put(MyFerUtil.KEY_POLE_ID,res.get(i).getPoleId());
+//                result.put(MyFerUtil.KEY_CREATEDATE_AT,res.get(i).getStartCharge());
+//                result.put(MyFerUtil.KEY_INVOICE_PAY,res.get(i).getPaymentCode());
+//                result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
+//                result.put(MyFerUtil.KEY_STATE_PAY,res.get(i).getStatus());
+//                result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
+//                lisValue.add(result);
+
                 Map<String,Object> result = new HashMap<>();
+
+
                 result.put(MyFerUtil.KEY_PAY_CODE,res.get(i).getPaymentCode());
-                result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
-                result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
                 result.put(MyFerUtil.KEY_POLE_ID,res.get(i).getPoleId());
-                result.put(MyFerUtil.KEY_CREATEDATE_AT,res.get(i).getCreatedAt());
-                result.put(MyFerUtil.KEY_INVOICE_PAY,res.get(i).getPaymentsId());
-                result.put(MyFerUtil.KEY_SELECT_CARD,res.get(i).getCardId());
+                result.put(MyFerUtil.KEY_CREATEDATE_AT,res.get(i).getStartCharge());
+                result.put(MyFerUtil.KEY_INVOICE_PAY,res.get(i).getPaymentId());
+                result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
+                result.put(MyFerUtil.KEY_STATE_PAY,res.get(i).getStatus());
+                result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
+                result.put(MyFerUtil.KEY_PAGE_NOW,"showInvoice");
+
+//
+//                result.put(MyFerUtil.KEY_PAY_CODE,res.get(i).getPaymentCode());
+//                result.put(MyFerUtil.KEY_TOTALPRICE,res.get(i).getTotalPrice());
+//                result.put(MyFerUtil.KEY_CARD_ID,res.get(i).getCardId());
+//                result.put(MyFerUtil.KEY_POLE_ID,res.get(i).getPoleId());
+//                result.put(MyFerUtil.KEY_CREATEDATE_AT,res.get(i).getStartCharge());
+//                result.put(MyFerUtil.KEY_INVOICE_PAY,res.get(i).getPaymentCode());
+//                result.put(MyFerUtil.KEY_STATE_PAY,res.get(i).getStatus());
+//                result.put(MyFerUtil.KEY_SELECT_CARD,res.get(i).getCardId());
                 lisValue.add(result);
             }
 

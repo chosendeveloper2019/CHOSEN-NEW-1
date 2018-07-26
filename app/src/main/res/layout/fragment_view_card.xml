@@ -2,6 +2,7 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefreshLayout"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -15,11 +16,10 @@
 
 
     <android.support.v7.widget.RecyclerView
-
         android:id="@+id/recyclerCard"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#FFF"
+        android:background="@drawable/blond"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="27dp"
         tools:listitem="@layout/row_card_view">

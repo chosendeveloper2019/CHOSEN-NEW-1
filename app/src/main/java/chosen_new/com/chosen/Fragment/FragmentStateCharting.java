@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,9 +52,7 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
 
 
 
-    private TextView tv_pole_id,tv_start_charge,tv_end_charge,tv_state_charge,tv_state,tv_hr,tv_min,tv_kwh,tv_card_id,tv_price;
-//    private ImageView img_car;
-//    private LinearLayout state;n
+    private TextView tv_pole_id,tv_start_charge,tv_end_charge,tv_price_,tv_state,tv_hr,tv_min,tv_kwh,tv_card_id,tv_price;
     private Button btn_showInvoice;
 
     private FragmentManager fragmentManager;
@@ -63,23 +62,13 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
 
     private String userId;
     private String cardId;
-    private String transId = "";
+    private String urlCar;
     private String timeFormat = "dd/MM/yyyy HH:mm:ss";
     private String timeStart = "";
     private String timeEnd = "";
     private SimpleDateFormat format;
-    private ImageView imageBatt ;
+    private ImageView imageBatt ,img_urlCar,img_graph;
 
-
-    public static FragmentStateCharting newInstance(UserModel userModel){
-
-        FragmentStateCharting fragment = new FragmentStateCharting();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_DATA_USER, userModel);
-        fragment.setArguments(bundle);
-        return fragment;
-
-    }
 
 
     @Nullable
@@ -106,13 +95,14 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         tv_end_charge = v.findViewById(R.id.tv_end_charge); // time end
         tv_state  = v.findViewById(R.id.tv_state);  //state charge
 //        state = v.findViewById(R.id.li_state_charge); //
-//        tv_kwh = v.findViewById(R.id.tv_kwh);
+        tv_kwh = v.findViewById(R.id.tv_kwh);
 
         tv_card_id = v.findViewById(R.id.tv_card_id);
         tv_hr = v.findViewById(R.id.tv_hr);
         tv_min = v.findViewById(R.id.tv_min);
         tv_price = v.findViewById(R.id.tv_price);
         tv_price.setText("");
+        tv_price_ = v.findViewById(R.id.tv_priceAvinew);
 
 //        v.findViewById(R.id.btn_payment).setOnClickListener(this);
         v.findViewById(R.id.tv_refresh).setOnClickListener(this);
@@ -129,10 +119,26 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         userId = sh.getString(MyFerUtil.KEY_USER_ID,"");
         timeEnd = "";
         imageBatt = v.findViewById(R.id.img_batt);
+        urlCar = sh.getString(MyFerUtil.CAR_URL,"");
+        img_urlCar = v.findViewById(R.id.img_car);
+        img_graph = v.findViewById(R.id.img_graph);
+        img_graph.setOnClickListener(this);
+
+
+        //set title
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_charge)+" "
+                +getString(R.string.card) +" "+cardId );
+
+
         btn_showInvoice = v.findViewById(R.id.btn_invoice);
         btn_showInvoice.setVisibility(View.GONE);
         v.findViewById(R.id.btn_invoice).setOnClickListener(this);
-        Log.e(TAG,sh.getString(MyFerUtil.KEY_TRUN,""));
+
+//        Log.e(TAG,sh.getString(MyFerUtil.CAR_URL,""));
+
+        if(!urlCar.isEmpty()){
+            Picasso.with(context).load(urlCar).into(img_urlCar);
+        }
 
         startRepeatingTask();  //start call server every 1 minute
 
@@ -148,7 +154,9 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
             startProgress();
 
             String transIds = sh.getString(MyFerUtil.KEY_TRUN,"");
-            Log.e("call status","uid :"+uid+" trans : "+transIds+"  card id : "+cardId);
+//            Log.e("call status","uid :"+uid+" trans : "+transIds+"  card id : "+cardId);
+
+            //get status charge from server
             new NetworkConnectionManager().callGetStateCharge(listenerState,cardId,uid,transIds);
 
         }catch (Exception e){
@@ -160,14 +168,11 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
     private void do_payment(String invoice_id) {
 
         startProgress();
+
+        //api payment
         new NetworkConnectionManager().callShowInvoice(listener,userId,invoice_id);
         editor.putString(MyFerUtil.KEY_PAGE_NOW,MyFerUtil.STATE_FRG_VIEW);
-//
-//        editor.putString(MyFerUtil.KEY_PAY_CODE,invoice_code);
-//        editor.commit();
-//
-//        FragmentPaypalWebview  webviewFrg = new FragmentPaypalWebview();
-//        fragmentTran(webviewFrg,null);
+
 
     }
 
@@ -176,7 +181,7 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
         fragmentManager.popBackStack();
         FragmentTransaction frgTran = fragmentManager.beginTransaction();
-        frgTran.replace(R.id.content, fragment).addToBackStack(null).commit();
+        frgTran.replace(R.id.container, fragment).addToBackStack(null).commit();
 
     }
 
@@ -256,7 +261,6 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
                         "0.90",
                         total_price,
                         payment_id);
-//                Toast.makeText(context, ""+payment_id, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -286,6 +290,8 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
 
 
         try {
+            if (timeStart.isEmpty())
+                timeStart = getCurrentTime();
             Date d1 = format.parse(timeStart);
             Date d2;
 
@@ -324,11 +330,13 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         @Override
         public void run() {
 
+            // call status charge every 1 minute
             do_callStatus(userId);
 
             mHandler.postDelayed(mHandlerTask, INTERVAL);
         }
     };
+
 
     void startRepeatingTask()
     {
@@ -344,7 +352,6 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_invoice:
-//                do_payment();
 
                 String invoice_id = sh.getString(MyFerUtil.KEY_INVOICE_ID,"");
                 do_payment(invoice_id);
@@ -352,9 +359,17 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
                 break;
             case R.id.tv_refresh:
                 do_callStatus(userId);
-//                startRepeatingTask();
+
+                break;
+            case R.id.img_graph:
+                 do_viewReport();
                 break;
         }
+    }
+
+    private void do_viewReport() {
+
+        fragmentTran(new ReportCardFragment(),null);
     }
 
     @Override
@@ -363,6 +378,7 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         super.onStop();
     }
 
+    //call back data invoice from server
     CallbackShowInvoiceListener  listener = new CallbackShowInvoiceListener() {
         @Override
         public void onResponse(List<PaymentInvoiceModel> res) {
@@ -420,7 +436,7 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         }
     };
 
-
+    //callback send api invoice
     CallbackInvoiceListener listenerInvoiceSend = new CallbackInvoiceListener() {
         @Override
         public void onResponse(ResultPaymentModel res) {
@@ -428,8 +444,8 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
             if(progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
-            String result = new Gson().toJson(res);
-            Log.d(TAG,result);
+//            String result = new Gson().toJson(res);
+//            Log.d(TAG,result);
             Toast.makeText(context, "Payment Success.", Toast.LENGTH_SHORT).show();
 
             //close dialog
@@ -468,7 +484,7 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
         }
     };
 
-
+    // call back status charge
     CallbackStatusChageListener listenerState =  new CallbackStatusChageListener() {
         @Override
         public void onResponse(List<ChargeModel> res) {
@@ -478,7 +494,7 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
             String result = new Gson().toJson(res);
             Log.e(TAG,result);
                 try{
-                    if(res.get(0).getCharging().equals("DISCHARGING")){
+                    if(res.get(0).getCharging().equals("DISCHARGING") || res.get(0).getCharging().equals("ENDCHARGE")){
                         imageBatt.setImageResource(R.drawable.ic_battery_charging_full_black_24dp);
                         tv_state.setTextColor(getResources().getColor(R.color.bootstrap_brand_danger));
 //                        tv_price.setText("");
@@ -488,6 +504,15 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
 //                        tv_price.setText(res.get(0).getPrice());
 
                     }
+
+                    if(res.get(0).getCharging().equals("DISCHARGING") ){
+
+                        tv_price.setText(" 0 THB");
+                        tv_price_.setText(" 0 THB");
+                        tv_kwh.setText("0");
+
+                    }
+
                 }catch (Exception e){
 
                 }
@@ -498,9 +523,10 @@ public class FragmentStateCharting extends Fragment implements View.OnClickListe
                 tv_end_charge.setText(getCurrentTime());
                 tv_state.setText(res.get(0).getCharging());
                 tv_pole_id.setText(res.get(0).getPoleId());
-//                tv_kwh.setText(res.get(0).getKhw());
+                tv_kwh.setText(res.get(0).getKhw());
                 tv_card_id.setText(res.get(0).getCardId());
                 tv_price.setText(res.get(0).getPrice()+" THB");
+                tv_price_.setText(res.get(0).getPrice()+" THB");
 
                 getTime(); // get Data
 

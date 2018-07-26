@@ -3,87 +3,94 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:background="#FFF"
     android:gravity="center"
     android:layout_width="400dp"
-    android:layout_height="400dp">
+    android:layout_height="380dp">
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_gravity="center"
-    android:background="#FFF"
     android:gravity="center"
+    android:layout_gravity="center"
     android:layout_width="400dp"
-    android:layout_height="350dp">
+    android:layout_height="400dp">
 
-    <TextView
-        android:id="@+id/tv_header_inCard"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/tv_header_incard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_header_inCard"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="30sp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="@string/tv_header_incard"-->
+        <!--android:background="@color/bootstrap_brand_primary"-->
+        <!--android:textAlignment="center"-->
+        <!--android:paddingTop="10dp"-->
+        <!--android:textColor="#FFF"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp" />-->
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:background="#75cccccc"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_width="250dp"
+        android:background="@drawable/ev_card"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </LinearLayout>
+    <EditText
+        android:id="@+id/et_cardid"
+        android:background="#a5b9b9b9"
+        android:paddingLeft="10dp"
+        android:textColor="#FFF"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:hint="@string/et_card_id"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_height="40dp" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_cardid"
-            android:background="#FFF"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:hint="@string/et_card_id"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+
         <Button
-            android:id="@+id/btn_scan"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/bootstrap_brand_info"
-            android:paddingLeft="16dp"
+            android:id="@+id/btn_confirm"
+            android:textColor="#FFF"
+            android:drawableLeft="@drawable/ic_check"
+            android:drawablePadding="10dp"
+            android:text="@string/btn_confirm"
+            android:backgroundTint="@color/bootstrap_brand_primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            android:drawableLeft="@drawable/ic_camera_scan"
-            android:layout_marginTop="20dp"
-            android:layout_width="80dp"
-            android:layout_height="80dp" />
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_confirm"
-                android:textColor="#FFF"
-                android:text="@string/btn_confirm"
-                android:backgroundTint="@color/bootstrap_brand_success"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:textColor="#FFF"
-                android:text="@string/btn_cancel"
-                android:backgroundTint="@color/bootstrap_brand_warning"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/btn_cancel"
+            android:textColor="#FFF"
+            android:drawableLeft="@drawable/ic_close"
+            android:text="@string/btn_cancel"
+            android:backgroundTint="@color/bootstrap_brand_warning"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-
+    <Button
+        android:id="@+id/btn_scan"
+        android:layout_gravity="center"
+        android:backgroundTint="#4d4c4c"
+        android:paddingLeft="9dp"
+        android:textColor="#fff"
+        android:drawablePadding="10dp"
+        android:text="@string/btn_scancard"
+        android:textAlignment="center"
+        android:drawableLeft="@drawable/ic_camera_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
 
 
 </LinearLayout>

@@ -13,14 +13,13 @@
         android:gravity="center"
         android:background="#FFF"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="10dp">
         <TextView
-
             android:id="@+id/tv_header_detail"
             android:layout_marginTop="0dp"
-            android:text="     View Detail"
+            android:text="Transaction"
             android:drawableRight="@drawable/ic_close"
             android:paddingRight="10dp"
             android:textColor="#FFF"
@@ -42,7 +41,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:text="@string/tv_lbl_pole_id"
                 android:textAlignment="viewEnd"
@@ -64,7 +63,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:text="CARD ID :"
                 android:textAlignment="viewEnd"
@@ -78,6 +77,27 @@
                 android:text="11223344" />
         </LinearLayout>
 
+            <LinearLayout
+                android:layout_marginLeft="30dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:text="KWh :"
+                    android:textAlignment="viewEnd"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_kwh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="11223344" />
+            </LinearLayout>
         <LinearLayout
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
@@ -85,7 +105,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="PAY CODE :"
                 android:textAlignment="viewEnd"
@@ -108,7 +128,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="INVOICE DATE :"
                 android:textAlignment="viewEnd"
@@ -125,13 +145,13 @@
 
         <LinearLayout
             android:layout_marginLeft="30dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:text="PRICE(THB) :"
                 android:textAlignment="viewEnd"
@@ -144,7 +164,9 @@
                 android:layout_marginLeft="10dp"
                 android:text="11223344" />
         </LinearLayout>
+
         </LinearLayout>
+
 
     </LinearLayout>
 

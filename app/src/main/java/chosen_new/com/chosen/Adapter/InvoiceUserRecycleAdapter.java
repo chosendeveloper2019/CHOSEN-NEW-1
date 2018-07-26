@@ -67,37 +67,15 @@ private  ProgressDialog  progressDialog;
     @Override
     public void onBindViewHolder(final InvoiceUserRecycleAdapter.MyHolder holder, final int position) {
 
-//        holder.tv_card_id.setText(val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
-//        holder.tv_date_start.setText(val.get(position).get(MyFerUtil.KEY_DATE_START).toString());
-//        holder.tv_date_start.setText(val.get(position).get(MyFerUtil.KEY_DATE_END).toString());
-//        holder.tv_price.setText(val.get(position).get(MyFerUtil.KEY_TOTALPRICE).toString());
-
-//            holder.tv_payCode.setText(val.get(position).get(MyFerUtil.KEY_PAY_CODE).toString());
-            holder.tv_create_at.setText(val.get(position).get(MyFerUtil.KEY_CREATEDATE_AT).toString());
+        holder.tv_create_at.setText(val.get(position).get(MyFerUtil.KEY_CREATEDATE_AT).toString());
             holder.tv_totalprice.setText(val.get(position).get(MyFerUtil.KEY_TOTALPRICE).toString());
             holder.tv_card_id.setText(val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
+
             if(val.get(position).get(MyFerUtil.KEY_STATE_PAY).equals("True")){
                 holder.btn_pay.setVisibility(View.GONE);
+
             }else
                 holder.btn_pay.setVisibility(View.VISIBLE);
-//            holder.tv_poleid.setText(val.get(position).get(MyFerUtil.KEY_POLE_ID).toString());
-//
-//            holder.btn_view.setOnClickListener(new View.OnClickListener() {
-//    @Override
-//    public void onClick(View view) {
-//
-//    //        do_payment(sh.getString(MyFerUtil.KEY_USER_ID,""),
-//    //        val.get(position).get(MyFerUtil.KEY_INVOICE_PAY).toString());
-//
-//        editor.putString(MyFerUtil.KEY_PAY_CODE,val.get(position).get(MyFerUtil.KEY_PAY_CODE).toString());
-//        editor.commit();
-//
-//        FragmentPaypalWebview  webviewFrg = new FragmentPaypalWebview();
-//        fragmentTran(webviewFrg,null);
-//
-//
-//            }
-//            });
 
             holder.btn_view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,17 +85,29 @@ private  ProgressDialog  progressDialog;
                             val.get(position).get(MyFerUtil.KEY_CREATEDATE_AT).toString() ,
                             val.get(position).get(MyFerUtil.KEY_TOTALPRICE).toString(),
                             val.get(position).get(MyFerUtil.KEY_CARD_ID).toString(),
-                            val.get(position).get(MyFerUtil.KEY_POLE_ID).toString());
+                            val.get(position).get(MyFerUtil.KEY_POLE_ID).toString(),
+                            val.get(position).get(MyFerUtil.KEY_KWH).toString()
+
+                    );
 
                 }
             });
+        //hide from date 20/07/61
+        String page = val.get(position).get(MyFerUtil.KEY_PAGE_NOW).toString();
+//        Toast.makeText(context, ""+page, Toast.LENGTH_SHORT).show();
+        if (!page.equals("invoice"))
+            holder.btn_pay.setVisibility(View.GONE);
+
 
             holder.btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+//                    Log.e(TAG," user_id :"+sh.getString(MyFerUtil.KEY_USER_ID,"")+" invoice pay "+
+//                            val.get(position).get(MyFerUtil.KEY_INVOICE_PAY));
 
                     do_payment(sh.getString(MyFerUtil.KEY_USER_ID,""),
                             val.get(position).get(MyFerUtil.KEY_INVOICE_PAY).toString());
+
                     editor.putString(MyFerUtil.KEY_SELECT_CARD,val.get(position).get(MyFerUtil.KEY_CARD_ID).toString());
                     editor.putString(MyFerUtil.KEY_PAY_CODE,val.get(position).get(MyFerUtil.KEY_PAY_CODE).toString());
                     editor.commit();
@@ -232,10 +222,12 @@ private  ProgressDialog  progressDialog;
     }
 }
 
-    private void do_payment(String userId,String invoice_id) {
+    private void do_payment(String userId,String invoice) {
 
         showLoading();
-        new NetworkConnectionManager().callShowInvoice(listener,userId,invoice_id);
+//        Toast.makeText(context, "do_payment uid = "+userId+" ,  invoice_id ="+invoice_id, Toast.LENGTH_SHORT).show();
+        Log.e(TAG,"uid = "+userId+" ,  invoice_id ="+invoice);
+        new NetworkConnectionManager().callShowInvoice(listener,userId,invoice);
 
     }
 
@@ -245,24 +237,28 @@ private  ProgressDialog  progressDialog;
         progressDialog.show();
     }
 
-    private void showDetailinvoice(String payCode,String create_date,String price,String card_id,String poleid){
+    private void showDetailinvoice(String payCode,String create_date,String price,String card_id,String poleid,String kwh){
 
         //show detail for reserve
         LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         View v = inflater.inflate(R.layout.layout_show_invoice_detail, null);
-        TextView tv_payCode , tv_totalprice , tv_create_at,tv_card_id,tv_poleid,tv_header_detail;
+        TextView tv_payCode , tv_totalprice , tv_create_at,tv_card_id,tv_poleid,tv_header_detail,tv_kwh;
         tv_payCode = v.findViewById(R.id.tv_paycode);
         tv_create_at = v.findViewById(R.id.tv_create_at);
         tv_totalprice = v.findViewById(R.id.tv_price);
         tv_card_id = v.findViewById(R.id.tv_card_id);
         tv_poleid = v.findViewById(R.id.tv_poleid);
         tv_header_detail = v.findViewById(R.id.tv_header_detail);
+        tv_kwh = v.findViewById(R.id.tv_kwh);
+
+
 
         tv_payCode.setText(payCode);
         tv_create_at.setText(create_date);
         tv_totalprice.setText(price);
         tv_card_id.setText(card_id);
         tv_poleid.setText(poleid);
+        tv_kwh.setText(kwh+"\tKWh");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(v);
@@ -281,13 +277,12 @@ private  ProgressDialog  progressDialog;
         @Override
         public void onResponse(List<PaymentInvoiceModel> res) {
 
-//            String result = new Gson().toJson(res);
-//            Log.e(TAG,""+result);
+            String result = new Gson().toJson(res);
+            Log.e(TAG,""+result);
             if (progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
             int indexData = 0;
-
 
             showDialog(
                     res.get(indexData).getPaymentId(),
@@ -329,7 +324,7 @@ private  ProgressDialog  progressDialog;
             if (progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
-            Log.e(TAG,"  "+t.getMessage());
+            t.printStackTrace();
         }
     };
 
@@ -424,7 +419,7 @@ private  ProgressDialog  progressDialog;
             if (progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
-            Log.d(TAG,res.getApprovalUrl());
+//            Log.d(TAG,res.getApprovalUrl());
             editor.putString(MyFerUtil.KEY_URL_LOAD,res.getApprovalUrl());
             editor.putString(MyFerUtil.KEY_PAGE_NOW,"webview");
             editor.commit();

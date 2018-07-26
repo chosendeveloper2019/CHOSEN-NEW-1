@@ -37,7 +37,7 @@ public class InvoiceRecycleAdapter  extends RecyclerView.Adapter<InvoiceRecycleA
 
     private Context context;
     private List<Map<String,Object>> val;
-    private String TAG = "<CardRecycleVIewAdapter>";
+    private String TAG = "<InvoiceRecycleAdapter>";
     private SharedPreferences sh;
     private SharedPreferences.Editor editor;
     private AlertDialog alertDialog;
@@ -163,18 +163,11 @@ public class InvoiceRecycleAdapter  extends RecyclerView.Adapter<InvoiceRecycleA
             super(v);
 
             this.context = context;
-//            tv_payCode = v.findViewById(R.id.tv_paycode);
 
             tv_create_at = v.findViewById(R.id.tv_create_at);
             tv_totalprice = v.findViewById(R.id.tv_price);
             tv_card_id = v.findViewById(R.id.tv_card_id);
-//            tv_create_at = v.findViewById(R.id.tv_create_at);
-//            tv_totalprice = v.findViewById(R.id.tv_price);
-//            tv_totalprice = v.findViewById(R.id.tv_price);
-//            tv_card_id = v.findViewById(R.id.tv_card_id);
-//            tv_poleid = v.findViewById(R.id.tv_poleid);
-//
-//            btn_view = v.findViewById(R.id.btn_view);
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
@@ -209,11 +202,12 @@ public class InvoiceRecycleAdapter  extends RecyclerView.Adapter<InvoiceRecycleA
 
     private void do_payment(String userId,String invoice_id) {
 
-
+        //api payment
         new NetworkConnectionManager().callShowInvoice(listener,userId,invoice_id);
 
     }
 
+    //callback payment
     CallbackShowInvoiceListener listener = new CallbackShowInvoiceListener() {
         @Override
         public void onResponse(List<PaymentInvoiceModel> res) {

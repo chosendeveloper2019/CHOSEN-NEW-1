@@ -5,9 +5,11 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.util.List;
 
 import chosen_new.com.chosen.Model.AddCardModel;
+import chosen_new.com.chosen.Model.CarModel;
 import chosen_new.com.chosen.Model.ChargeModel;
 import chosen_new.com.chosen.Model.FbLoginModel;
 import chosen_new.com.chosen.Model.FbRegisModel;
@@ -17,10 +19,16 @@ import chosen_new.com.chosen.Model.LoginModel;
 import chosen_new.com.chosen.Model.MapModel_;
 import chosen_new.com.chosen.Model.PaymentInvoiceModel;
 import chosen_new.com.chosen.Model.PaymentModel;
+import chosen_new.com.chosen.Model.ProfileModel;
 import chosen_new.com.chosen.Model.RegisterModel;
 import chosen_new.com.chosen.Model.ResultPaymentModel;
+import chosen_new.com.chosen.Model.SelectCarModel;
+import chosen_new.com.chosen.Model.UpdateProfileModel;
+import chosen_new.com.chosen.Model.UploadImageModel;
 import chosen_new.com.chosen.Model.UserInvoiceModel;
 import chosen_new.com.chosen.Util.UrlUtil;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +41,7 @@ public class NetworkConnectionManager {
     public NetworkConnectionManager(){
 
     }
+
     public void callFbLogin(final CallbackFacebookLogin listener, String fb_id){
 
         Gson gson = new GsonBuilder()
@@ -90,7 +99,8 @@ public class NetworkConnectionManager {
                             ,String fb_id
                             ,String fb_email
                             ,String fb_name
-                            ,String usr)
+                            ,String usr
+            ,String tel,String pwd)
     {
 
         Gson gson = new GsonBuilder()
@@ -104,7 +114,7 @@ public class NetworkConnectionManager {
 
         ApiService git = retrofit.create(ApiService.class);
         //call  server
-        Call call = git.facebookRegister(fb_id,fb_email,fb_name,usr);
+        Call call = git.facebookRegister(fb_id,fb_email,fb_name,usr,tel,pwd);
 
         call.enqueue(new Callback<List<FbRegisModel>>() {
 
@@ -250,6 +260,61 @@ public class NetworkConnectionManager {
 
     }
 
+    public void callProfile(final CallbackProfileListener listener, String userId) {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlUtil.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiService git = retrofit.create(ApiService.class);
+
+        Call call = git.getProfile(userId);
+
+        call.enqueue(new Callback<List<ProfileModel>>() {
+
+            @Override
+            public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
+                try {
+
+                    List<ProfileModel> homeRes = response.body();
+
+                    if (response.code() != 200) {
+                        ResponseBody responseBody = response.errorBody();
+
+                        if (responseBody != null) {
+                            listener.onBodyError(responseBody);
+                        } else if (responseBody == null) {
+                            listener.onBodyErrorIsNull();
+                        }
+
+                    } else {
+                        listener.onResponse(homeRes);
+
+                    }
+
+
+                } catch (Exception e) {
+                    listener.onFailure(e);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
+
+                listener.onFailure(t);
+
+            }
+        });
+
+    }
+
+
 
     public void callHomeFrg(final CallbackHomeListener listener, String uid){
 
@@ -358,7 +423,7 @@ public class NetworkConnectionManager {
     }
 
 
-    public void callShowInvoice(final CallbackShowInvoiceListener listener, String userId,String invoice_id){
+    public void callShowInvoice(final CallbackShowInvoiceListener listener, String userId,String invoice){
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -370,7 +435,7 @@ public class NetworkConnectionManager {
                 .build();
 
         ApiService git = retrofit.create(ApiService.class);
-        Call call = git.getShowInvoice(userId,invoice_id);
+        Call call = git.getShowInvoice(userId,invoice);
 
         call.enqueue(new Callback<List<PaymentInvoiceModel>>() {
 
@@ -677,6 +742,7 @@ public class NetworkConnectionManager {
 
     }
 
+
     public void callAddcard(final CallbackAddcardListener listener, String userId,String cardId) {
 
         Gson gson = new GsonBuilder()
@@ -723,6 +789,221 @@ public class NetworkConnectionManager {
 
             @Override
             public void onFailure(Call<AddCardModel> call, Throwable t) {
+
+                listener.onFailure(t);
+
+            }
+        });
+    }
+
+    public void callGetCarModel(final CallbackCarModelListener listener) {
+
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+            final Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(UrlUtil.URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+
+            ApiService git = retrofit.create(ApiService.class);
+
+            Call call = git.getCarModel();
+
+            call.enqueue(new Callback<List<CarModel>>() {
+
+                @Override
+                public void onResponse(Call<List<CarModel>> call, Response<List<CarModel>> response) {
+                    try {
+
+                        List<CarModel> homeRes = response.body();
+
+                        if (response.code() != 200) {
+                            ResponseBody responseBody = response.errorBody();
+
+                            if (responseBody != null) {
+                                listener.onBodyError(responseBody);
+                            } else if (responseBody == null) {
+                                listener.onBodyErrorIsNull();
+                            }
+
+                        } else {
+                            listener.onResponse(homeRes);
+
+                        }
+
+
+                    } catch (Exception e) {
+                        listener.onFailure(e);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<CarModel>> call, Throwable t) {
+
+                    listener.onFailure(t);
+
+                }
+            });
+
+        }
+
+
+    public void callSelectCar(final CallbackSelectCarListener listener, String carId,String cardId) {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlUtil.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiService git = retrofit.create(ApiService.class);
+
+        Call call = git.selectCarModel(carId,cardId);
+
+        call.enqueue(new Callback<SelectCarModel>() {
+
+            @Override
+            public void onResponse(Call<SelectCarModel> call, Response<SelectCarModel> response) {
+                try {
+
+                    SelectCarModel homeRes = response.body();
+
+                    if (response.code() != 200) {
+                        ResponseBody responseBody = response.errorBody();
+
+                        if (responseBody != null) {
+                            listener.onBodyError(responseBody);
+                        } else if (responseBody == null) {
+                            listener.onBodyErrorIsNull();
+                        }
+
+                    } else {
+                        listener.onResponse(homeRes);
+
+                    }
+
+
+                } catch (Exception e) {
+                    listener.onFailure(e);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SelectCarModel> call, Throwable t) {
+
+                listener.onFailure(t);
+
+            }
+        });
+    }
+
+    public void callUploadImg(final CallbackuploadpicListenner listener, MultipartBody.Part file  , MultipartBody.Part uid) {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlUtil.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiService git = retrofit.create(ApiService.class);
+
+        Call call = git.updatePicture(file,uid);
+
+        call.enqueue(new Callback<UploadImageModel>() {
+
+            @Override
+            public void onResponse(Call<UploadImageModel> call, Response<UploadImageModel> response) {
+                try {
+
+                    UploadImageModel homeRes = response.body();
+
+                    if (response.code() != 200) {
+                        ResponseBody responseBody = response.errorBody();
+
+                        if (responseBody != null) {
+                            listener.onBodyError(responseBody);
+                        } else if (responseBody == null) {
+                            listener.onBodyErrorIsNull();
+                        }
+
+                    } else {
+                        listener.onResponse(homeRes);
+
+                    }
+
+
+                } catch (Exception e) {
+                    listener.onFailure(e);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UploadImageModel> call, Throwable t) {
+
+                listener.onFailure(t);
+
+            }
+        });
+    }
+
+    public void callUpdateProfile(final CallbackUpdateProfileListener listener, String uid ,
+                                  String fullname,String street,String city,String postalcode,String mobile) {
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlUtil.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        ApiService git = retrofit.create(ApiService.class);
+
+        Call call = git.upDateProfile(uid,fullname,street,city,postalcode,mobile);
+
+        call.enqueue(new Callback<UpdateProfileModel>() {
+
+            @Override
+            public void onResponse(Call<UpdateProfileModel> call, Response<UpdateProfileModel> response) {
+                try {
+
+                    UpdateProfileModel homeRes = response.body();
+
+                    if (response.code() != 200) {
+                        ResponseBody responseBody = response.errorBody();
+
+                        if (responseBody != null) {
+                            listener.onBodyError(responseBody);
+                        } else if (responseBody == null) {
+                            listener.onBodyErrorIsNull();
+                        }
+
+                    } else {
+                        listener.onResponse(homeRes);
+
+                    }
+
+
+                } catch (Exception e) {
+                    listener.onFailure(e);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UpdateProfileModel> call, Throwable t) {
 
                 listener.onFailure(t);
 

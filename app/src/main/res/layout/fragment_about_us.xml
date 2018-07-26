@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/blond"
     android:id="@+id/content"
     tools:context="chosen_new.com.chosen.Fragment.AboutUsFragment"
     android:layout_width="match_parent"
@@ -29,9 +30,10 @@
 
         <TextView
             android:id="@+id/textView3"
+            android:paddingTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="CHOSEN ENERGY CO.,LTD."
+            android:layout_height="90dp"
+            android:text="SERVICE AND SUPPORT \n\nCHOSEN ENERGY CO.,LTD."
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -40,30 +42,30 @@
             android:id="@+id/textView4"
             android:layout_width="fill_parent"
             android:layout_height="102dp"
-            android:text="5 Krungthepkreetha Rd. Saparnsung, Bangkok,\n Thailand 10250\n Tel. +66(0)-2736-2122 Fax. +66(0)-2736-1670\n "
+            android:text="CHOSEN ENERGY\n 5 Krungthepkreetha Rd.,Saparnsung,\nBangkok Thailand 10250\nTELEPHONE : 02-736-2122\nSupport : info@chosenenergy.co.th\nWebsite : www.chosen.co.th"
             android:textAlignment="center" />
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="-50dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginTop="-50dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Version Beta 2.0.1"
-            android:textAlignment="center" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Version Beta 2.0.1"-->
+            <!--android:textAlignment="center" />-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="COPYRIGHT © CHOSENENERGY.CO.TH ALL RIGHTS RESERVED"
-            android:textAlignment="center" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="COPYRIGHT © CHOSENENERGY.CO.TH ALL RIGHTS RESERVED"-->
+            <!--android:textAlignment="center" />-->
+    <!--</LinearLayout>-->
 </LinearLayout>

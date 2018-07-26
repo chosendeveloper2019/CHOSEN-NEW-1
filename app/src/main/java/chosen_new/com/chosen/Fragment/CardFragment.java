@@ -57,7 +57,7 @@ public class CardFragment extends Fragment implements ConnectivityReceiverUtil.C
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerview =  view.findViewById(R.id.recyclerview);
         UserModel userModel = (UserModel) getArguments().getSerializable(KEY_DATA_USER);
 
         if(ConnectivityReceiverUtil.isConnected()){

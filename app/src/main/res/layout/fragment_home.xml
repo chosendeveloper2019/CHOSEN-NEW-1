@@ -56,11 +56,9 @@ android:orientation="vertical">
     <LinearLayout
         android:id="@+id/detail"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="136dp"
         android:layout_marginBottom="1dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/backgroundDetail"
@@ -69,7 +67,7 @@ android:orientation="vertical">
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fragment_view_map"
-        app:layout_constraintVertical_bias="0.955">
+        app:layout_constraintVertical_bias="0.855">
         <!--<ScrollView-->
         <!--android:layout_marginBottom="40dp"-->
         <!--android:layout_width="match_parent"-->
@@ -106,26 +104,29 @@ android:orientation="vertical">
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+
                     android:orientation="vertical">
 
                     <!--<TextView-->
-                        <!--android:id="@+id/tv_numstation"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="30dp"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:singleLine="false"-->
-                        <!--android:text="@string/tv_header_dt"-->
-                        <!--android:textAlignment="textEnd"-->
-                        <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
+                    <!--android:id="@+id/tv_numstation"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginRight="30dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:singleLine="false"-->
+                    <!--android:text="@string/tv_header_dt"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
                     <TextView
                         android:id="@+id/tv_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="60dp"
                         android:layout_marginTop="10dp"
                         android:singleLine="false"
+                        app:autoSizeTextType="uniform"
+                        android:textSize="12sp"
                         android:text="@string/tv_header_dt"
                         android:textAlignment="textEnd"
                         android:textColor="@color/bootstrap_brand_secondary_fill" />
@@ -145,11 +146,11 @@ android:orientation="vertical">
                     android:orientation="horizontal">
 
                     <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:paddingTop="10dp"-->
-                        <!--android:text="@string/tv_detail_lbl"-->
-                        <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="10dp"-->
+                    <!--android:text="@string/tv_detail_lbl"-->
+                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -166,9 +167,9 @@ android:orientation="vertical">
                             android:drawablePadding="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="20dp"
-                            android:textSize="30dp"
                             android:text="Navigation  "
-                            android:textColor="#FFF" />
+                            android:textColor="#FFF"
+                            android:textSize="30dp" />
 
                     </LinearLayout>
 
@@ -176,37 +177,37 @@ android:orientation="vertical">
 
 
                 <!--<TextView-->
-                    <!--android:id="@+id/tv_detail"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:text="@string/app_name"-->
-                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
+                <!--android:id="@+id/tv_detail"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:text="@string/app_name"-->
+                <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
             </LinearLayout>
 
             <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:orientation="vertical">-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:orientation="vertical">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_start"-->
-                    <!---->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="@string/tv_detail_lbl"-->
-                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/tv_start"-->
+            <!---->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/tv_detail_lbl"-->
+            <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_end"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="3dp"-->
-                    <!--android:text="@string/app_name"-->
-                    <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/tv_end"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:text="@string/app_name"-->
+            <!--android:textColor="@color/bootstrap_brand_secondary_fill" />-->
 
             <!--</LinearLayout>-->
             <!--<LinearLayout-->

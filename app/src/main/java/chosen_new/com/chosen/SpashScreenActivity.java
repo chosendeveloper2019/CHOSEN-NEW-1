@@ -1,11 +1,14 @@
 package chosen_new.com.chosen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SpashScreenActivity  extends AppCompatActivity{
 
@@ -53,4 +56,10 @@ public class SpashScreenActivity  extends AppCompatActivity{
         time = delay_time - (System.currentTimeMillis() - time);
 
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(base));
+    }
+
 }
